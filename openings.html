@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Информационный портал о шахматных дебютах - изучайте теорию, следите за рейтингами и учитесь у лучших" />
+    <title>Дебюты - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/openings.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="14" cy="23" rx="10" ry="3" fill="#3B5998"/>
+            <rect x="11" y="10" width="6" height="8" rx="3" fill="#3B5998"/>
+            <circle cx="14" cy="8" r="5" fill="#3B5998"/>
+          </svg>
+          <span>Шахматный портал</span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html">О проекте</a></li>
+          <li><a href="rules.html">Правила</a></li>
+          <li><a href="learning.html">Обучение</a></li>
+          <li><a href="openings.html" class="active">Дебюты</a></li>
+          <li><a href="ratings.html">Рейтинги</a></li>
+          <li><a href="players.html">Шахматисты</a></li>
+          <li><a href="tournaments.html">Турниры</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Шахматные дебюты</h1>
+          <p>Изучайте теорию дебютов и становитесь сильнее</p>
+          <button class="cta-button" id="enrollButton">Начать изучение</button>
+        </div>
+      </section>
+
+      <section id="openings" class="section">
+        <h2>Популярные дебюты</h2>
+        <div class="filter-container">
+          <div class="filter-label">Фильтр по типу:</div>
+          <div class="filter-buttons">
+            <button class="filter-button active" data-category="all">Все</button>
+            <button class="filter-button" data-category="открытый">Открытые</button>
+            <button class="filter-button" data-category="закрытый">Закрытые</button>
+            <button class="filter-button" data-category="полуоткрытый">Полуоткрытые</button>
+          </div>
+        </div>
+        <div class="openings-grid" id="openingsGrid">
+          <li class="sicilian-variant">
+            <a href="four-knights.html" class="variant-name">Дебют четырёх коней</a>
+            <div class="variant-notation">1.e4 e5 2.Nf3 Nc6 3.Nc3 Nf6</div>
+          </li>
+        </div>
+      </section>
+
+      <section id="quiz" class="section">
+        <h2>Подбор дебюта</h2>
+        <div class="quiz-container">
+          <p class="quiz-intro">Ответьте на несколько вопросов, и мы подберем дебют, который подойдет именно вам.</p>
+          
+          <div id="quiz-form" class="quiz-form">
+            <div class="question" id="question-1">
+              <h3>1. Как вы относитесь к закрытым позициям?</h3>
+              <div class="options">
+                <label class="option">
+                  <input type="radio" name="position" value="closed">
+                  <span>Предпочитаю закрытые позиции</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="position" value="open">
+                  <span>Предпочитаю открытые позиции</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="position" value="neutral">
+                  <span>Нет явных предпочтений</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="question" id="question-2">
+              <h3>2. Какой стиль игры вам ближе?</h3>
+              <div class="options">
+                <label class="option">
+                  <input type="radio" name="style" value="tactical">
+                  <span>Тактический</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="style" value="positional">
+                  <span>Позиционный</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="style" value="universal">
+                  <span>Универсальный</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="question" id="question-3">
+              <h3>3. Сколько времени вы готовы уделять изучению дебютов?</h3>
+              <div class="options">
+                <label class="option">
+                  <input type="radio" name="time" value="minimal">
+                  <span>Минимум времени (1-2 часа в неделю)</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="time" value="moderate">
+                  <span>Умеренно (3-5 часов в неделю)</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="time" value="extensive">
+                  <span>Много (более 5 часов в неделю)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="question" id="question-4">
+              <h3>4. Как вы относитесь к риску в дебюте?</h3>
+              <div class="options">
+                <label class="option">
+                  <input type="radio" name="risk" value="low">
+                  <span>Предпочитаю надёжные продолжения</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="risk" value="medium">
+                  <span>Готов к умеренному риску</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="risk" value="high">
+                  <span>Люблю острую игру</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="question" id="question-5">
+              <h3>5. Ваш текущий уровень игры?</h3>
+              <div class="options">
+                <label class="option">
+                  <input type="radio" name="level" value="beginner">
+                  <span>Начинающий (до 1400)</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="level" value="intermediate">
+                  <span>Средний (1400-1800)</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="level" value="advanced">
+                  <span>Продвинутый (выше 1800)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="question" id="question-6">
+              <h3>6. Какие цвета вы предпочитаете играть?</h3>
+              <div class="options">
+                <label class="option">
+                  <input type="radio" name="color" value="white">
+                  <span>Предпочитаю играть белыми</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="color" value="black">
+                  <span>Предпочитаю играть черными</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="color" value="both">
+                  <span>Одинаково комфортно играю обоими цветами</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="question" id="question-7">
+              <h3>7. Что для вас важнее в дебюте?</h3>
+              <div class="options">
+                <label class="option">
+                  <input type="radio" name="priority" value="development">
+                  <span>Быстрое развитие фигур</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="priority" value="control">
+                  <span>Контроль центра</span>
+                </label>
+                <label class="option">
+                  <input type="radio" name="priority" value="attack">
+                  <span>Атака на короля соперника</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="button" id="submit-quiz" class="cta-button">Получить рекомендацию</button>
+          </div>
+
+          <div id="quiz-result" class="quiz-result" style="display: none;">
+            <h3>Ваш рекомендуемый дебют:</h3>
+            <div id="recommended-opening" class="recommended-opening"></div>
+            <button type="button" id="restart-quiz" class="secondary-button">Пройти тест заново</button>
+          </div>
+        </div>
+      </section>
+
+      
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Контакты</h3>
+          <p>Email: info@chessopenings.ru</p>
+          <p>Telegram: <a href="https://t.me/chessopeningsru" target="_blank" style="text-decoration: none; color: inherit;">chessopeningsru</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Социальные сети</h3>
+          <div class="social-links">
+            <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        2025 Портал шахматных дебютов. Все права защищены.
+      </div>
+    </footer>
+  </body>
+</html>
+<div id="chessboard" style="width: 400px"></div>
+<div id="moveList" class="move-list"></div>
+
+<!-- Добавляем мобильную навигацию внизу экрана -->
+<nav class="mobile-nav">
+  <a href="index.html#about" class="mobile-nav-item">
+    <i class="fas fa-info-circle mobile-nav-icon"></i>
+    <span>О проекте</span>
+  </a>
+  <a href="rules.html" class="mobile-nav-item"><i class="fas fa-scroll mobile-nav-icon"></i><span>Правила</span></a>
+   <a href="learning.html" class="mobile-nav-item">
+    <i class="fas fa-book mobile-nav-icon"></i>
+    <span>Обучение</span>
+  </a>
+  <a href="openings.html" class="mobile-nav-item active">
+    <i class="fas fa-chess-pawn mobile-nav-icon"></i>
+    <span>Дебюты</span>
+  </a>
+  <a href="ratings.html" class="mobile-nav-item">
+    <i class="fas fa-chart-line mobile-nav-icon"></i>
+    <span>Рейтинги</span>
+  </a>
+  <a href="players.html" class="mobile-nav-item">
+    <i class="fas fa-user mobile-nav-icon"></i>
+    <span>Шахматисты</span>
+  </a>
+  <a href="tournaments.html" class="mobile-nav-item">
+    <i class="fas fa-trophy mobile-nav-icon"></i>
+    <span>Турниры</span>
+  </a>
+</nav>

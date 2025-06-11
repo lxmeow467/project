@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Защита Каро-Канн - Портал шахматных дебютов" />
+    <title>Защита Каро-Канн - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- Подключаем скрипты -->
+    <script src="../../openings.js"></script>
+    <script src="./opening-detail.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="14" cy="23" rx="10" ry="3" fill="#3B5998"/>
+            <rect x="11" y="10" width="6" height="8" rx="3" fill="#3B5998"/>
+            <circle cx="14" cy="8" r="5" fill="#3B5998"/>
+          </svg>
+          <span>Шахматный портал</span>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="../../index.html#about">О проекте</a></li>
+          <li><a href="../../openings.html">Дебюты</a></li>
+          <li><a href="../../ratings.html">Рейтинги</a></li>
+          <li><a href="../../players.html">Шахматисты</a></li>
+          <li><a href="../../index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1 id="openingName">Защита Каро-Канн</h1>
+          <p id="openingMoves">1.e4 c6</p>
+        </div>
+      </section>
+
+      <section id="opening-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-image">
+            <img src="../../openings/variations caro-kann/кароканн.png" alt="Защита Каро-Канн" class="opening-main-image">
+          </div>
+          <div class="opening-details">
+            <h2>Информация о дебюте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p id="openingPopularity">Высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p id="openingStyle">Позиционный</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p id="openingPosition">Закрытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p id="openingRisk">Низкий</p>
+              </div>
+              <div class="info-item">
+                <h3>Сторона</h3>
+                <p id="openingColor">Черные</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p id="openingLevel">Начальный</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="opening-theory">
+          <h2>Теория дебюта</h2>
+          <div class="theory-content">
+            <h3>История дебюта</h3>
+            <p id="openingHistory">Защита Каро-Канн названа в честь двух шахматистов: Горацио Каро и Маркуса Канна, которые анализировали этот дебют в 1880-х годах. Дебют стал особенно популярен в 20 веке и считается одним из самых надежных ответов на 1.e4.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p id="openingIdeas">Основная идея защиты Каро-Канн - создать прочную пешечную структуру и затем контратаковать в центре. Черные сначала укрепляют пешку d5 ходом c6, а затем развивают фигуры для контригры. Этот дебют часто ведет к позиционной игре с долгосрочными стратегическими планами.</p>
+            
+            <div class="variation-navigation">
+              <h3 class="variations-title">Варианты защиты Каро-Канн</h3>
+              <div class="variations-grid">
+                <div class="variation-card">
+                  <div class="variation-header">
+                    <span class="variation-icon icon-king"></span>
+                    <h4>Классический вариант</h4>
+                  </div>
+                  <div class="variation-content">
+                    <div class="variation-notation">1.e4 c6 2.d4 d5 3.Nc3 dxe4 4.Nxe4</div>
+                    <p class="variation-description">Основной вариант с естественным развитием фигур и солидной позицией</p>
+                    <a href="./classical.html" class="variation-link">Подробнее</a>
+                  </div>
+                </div>
+                
+                <div class="variation-card">
+                  <div class="variation-header">
+                    <span class="variation-icon icon-bishop"></span>
+                    <h4>Вариант Панова-Ботвинника</h4>
+                  </div>
+                  <div class="variation-content">
+                    <div class="variation-notation">1.e4 c6 2.d4 d5 3.exd5 cxd5 4.c4</div>
+                    <p class="variation-description">Агрессивный вариант, создающий изолированную пешку и открытые линии</p>
+                    <a href="./panov.html" class="variation-link">Подробнее</a>
+                  </div>
+                </div>
+                
+                <div class="variation-card">
+                  <div class="variation-header">
+                    <span class="variation-icon icon-pawn"></span>
+                    <h4>Вариант с 3.e5</h4>
+                  </div>
+                  <div class="variation-content">
+                    <div class="variation-notation">1.e4 c6 2.d4 d5 3.e5</div>
+                    <p class="variation-description">Белые захватывают пространство и ограничивают развитие черных фигур</p>
+                    <a href="./advance.html" class="variation-link">Подробнее</a>
+                  </div>
+                </div>
+                
+                <div class="variation-card">
+                  <div class="variation-header">
+                    <span class="variation-icon icon-queen"></span>
+                    <h4>Атака Фантазии</h4>
+                  </div>
+                  <div class="variation-content">
+                    <div class="variation-notation">1.e4 c6 2.d4 d5 3.f3</div>
+                    <p class="variation-description">Агрессивный вариант с необычной идеей усиления центра ходом f3</p>
+                    <a href="./fantasy.html" class="variation-link">Подробнее</a>
+                  </div>
+                </div>
+                
+                <div class="variation-card">
+                  <div class="variation-header">
+                    <span class="variation-icon icon-knight"></span>
+                    <h4>Система двух коней</h4>
+                  </div>
+                  <div class="variation-content">
+                    <div class="variation-notation">1.e4 c6 2.Nf3 d5 3.Nc3</div>
+                    <p class="variation-description">Гибкий вариант с быстрым развитием коней и подготовкой к рокировке</p>
+                    <a href="./two-knights.html" class="variation-link">Подробнее</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <p> 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+  </body>
+</html>

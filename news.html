@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Новости шахмат — Портал шахматных дебютов</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body { background: #f7f8fa; }
+    .news-section { max-width: 1100px; margin: 0 auto; padding: 32px 16px; }
+    .news-title { text-align: center; font-size: 2.2em; font-weight: bold; color: #2b4c7e; margin-bottom: 24px; }
+    .news-filter { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
+    .news-filter button { background: #fff; border: 1px solid #2b4c7e; color: #2b4c7e; border-radius: 6px; padding: 7px 18px; font-size: 1em; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .news-filter button.active, .news-filter button:hover { background: #2b4c7e; color: #fff; }
+    .news-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+    @media (min-width: 700px) { .news-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1100px) { .news-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .news-card { background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; border: 1px solid #e0e0e0; display: flex; flex-direction: column; cursor: pointer; transition: box-shadow 0.2s, border 0.2s; min-height: 320px; position: relative; }
+    .news-card:hover { box-shadow: 0 4px 24px rgba(43,76,126,0.13); border-color: #2b4c7e; }
+    .news-card__image { position: relative; width: 100%; height: 170px; background: #e9eef7; display: flex; align-items: center; justify-content: center; }
+    .news-card__image img { width: 100%; height: 100%; object-fit: cover; }
+    .news-card__icon { font-size: 2.5em; color: #2b4c7e; }
+    .news-card__tag { position: absolute; top: 12px; left: 12px; background: #2b4c7e; color: #fff; border-radius: 6px; padding: 4px 12px; font-size: 0.95em; display: flex; align-items: center; gap: 6px; z-index: 2; }
+    .news-card__tag.tournament { background: #d32f2f; }
+    .news-card__tag.junior { background: #1976d2; }
+    .news-card__tag.memory { background: #6d4c41; }
+    .news-card__tag.contest { background: #fbc02d; color: #222; }
+    .news-card__tag.event { background: #388e3c; }
+    .news-card__tag.region { background: #7b1fa2; }
+    .news-card__tag.exhibition { background: #ff7043; }
+    .news-card__content { padding: 18px 18px 14px 18px; display: flex; flex-direction: column; flex: 1; }
+    .news-card__title { font-size: 1.15em; font-weight: bold; margin: 0 0 8px 0; line-height: 1.2; max-height: 2.6em; overflow: hidden; }
+    .news-card__lead { font-size: 1em; color: #444; margin-bottom: 12px; max-height: 2.8em; overflow: hidden; }
+    .news-card__meta { font-size: 0.93em; color: #888; margin-top: auto; }
+    .news-card__more { margin-top: 10px; color: #2b4c7e; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .news-card__more:hover { color: #d32f2f; }
+    .main-news-banner { grid-column: 1/-1; display: flex; background: #fff; border-radius: 18px; box-shadow: 0 4px 32px rgba(43,76,126,0.10); overflow: hidden; margin-bottom: 36px; min-height: 260px; border: 2px solid #2b4c7e; }
+    .main-news-banner__image { width: 340px; min-width: 180px; background: #e9eef7; display: flex; align-items: center; justify-content: center; }
+    .main-news-banner__image img { width: 100%; height: 100%; object-fit: cover; }
+    .main-news-banner__icon { font-size: 3.5em; color: #2b4c7e; }
+    .main-news-banner__content { padding: 32px 32px 24px 32px; display: flex; flex-direction: column; flex: 1; }
+    .main-news-banner__tag { background: #d32f2f; color: #fff; border-radius: 8px; padding: 6px 18px; font-size: 1.1em; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .main-news-banner__title { font-size: 1.7em; font-weight: bold; margin: 0 0 14px 0; line-height: 1.15; max-height: 2.4em; overflow: hidden; }
+    .main-news-banner__lead { font-size: 1.13em; color: #333; margin-bottom: 18px; max-height: 3.2em; overflow: hidden; }
+    .main-news-banner__meta { font-size: 1em; color: #888; margin-top: auto; }
+    .main-news-banner__more { margin-top: 18px; color: #2b4c7e; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 1.1em; transition: color 0.2s; }
+    .main-news-banner__more:hover { color: #d32f2f; }
+    @media (max-width: 900px) {
+      .main-news-banner { flex-direction: column; }
+      .main-news-banner__image { width: 100%; height: 180px; }
+      .main-news-banner__content { padding: 20px 16px 16px 16px; }
+    }
+    @media (max-width: 600px) {
+      .news-section { padding: 10px 2px; }
+      .main-news-banner__title { font-size: 1.1em; }
+      .main-news-banner__lead { font-size: 0.98em; }
+      .main-news-banner__content { padding: 12px 6px 10px 6px; }
+    }
+    .archive-btn { margin-left: 18px; background: #fbc02d !important; color: #222 !important; border: none !important; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <div class="logo">Шахматный портал</div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">О проекте</a></li>
+        <li><a href="rules.html">Правила</a></li>
+        <li><a href="learning.html">Обучение</a></li>
+        <li><a href="openings.html">Дебюты</a></li>
+        <li><a href="ratings.html">Рейтинги</a></li>
+        <li><a href="players.html">Шахматисты</a></li>
+        <li><a href="tournaments.html">Турниры</a></li>
+        <li><a href="news.html" class="active">Новости</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="news-section">
+      <h2 class="news-title">Новости шахмат</h2>
+      <div class="news-filter" id="newsFilter">
+        <button class="active" data-category="all">Все</button>
+        <button data-category="tournament">Турниры</button>
+        <button data-category="junior">Юниоры</button>
+        <button data-category="memory">Память</button>
+        <button data-category="contest">Конкурсы</button>
+        <button data-category="event">События</button>
+        <button data-category="region">Регионы</button>
+        <button data-category="exhibition">Выставки</button>
+        <button class="archive-btn" onclick="window.open('https://ruchess.ru/news/all/', '_blank')">Архив новостей</button>
+      </div>
+      <div id="mainNewsBanner"></div>
+      <div class="news-grid" id="newsGrid">Загрузка новостей...</div>
+    </section>
+  </main>
+  <script>
+    // Категории и ключевые слова для автоматической разметки
+    const CATEGORY_MAP = [
+      { key: 'tournament', label: 'Турнир', icon: 'fa-trophy', color: 'tournament', words: ['кубок', 'турнир', 'чемпионат', 'этап', 'гран-при', 'финал', 'матч', 'отборочный'] },
+      { key: 'junior', label: 'Юниоры', icon: 'fa-child', color: 'junior', words: ['юниор', 'дет', 'школьник', 'молод', 'девочек', 'мальчик', 'девуш', 'юнош', 'школьн', 'студент'] },
+      { key: 'memory', label: 'Память', icon: 'fa-candle-holder', color: 'memory', words: ['памяти', 'мемориал', 'память', 'годовщина'] },
+      { key: 'contest', label: 'Конкурс', icon: 'fa-award', color: 'contest', words: ['конкурс', 'состязание', 'олимпиада'] },
+      { key: 'event', label: 'Событие', icon: 'fa-bolt', color: 'event', words: ['акция', 'открытие', 'выставка', 'мероприятие', 'событие', 'презентация', 'форум', 'семинар', 'фестиваль'] },
+      { key: 'region', label: 'Регионы', icon: 'fa-map-marker-alt', color: 'region', words: ['область', 'край', 'республика', 'регион', 'город', 'район', 'московск', 'татарстан', 'свердловск', 'тольятти', 'казань', 'тула', 'брянск'] },
+      { key: 'exhibition', label: 'Выставка', icon: 'fa-palette', color: 'exhibition', words: ['выставка', 'экспозиция', 'музей'] }
+    ];
+    // Функция для определения категории
+    function getCategory(title, desc) {
+      const text = (title + ' ' + (desc || '')).toLowerCase();
+      for (const cat of CATEGORY_MAP) {
+        if (cat.words.some(w => text.includes(w))) return cat;
+      }
+      return CATEGORY_MAP[0]; // default: tournament
+    }
+    // Функция для генерации иконки
+    function getIcon(cat) {
+      return `<i class="fas ${cat.icon}"></i>`;
+    }
+    // Функция для генерации карточки
+    function createCard(news, isMain = false) {
+      const cat = getCategory(news.title, news.description);
+      const tag = `<span class="news-card__tag ${cat.color}">${getIcon(cat)} ${cat.label}</span>`;
+      const img = news.media_content && news.media_content[0] && news.media_content[0].url ? `<img src="${news.media_content[0].url}" alt="${cat.label}">` : '';
+      const icon = !img ? `<span class="news-card__icon">${getIcon(cat)}</span>` : '';
+      const lead = news.summary || news.description || '';
+      const date = news.pubDate ? new Date(news.pubDate).toLocaleString('ru-RU') : '';
+      const meta = `<div class="news-card__meta">${news.source || 'РШФ (ruchess.ru)'}${date ? ' | ' + date : ''}</div>`;
+      if (isMain) {
+        return `<div class="main-news-banner">
+          <div class="main-news-banner__image">${img || `<span class='main-news-banner__icon'>${getIcon(cat)}</span>`}</div>
+          <div class="main-news-banner__content">
+            <span class="main-news-banner__tag ${cat.color}">${getIcon(cat)} ${cat.label}</span>
+            <div class="main-news-banner__title">${news.title}</div>
+            <div class="main-news-banner__lead">${lead.slice(0, 180)}${lead.length > 180 ? '...' : ''}</div>
+            <div class="main-news-banner__meta">${news.source || 'РШФ (ruchess.ru)'}${date ? ' | ' + date : ''}</div>
+            <a class="main-news-banner__more" href="${news.link}" target="_blank">Подробнее <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>`;
+      }
+      return `<div class="news-card ${cat.key}" onclick="window.open('${news.link}', '_blank')">
+        <div class="news-card__image">${img || icon}${tag}</div>
+        <div class="news-card__content">
+          <div class="news-card__title">${news.title}</div>
+          <div class="news-card__lead">${lead.slice(0, 100)}${lead.length > 100 ? '...' : ''}</div>
+          ${meta}
+          <a class="news-card__more" href="${news.link}" target="_blank">Подробнее <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>`;
+    }
+    // Загрузка новостей через локальный прокси
+    const feeds = [
+      { url: 'https://ruchess.ru/news/all/rss/', source: 'РШФ (ruchess.ru)' },
+      { url: 'https://www.fide.com/category/chess-news/', source: 'FIDE (chess-news)' },
+      { url: 'https://www.chess.com/rss/news', source: 'Chess.com' },
+      { url: 'https://lichess.org/blog.rss', source: 'Lichess.org' },
+      { url: 'https://www.sports.ru/chess/rss/news.xml', source: 'Sports.ru' }
+    ];
+    const newsGrid = document.getElementById('newsGrid');
+    const mainNewsBanner = document.getElementById('mainNewsBanner');
+    let allNews = [];
+    Promise.all(feeds.map(feed =>
+      fetch(`http://localhost:5000/proxy_rss?url=${encodeURIComponent(feed.url)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.entries) {
+            allNews = allNews.concat(data.entries.map(item => ({
+              ...item,
+              source: feed.source,
+              pubDate: item.date_published || item.published || item.pubDate || item.date || '',
+              link: item.link,
+              title: item.title,
+              description: item.description || item.summary || '',
+              summary: item.summary || item.description || '',
+              media_content: item.media_content || item.media || []
+            })));
+          }
+        })
+        .catch(() => {})
+    )).then(() => {
+      if (allNews.length === 0) {
+        newsGrid.innerHTML = '<p>Не удалось загрузить новости. Попробуйте позже.</p>';
+        return;
+      }
+      // Сортируем по дате
+      allNews.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+      // Главная новость — первая из РШФ, если есть, иначе просто первая
+      let mainNews = allNews.find(n => n.source && n.source.includes('РШФ')) || allNews[0];
+      mainNewsBanner.innerHTML = createCard(mainNews, true);
+      // Остальные новости (без главной)
+      let rest = allNews.filter(n => n !== mainNews);
+      newsGrid.innerHTML = rest.map(news => createCard(news)).join('');
+      // Фильтрация
+      document.querySelectorAll('.news-filter button[data-category]').forEach(btn => {
+        btn.onclick = function() {
+          document.querySelectorAll('.news-filter button').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const cat = this.dataset.category;
+          if (cat === 'all') {
+            newsGrid.innerHTML = rest.map(news => createCard(news)).join('');
+          } else {
+            newsGrid.innerHTML = rest.filter(n => getCategory(n.title, n.description).key === cat).map(news => createCard(news)).join('');
+          }
+        };
+      });
+    });
+  </script>
+</body>
+</html> 

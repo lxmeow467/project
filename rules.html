@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Основные правила игры в шахматы" />
+    <title>Правила игры в шахматы | Портал шахматных дебютов</title>
+    <link rel="preload" href="/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      /* Дополнительные стили для страницы правил */
+      .section h2 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .section h3 {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+      }
+      .section h4 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+        display: flex;
+        align-items: center;
+      }
+      .section h4 i {
+        margin-right: 10px;
+        font-size: 1.2em;
+        color: var(--primary-color);
+      }
+      .section p, .section ul {
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #333;
+      }
+      .section ul {
+        padding-left: 20px;
+      }
+      .section ul li {
+        margin-bottom: 5px;
+      }
+      .piece-move-guide {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .piece-info {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      .piece-info h4 {
+        margin-top: 0;
+      }
+
+      .piece-info p {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="14" cy="23" rx="10" ry="3" fill="#3B5998"/>
+            <rect x="11" y="10" width="6" height="8" rx="3" fill="#3B5998"/>
+            <circle cx="14" cy="8" r="5" fill="#3B5998"/>
+          </svg>
+          <span>Шахматный портал</span>
+        </div>
+        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html">О проекте</a></li>
+          <li><a href="rules.html" class="active">Правила</a></li>
+          <li><a href="learning.html">Обучение</a></li>
+          <li><a href="openings.html">Дебюты</a></li>
+          <li><a href="ratings.html">Рейтинги</a></li>
+          <li><a href="players.html">Шахматисты</a></li>
+          <li><a href="tournaments.html">Турниры</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section">
+        <h2>Основные правила игры в шахматы</h2>
+
+        <p>Шахматы — это логическая игра между двумя противниками на клетчатой доске, использующая особые фигуры. Цель игры — поставить мат королю противника.</p>
+
+        <h3>Начальная позиция</h3>
+        <p>Игра начинается из следующей стартовой позиции:</p>
+        <div style="text-align: center; margin: 20px 0;">
+          <div id="board1" style="width: 400px; margin: 0 auto;"></div>
+        </div>
+
+        <h3>Шахматная доска и её расположение</h3>
+        <p>Шахматная доска состоит из 64 клеток одинакового размера, попеременно светлых (белые поля) и тёмных (чёрные поля) по вертикали и горизонтали.</p>
+        <p>Шахматная доска располагается между игроками таким образом, чтобы ближнее угловое поле справа от каждого шахматиста было белым.</p>
+        <p>Ряд из 8 полей, идущий от края доски, ближайшего к одному игроку, к краю доски, ближайшего ко второму игроку, называется вертикалью.</p>
+        <p>Ряд из 8 полей, идущий от одного края шахматной доски к другому под прямым углом к вертикалям, называется горизонталью.</p>
+        <p>Ряд полей одинакового цвета, касающихся друг друга углами, называется диагональю. Диагональ, которая проходит из одного угла доски к другому, называется «большой диагональю».</p>
+
+        <h3>Ведение партии</h3>
+        <p>Оба партнёра должны играть по очереди, делая каждый раз один ход. Игрок, который имеет белые фигуры, начинает партию. Ход белых вместе с последующим ходом чёрных считается одним ходом. Кому из партнёров играть белыми, решает в товарищеской партии жребий или договорённость игроков, а в соревнованиях — регламент их проведения.</p>
+
+        <h3>Фигуры и их расположение</h3>
+        <p>Каждый игрок начинает партию с 16 фигурами: 1 королем, 1 ферзем, 2 ладьями, 2 слонами, 2 конями и 8 пешками. Белые фигуры располагаются на первой и второй горизонталях, чёрные — на седьмой и восьмой.</p>
+        <h4>Начальное расположение фигур:</h4>
+        <ul>
+          <li>На первой (для белых) и восьмой (для черных) горизонталях (слева направо): ладья, конь, слон, ферзь, король, слон, конь, ладья.</li>
+          <li>На второй (для белых) и седьмой (для черных) горизонталях: пешки.</li>
+        </ul>
+
+        <h2>Ходы фигур</h2>
+        <p>Каждая шахматная фигура имеет свой уникальный способ передвижения по доске.</p>
+
+        <div class="piece-move-guide">
+          <div class="piece-info">
+            <h4><i class="fas fa-chess-king"></i> Король</h4>
+            <p>Король ходит на одно поле в любом направлении (по горизонтали, вертикали или диагонали). Только один раз за игру король может сделать особый ход — рокировку (подробнее об этом ниже).</p>
+            <!-- Место для визуализации хода короля -->
+          </div>
+
+          <div class="piece-info">
+            <h4><i class="fas fa-chess-queen"></i> Ферзь</h4>
+            <p>Ферзь — самая сильная фигура на доске. Он ходит на любое число полей по горизонтали, вертикали или диагонали.</p>
+            <!-- Место для визуализации хода ферзя -->
+          </div>
+
+          <div class="piece-info">
+            <h4><i class="fas fa-chess-rook"></i> Ладья</h4>
+            <p>Ладья ходит на любое число полей по горизонтали или вертикали.</p>
+            <!-- Место для визуализации хода ладьи -->
+          </div>
+
+          <div class="piece-info">
+            <h4><i class="fas fa-chess-bishop"></i> Слон</h4>
+            <p>Слон ходит на любое число полей по диагонали. Каждый игрок имеет двух слонов: один ходит по белым полям, другой — по чёрным.</p>
+            <!-- Место для визуализации хода слона -->
+          </div>
+
+          <div class="piece-info">
+            <h4><i class="fas fa-chess-knight"></i> Конь</h4>
+            <p>Конь ходит буквой «Г» — два поля в одну сторону (по горизонтали или вертикали) и затем одно поле в перпендикулярном направлении. Конь — единственная фигура, которая может перепрыгивать через другие фигуры.</p>
+            <!-- Место для визуализации хода коня -->
+          </div>
+
+          <div class="piece-info">
+            <h4><i class="fas fa-chess-pawn"></i> Пешка</h4>
+            <p>Пешка ходит только вперёд. Первым ходом пешка может пойти либо на одно, либо на два поля вперёд (если эти поля свободны). Все последующие ходы пешка ходит только на одно поле вперёд. Пешка бьёт фигуры противника на одно поле по диагонали вперёд. У пешки есть особые ходы: взятие на проходе и превращение (подробнее об этом ниже).</p>
+            <!-- Место для визуализации хода пешки -->
+          </div>
+        </div>
+
+        <h3>Общее понятие хода</h3>
+        <p>В шахматах ход — это перемещение фигуры с одного поля на другое в соответствии с правилами. Основные виды ходов:</p>
+        <ol>
+          <li><strong>Обычный ход</strong> – фигура перемещается на свободное поле или занимает место фигуры соперника (взятие).</li>
+          <li><strong>Взятие</strong> – если фигура противника стоит на пути, её можно "съесть", убрав с доски и заняв её место.
+            <ul>
+              <li>Пешки бьют по диагонали.</li>
+              <li>Остальные фигуры бьют так же, как и ходят.</li>
+            </ul>
+          </li>
+          <li><strong>Рокировка</strong> – особый ход короля и ладьи для защиты. Бывает двух видов:
+            <ul>
+              <li><strong>Короткая рокировка (0-0)</strong> – король перемещается на g1 (g8 для чёрных), ладья – на f1 (f8).</li>
+              <li><strong>Длинная рокировка (0-0-0)</strong> – король идёт на c1 (c8), ладья – на d1 (d8).</li>
+            </ul>
+            <em>Условия:</em>
+            <ul>
+              <li>Король и ладья не двигались ранее.</li>
+              <li>Между ними нет фигур.</li>
+              <li>Король не под шахом и не проходит через атакованное поле.</li>
+            </ul>
+          </li>
+          <li><strong>Взятие на проходе (энпассан)</strong> – если пешка соперника делает ход на два поля вперёд из начальной позиции и оказывается рядом с вашей пешкой, вы можете взять её, как если бы она пошла только на одно поле.</li>
+          <li><strong>Превращение пешки</strong> – если пешка достигает последней горизонтали (8-й для белых, 1-й для чёрных), она превращается в любую фигуру (кроме короля), обычно в ферзя.</li>
+        </ol>
+
+        <hr>
+
+        <h3>Шах и мат</h3>
+        <p><strong>Шах</strong> – ситуация, когда король атакован фигурой противника. Игрок обязан защититься одним из способов:</p>
+        <ul>
+          <li>Уйти королём.</li>
+          <li>Закрыться другой фигурой.</li>
+          <li>Побить атакующую фигуру.</li>
+        </ul>
+        <p><strong>Мат</strong> – шах, от которого нет защиты. Игра заканчивается победой атакующего.</p>
+
+        <hr>
+
+        <h3>Выигрыш и ничья</h3>
+        <h4>Выигрыш</h4>
+        <ul>
+          <li>Постановка мата.</li>
+          <li>Соперник сдаётся (произносит "сдаюсь" или останавливает часы).</li>
+          <li>У соперника закончилось время (если играется с контролем).</li>
+          <li>Соперник нарушил правила и получил техническое поражение.</li>
+        </ul>
+
+        <h4>Ничья</h4>
+        <ul>
+          <li><strong>Пат</strong> – король не под шахом, но нет допустимых ходов.</li>
+          <li><strong>Соглашение</strong> – игроки договариваются о ничьей.</li>
+          <li><strong>Повторение позиции трижды</strong> – если одна и та же позиция возникает три раза (не обязательно подряд).</li>
+          <li><strong>Правило 50 ходов</strong> – если за 50 ходов не было взятий и ходов пешками.</li>
+          <li><strong>Недостаток материала</strong> – ни один из игроков не может поставить мат (например, король против короля).</li>
+        </ul>
+
+        <p><em>Официальные правила регулируются <strong>ФИДЕ (FIDE)</strong> и могут уточняться в турнирных регламентах.</em></p>
+        <p>(Источник: <a href="https://www.fide.com/FIDE/handbook/LawsOfChess.pdf" target="_blank">FIDE Laws of Chess</a>)</p>
+
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Контакты</h3>
+          <p>Email: info@chessopenings.ru</p>
+          <p>Telegram: <a href="https://t.me/chessopeningsru" target="_blank" style="text-decoration: none; color: inherit;">chessopeningsru</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Социальные сети</h3>
+          <div class="social-links">
+            <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        2025 Портал шахматных дебютов. Все права защищены.
+      </div>
+    </footer>
+    <nav class="mobile-nav">
+      <a href="index.html#about" class="mobile-nav-item">
+        <i class="fas fa-info-circle mobile-nav-icon"></i>
+        <span>О проекте</span>
+      </a>
+       <a href="rules.html" class="mobile-nav-item"><i class="fas fa-scroll mobile-nav-icon"></i><span>Правила</span></a>
+       <a href="learning.html" class="mobile-nav-item">
+        <i class="fas fa-book mobile-nav-icon"></i>
+        <span>Обучение</span>
+      </a>
+      <a href="openings.html" class="mobile-nav-item">
+        <i class="fas fa-chess-pawn mobile-nav-icon"></i>
+        <span>Дебюты</span>
+      </a>
+      <a href="ratings.html" class="mobile-nav-item">
+        <i class="fas fa-chart-line mobile-nav-icon"></i>
+        <span>Рейтинги</span>
+      </a>
+      <a href="players.html" class="mobile-nav-item">
+        <i class="fas fa-user mobile-nav-icon"></i>
+        <span>Шахматисты</span>
+      </a>
+      <a href="tournaments.html" class="mobile-nav-item">
+        <i class="fas fa-trophy mobile-nav-icon"></i>
+        <span>Турниры</span>
+      </a>
+    </nav>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Chessboard('board1', 'start');
+      });
+    </script>
+    <script async defer src="/main.js"></script>
+    <script>
+      // Активация текущего пункта мобильной навигации
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentPath = window.location.pathname;
+        const currentHash = window.location.hash;
+        const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+        mobileNavItems.forEach(item => {
+          const href = item.getAttribute('href');
+          if (href === currentPath || (currentHash && href === currentHash)) {
+            item.classList.add('active');
+          } else if (currentPath.includes('openings') && href === 'openings.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('ratings') && href === 'ratings.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('players') && href === 'players.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('tournaments') && href === 'tournaments.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('rules') && href === 'rules.html') {
+             item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      });
+    </script>
+  </body>
+</html> 

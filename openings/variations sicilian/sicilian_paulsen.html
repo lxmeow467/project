@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Вариант Паульсена в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Вариант Паульсена - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Добавляем библиотеки для шахматной доски -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+    <style>
+      /* Улучшенные стили для диаграммы */
+      .chess-diagram-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        margin-bottom: 30px;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+        border: 1px solid #d8d8d8;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+      }
+      
+      .chess-diagram-container:hover {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
+      }
+      
+      .chess-diagram {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-bottom: 1px solid #e0e0e0;
+        transition: all 0.5s ease;
+      }
+      
+      .chess-diagram-container::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(135deg, #b58863, #8d6e54, #704b2b);
+        z-index: -1;
+        border-radius: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .chess-diagram-container:hover::before {
+        opacity: 0.8;
+      }
+      
+      .diagram-notation {
+        padding: 24px 30px;
+        background: linear-gradient(to bottom, #f9f9f9, #efefef);
+        position: relative;
+        border-top: 1px solid #e8e8e8;
+        transition: all 0.3s ease;
+      }
+      
+      .chess-diagram-container:hover .diagram-notation {
+        background: linear-gradient(to bottom, #fff, #f8f8f8);
+      }
+      
+      .diagram-title {
+        margin: 0 0 16px 0;
+        color: #1e1e1e;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 8px;
+        transition: all 0.3s ease;
+      }
+      
+      .diagram-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: #b58863;
+        transition: width 0.4s ease;
+      }
+      
+      .chess-diagram-container:hover .diagram-title::after {
+        width: 100%;
+      }
+      
+      .diagram-moves {
+        list-style-type: none;
+        padding: 0;
+        margin: 15px 0 0 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px 25px;
+        transition: all 0.3s ease;
+      }
+      
+      .diagram-moves li {
+        display: flex;
+        align-items: center;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        padding: 6px 10px;
+        border-radius: 4px;
+        transition: all 0.2s ease-out;
+        border: 1px solid transparent;
+      }
+      
+      .move-number {
+        color: #8d6e54;
+        font-weight: 600;
+        margin-right: 10px;
+        min-width: 20px;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+      
+      .move-white {
+        color: #2c3e50;
+        font-weight: 500;
+        margin-right: 10px;
+        display: inline-block;
+        min-width: 30px;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+      
+      .move-white::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: #2c3e50;
+        transition: width 0.2s ease;
+      }
+      
+      .move-black {
+        color: #34495e;
+        font-weight: 500;
+        display: inline-block;
+        min-width: 30px;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+      
+      .move-black::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: #34495e;
+        transition: width 0.2s ease;
+      }
+      
+      .diagram-moves li:hover {
+        background-color: rgba(181, 136, 99, 0.08);
+        border-radius: 4px;
+        border: 1px solid rgba(181, 136, 99, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+      }
+      
+      .diagram-moves li:hover .move-number {
+        color: #b58863;
+      }
+      
+      .diagram-moves li:hover .move-white,
+      .diagram-moves li:hover .move-black {
+        font-weight: 600;
+      }
+      
+      .diagram-moves li:hover .move-white::after,
+      .diagram-moves li:hover .move-black::after {
+        width: 100%;
+      }
+      
+      .diagram-coordinates {
+        position: absolute;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 12px;
+        color: #555;
+        font-weight: 500;
+        pointer-events: none;
+      }
+      
+      .coordinate-file {
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 20px;
+      }
+      
+      .coordinate-rank {
+        top: 0;
+        bottom: 0;
+        left: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 20px 0;
+      }
+      
+      .diagram-description {
+        margin: 0 0 20px;
+        color: #555;
+        font-size: 15px;
+        line-height: 1.5;
+        font-style: italic;
+        padding: 0 0 15px;
+        border-bottom: 1px dashed rgba(181, 136, 99, 0.3);
+      }
+      
+      .diagram-description p {
+        margin: 0;
+      }
+      
+      .coordinate-file span, .coordinate-rank span {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .side-moves {
+        margin-top: 25px;
+      }
+      
+      .opening-board {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      /* Добавление белого фона для скрытия нотации */
+      #chessboard::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        z-index: 10;
+        pointer-events: none;
+      }
+      
+      /* Исправления для отображения самой доски поверх белого фона */
+      .chessboard {
+        position: relative;
+        z-index: 20;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Вариант Паульсена</h1>
+          <p>1.e4 c5 2.Nf3 e6 3.d4 cxd4 4.Nxd4 a6</p>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board" style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 30px;">
+            <div id="chessboard" class="chessboard" style="flex: 0 0 auto;"></div>
+            
+            <div class="notation-list" style="flex: 1; min-width: 250px; font-family: 'Montserrat', sans-serif; background: linear-gradient(145deg, #f8f8f8, #ffffff); padding: 20px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-left: 4px solid #b58863; margin: 15px 0;">
+              <h4 style="margin-top: 0; margin-bottom: 15px; font-size: 1.2em; color: #333; font-weight: 600; letter-spacing: 0.5px;">Ходы варианта:</h4>
+              <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                <span style="display: inline-block; font-weight: 600; color: #555;">1.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">e4</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 15px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">c5</span>
+                
+                <span style="display: inline-block; font-weight: 600; color: #555;">2.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">Nf3</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 15px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">e6</span>
+                
+                <span style="display: inline-block; font-weight: 600; color: #555;">3.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">d4</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 15px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">cxd4</span>
+                
+                <span style="display: inline-block; font-weight: 600; color: #555;">4.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">Nxd4</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 15px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">a6</span>
+                
+                <span style="display: inline-block; font-weight: 700; color: #b58863; font-size: 1.1em;">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="opening-details">
+            <img src="images/паульсен.png" alt="Диаграмма позиции варианта Паульсена" style="max-width: 100%; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Позиционный</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Полуоткрытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Средний</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Средняя</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Вариант Паульсена - это позиционный вариант Сицилианской защиты, где черные откладывают развитие коня на f6 и готовят продвижение b5. Этот вариант назван в честь немецкого шахматиста Луиса Паульсена, который внес значительный вклад в его развитие в 19 веке.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Основная идея варианта Паульсена - создать гибкую пешечную структуру и отложить развитие коня на f6, чтобы избежать некоторых агрессивных продолжений белых. Ход a6 предотвращает Bb5+ и готовит продвижение b5. Черные часто развивают слона на b7, создавая давление на центр.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Классическое продолжение</h4>
+                <p><strong>Ходы:</strong> 5.Bd3 Nc6 6.Nxc6 bxc6 7.O-O d5 8.exd5 cxd5</p>
+                <p>Белые развивают фигуры и рокируются, а черные стремятся к контригре в центре.</p>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с Nc3</h4>
+                <p><strong>Ходы:</strong> 5.Nc3 Qc7 6.Bd3 Nf6 7.O-O Bc5 8.Be3</p>
+                <p>Белые развивают фигуры и готовятся к атаке на королевском фланге, а черные создают давление на центр.</p>
+              </div>
+            </div>
+            
+            <h3>Интересные партии</h3>
+            <div class="interesting-games" style="margin-top: 30px; margin-bottom: 50px;">
+              <div class="games-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+                <!-- Партия 1: Карлсен - Каруана -->
+                <div class="game-card" style="background: linear-gradient(145deg, #ffffff, #f7f7f7); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.06); border: 1px solid #eaeaea; transition: all 0.3s ease; height: 100%;">
+                  <div class="game-header" style="background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 18px 20px; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                      <div class="game-title" style="font-size: 1.15em; font-weight: 600;">Сицилианская защита: вариант Кана</div>
+                      <div class="game-result" style="font-size: 1.2em; font-weight: 700;">0-1</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="tournament" style="font-size: 0.85em; opacity: 0.9;">Цюрих Блиц, 2014</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-players" style="padding: 18px 20px; background-color: #f1f1f1; border-bottom: 1px solid #e8e8e8;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                      <div class="player white" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #e8e8e8; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Карлсен, М.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2872</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="player black" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #333; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Каруана, Ф.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2782</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-moves" style="padding: 15px 20px; font-family: 'Roboto Mono', monospace; font-size: 0.85em; line-height: 1.8;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px 10px;">
+                      <span><b>1.</b> e4 c5</span>
+                      <span><b>2.</b> Nf3 e6</span>
+                      <span><b>3.</b> d4 cxd4</span>
+                      <span><b>4.</b> Nxd4 a6</span>
+                      <span><b>5.</b> Bd3 Bc5</span>
+                      <span><b>6.</b> c3 d6</span>
+                      <span><b>7.</b> Nd2 Nf6</span>
+                      <span><b>8.</b> O-O O-O ...</span>
+                    </div>
+                  </div>
+                  
+                  <div class="game-key-position" style="padding: 15px 20px; border-top: 1px dashed #e0e0e0;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 8px; font-weight: 500;">Ключевой момент:</div>
+                    <p style="font-size: 0.85em; color: #444; margin: 0;">В этой партии Каруана применил интересную идею с ранним развитием слона на c5, создавая давление в центре.</p>
+                  </div>
+                  
+                  <div class="game-footer" style="padding: 12px 20px; background-color: #f9f9f9; border-top: 1px solid #eaeaea; text-align: center;">
+                    <a href="https://lichess.org/U70yDvah" target="_blank" style="display: inline-block; padding: 8px 16px; background-color: #b58863; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 3px 10px rgba(181,136,99,0.2); width: 100%; box-sizing: border-box;">Посмотреть партию</a>
+                  </div>
+                </div>
+                
+                <!-- Партия 2: Карлсен - Ананд -->
+                <div class="game-card" style="background: linear-gradient(145deg, #ffffff, #f7f7f7); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.06); border: 1px solid #eaeaea; transition: all 0.3s ease; height: 100%;">
+                  <div class="game-header" style="background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 18px 20px; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                      <div class="game-title" style="font-size: 1.15em; font-weight: 600;">Сицилианская защита: вариант Марочи</div>
+                      <div class="game-result" style="font-size: 1.2em; font-weight: 700;">1-0</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="tournament" style="font-size: 0.85em; opacity: 0.9;">ЧМ 2014, матч</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-players" style="padding: 18px 20px; background-color: #f1f1f1; border-bottom: 1px solid #e8e8e8;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                      <div class="player white" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #e8e8e8; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Карлсен, М.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2863</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="player black" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #333; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Ананд, В.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2792</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-moves" style="padding: 15px 20px; font-family: 'Roboto Mono', monospace; font-size: 0.85em; line-height: 1.8;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px 10px;">
+                      <span><b>1.</b> e4 c5</span>
+                      <span><b>2.</b> Nf3 e6</span>
+                      <span><b>3.</b> d4 cxd4</span>
+                      <span><b>4.</b> Nxd4 a6</span>
+                      <span><b>5.</b> c4 Nf6</span>
+                      <span><b>6.</b> Nc3 Bb4</span>
+                      <span><b>7.</b> Qd3 Nc6</span>
+                      <span><b>8.</b> Nxc6 dxc6 ...</span>
+                    </div>
+                  </div>
+                  
+                  <div class="game-key-position" style="padding: 15px 20px; border-top: 1px dashed #e0e0e0;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 8px; font-weight: 500;">Ключевой момент:</div>
+                    <p style="font-size: 0.85em; color: #444; margin: 0;">Карлсен мастерски разыграл эндшпиль, используя структуру Марочи для ограничения активности фигур соперника.</p>
+                  </div>
+                  
+                  <div class="game-footer" style="padding: 12px 20px; background-color: #f9f9f9; border-top: 1px solid #eaeaea; text-align: center;">
+                    <a href="https://lichess.org/Gf1tgtQw" target="_blank" style="display: inline-block; padding: 8px 16px; background-color: #b58863; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 3px 10px rgba(181,136,99,0.2); width: 100%; box-sizing: border-box;">Посмотреть партию</a>
+                  </div>
+                </div>
+                
+                <!-- Партия 3: Каспаров - Крамник -->
+                <div class="game-card" style="background: linear-gradient(145deg, #ffffff, #f7f7f7); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.06); border: 1px solid #eaeaea; transition: all 0.3s ease; height: 100%;">
+                  <div class="game-header" style="background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 18px 20px; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                      <div class="game-title" style="font-size: 1.15em; font-weight: 600;">Сицилианская защита: вариант Марочи</div>
+                      <div class="game-result" style="font-size: 1.2em; font-weight: 700;">½-½</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="tournament" style="font-size: 0.85em; opacity: 0.9;">Мемориал Ботвинника, 2001</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-players" style="padding: 18px 20px; background-color: #f1f1f1; border-bottom: 1px solid #e8e8e8;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                      <div class="player white" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #e8e8e8; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Каспаров, Г.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2838</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="player black" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #333; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Крамник, В.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2802</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-moves" style="padding: 15px 20px; font-family: 'Roboto Mono', monospace; font-size: 0.85em; line-height: 1.8;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px 10px;">
+                      <span><b>1.</b> e4 c5</span>
+                      <span><b>2.</b> Nf3 e6</span>
+                      <span><b>3.</b> d4 cxd4</span>
+                      <span><b>4.</b> Nxd4 a6</span>
+                      <span><b>5.</b> c4 Nf6</span>
+                      <span><b>6.</b> Nc3 Qc7</span>
+                      <span><b>7.</b> a3 d6</span>
+                      <span><b>8.</b> Be3 b6 ...</span>
+                    </div>
+                  </div>
+                  
+                  <div class="game-key-position" style="padding: 15px 20px; border-top: 1px dashed #e0e0e0;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 8px; font-weight: 500;">Ключевой момент:</div>
+                    <p style="font-size: 0.85em; color: #444; margin: 0;">Глубокая стратегическая борьба двух шахматных титанов с интересной игрой на обоих флангах.</p>
+                  </div>
+                  
+                  <div class="game-footer" style="padding: 12px 20px; background-color: #f9f9f9; border-top: 1px solid #eaeaea; text-align: center;">
+                    <a href="https://lichess.org/RCZ8X8hV" target="_blank" style="display: inline-block; padding: 8px 16px; background-color: #b58863; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 3px 10px rgba(181,136,99,0.2); width: 100%; box-sizing: border-box;">Посмотреть партию</a>
+                  </div>
+                </div>
+                
+                <!-- Партия 4: Ананд - Карлсен -->
+                <div class="game-card" style="background: linear-gradient(145deg, #ffffff, #f7f7f7); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.06); border: 1px solid #eaeaea; transition: all 0.3s ease; height: 100%;">
+                  <div class="game-header" style="background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 18px 20px; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                      <div class="game-title" style="font-size: 1.15em; font-weight: 600;">Сицилианская защита: вариант Кана</div>
+                      <div class="game-result" style="font-size: 1.2em; font-weight: 700;">1-0</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="tournament" style="font-size: 0.85em; opacity: 0.9;">Турнир претендентов, 2014</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-players" style="padding: 18px 20px; background-color: #f1f1f1; border-bottom: 1px solid #e8e8e8;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                      <div class="player white" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #e8e8e8; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Ананд, В.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2785</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="player black" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="player-color" style="width: 14px; height: 14px; background-color: #333; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc;"></div>
+                        <div class="player-name" style="font-weight: 600; font-size: 0.95em;">Аронян, Л.</div>
+                      </div>
+                      <div class="player-rating" style="font-size: 0.85em; color: #666;">2830</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-moves" style="padding: 15px 20px; font-family: 'Roboto Mono', monospace; font-size: 0.85em; line-height: 1.8;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px 10px;">
+                      <span><b>1.</b> e4 c5</span>
+                      <span><b>2.</b> Nf3 e6</span>
+                      <span><b>3.</b> d4 cxd4</span>
+                      <span><b>4.</b> Nxd4 a6</span>
+                      <span><b>5.</b> Bd3 Bc5</span>
+                      <span><b>6.</b> Nb3 Ba7</span>
+                      <span><b>7.</b> Qe2 Nc6</span>
+                      <span><b>8.</b> Be3 d6 ...</span>
+                    </div>
+                  </div>
+                  
+                  <div class="game-key-position" style="padding: 15px 20px; border-top: 1px dashed #e0e0e0;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 8px; font-weight: 500;">Ключевой момент:</div>
+                    <p style="font-size: 0.85em; color: #444; margin: 0;">Красивая атака Ананда на короля после выигрыша фигуры с последующим мощным наступлением.</p>
+                  </div>
+                  
+                  <div class="game-footer" style="padding: 12px 20px; background-color: #f9f9f9; border-top: 1px solid #eaeaea; text-align: center;">
+                    <a href="https://lichess.org/t5MOCzCN" target="_blank" style="display: inline-block; padding: 8px 16px; background-color: #b58863; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 3px 10px rgba(181,136,99,0.2); width: 100%; box-sizing: border-box;">Посмотреть партию</a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="games-info" style="margin-top: 30px; background: linear-gradient(145deg, #f0f0f0, #f8f8f8); padding: 25px; border-radius: 12px; border-left: 5px solid #b58863;">
+                <h4 style="margin-top: 0; margin-bottom: 15px; color: #333; font-size: 1.2em;">Почему стоит изучать партии мастеров?</h4>
+                <p style="margin: 0; line-height: 1.6; color: #444; font-size: 0.95em;">Изучение партий сильнейших шахматистов мира позволяет глубже понять стратегические идеи и тактические мотивы дебюта. Наблюдая за тем, как гроссмейстеры высшего уровня применяют теоретические знания на практике, вы можете быстрее освоить тонкости позиции и научиться находить сильнейшие продолжения в своих партиях. Обратите внимание на характерные маневры, планы в миттельшпиле и типичные эндшпильные позиции.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <div class="footer-section">
+          <h3>Социальные сети</h3>
+          <div class="social-links">
+            <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+          </div>
+        </div>
+        <p>© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Проверяем загрузку необходимых библиотек
+        if (typeof Chess === 'undefined' || typeof Chessboard === 'undefined') {
+          console.error('Chess.js или Chessboard.js не загружены');
+          return;
+        }
+        
+        // Инициализация доски
+        const chess = new Chess();
+        const movesString = '1.e4 c5 2.Nf3 e6 3.d4 cxd4 4.Nxd4 a6';
+        const movesArray = movesString.split(/\s+/).filter(move => move.match(/^\d+\./) === null && move.trim() !== '');
+        
+        // Создаем массив позиций для каждого хода
+        const positions = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'];
+        
+        // Применяем каждый ход и сохраняем позицию
+        for (let i = 0; i < movesArray.length; i++) {
+          try {
+            chess.move(movesArray[i]);
+            positions.push(chess.fen());
+          } catch (error) {
+            console.error(`Ошибка при выполнении хода ${movesArray[i]}:`, error);
+          }
+        }
+        
+        // Сбрасываем шахматную игру в начальное положение
+        chess.reset();
+        
+        // Инициализируем доску
+        const board = Chessboard('chessboard', {
+          position: 'start',
+          pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
+        });
+        
+        // Текущий индекс хода
+        let currentMoveIndex = 0;
+        
+        // Функция для обновления доски
+        function updateBoard(index) {
+          if (index >= 0 && index < positions.length) {
+            board.position(positions[index]);
+            currentMoveIndex = index;
+            
+            // Обновляем выделение текущего хода в списке
+            const moveElements = document.querySelectorAll('.move-notation');
+            moveElements.forEach((el, i) => {
+              if (i === index - 1) {
+                el.classList.add('current-move');
+              } else {
+                el.classList.remove('current-move');
+              }
+            });
+          }
+        }
+        
+        // Создаем список ходов
+        const movesList = document.getElementById('movesList');
+        movesList.innerHTML = '';
+        
+        // Форматируем и отображаем ходы
+        let moveNumber = 1;
+        let moveHtml = '';
+        
+        for (let i = 0; i < movesArray.length; i++) {
+          if (i % 2 === 0) {
+            moveHtml += `<div class="move"><span class="move-number">${moveNumber}.</span>`;
+          }
+          
+          moveHtml += `<span class="move-notation" data-index="${i+1}">${movesArray[i]}</span>`;
+          
+          if (i % 2 === 1 || i === movesArray.length - 1) {
+            moveHtml += '</div>';
+            moveNumber++;
+          }
+        }
+        
+        movesList.innerHTML = moveHtml;
+        
+        // Добавляем обработчики событий для кнопок управления
+        document.getElementById('startBtn').addEventListener('click', () => updateBoard(0));
+        document.getElementById('prevBtn').addEventListener('click', () => updateBoard(currentMoveIndex - 1));
+        document.getElementById('nextBtn').addEventListener('click', () => updateBoard(currentMoveIndex + 1));
+        document.getElementById('endBtn').addEventListener('click', () => updateBoard(positions.length - 1));
+        
+        // Добавляем обработчики событий для ходов в списке
+        document.querySelectorAll('.move-notation').forEach(el => {
+          el.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            updateBoard(index);
+          });
+        });
+        
+        // Устанавливаем начальную позицию
+        updateBoard(positions.length - 1);
+      });
+    </script>
+  </body>
+</html>

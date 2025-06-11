@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Информационный портал о шахматных дебютах - изучайте теорию, следите за рейтингами и учитесь у лучших" />
+    <title>Информация о шахматисте</title>
+    <!-- Предзагрузка ключевых ресурсов -->
+    <link rel="preload" href="/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      /* Стили для страницы с деталями о шахматисте */
+      .player-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+      
+      .player-photo-container {
+        flex: 0 0 300px;
+      }
+      
+      .player-photo {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      
+      .player-info {
+        flex: 1 1 300px;
+      }
+      
+      .player-name {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+      }
+      
+      .player-title {
+        color: #3498db;
+        margin: 0.5rem 0;
+        font-size: 1.2rem;
+      }
+      
+      .player-meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+      
+      .meta-item {
+        background-color: #f8f9fa;
+        padding: 0.8rem;
+        border-radius: 6px;
+      }
+      
+      .meta-item strong {
+        display: block;
+        margin-bottom: 0.3rem;
+        color: #2c3e50;
+      }
+      
+      .meta-item span {
+        color: #555;
+      }
+      
+      .player-bio {
+        line-height: 1.6;
+        color: #333;
+        margin-bottom: 2rem;
+      }
+      
+      .player-sections {
+        margin: 2rem 0;
+      }
+      
+      .section-title {
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+      }
+      
+      .section-content {
+        line-height: 1.6;
+        color: #333;
+      }
+      
+      .chess-id {
+        font-family: monospace;
+        background-color: #f8f9fa;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+      }
+      
+      @media (max-width: 768px) {
+        .player-details {
+          flex-direction: column;
+        }
+        
+        .player-photo-container {
+          max-width: 100%;
+          margin-bottom: 1.5rem;
+        }
+        
+        .player-name {
+          margin-top: 0.5rem;
+          font-size: 1.8rem;
+          clear: both;
+        }
+        
+        .player-title {
+          font-size: 1.1rem;
+          margin-top: 0.3rem;
+        }
+      }
+
+      /* Добавляем стили для навигации между игроками */
+      .player-nav {
+        display: flex;
+        justify-content: space-between;
+        margin: 2rem 0;
+      }
+      
+      .player-nav-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #3498db;
+        transition: all 0.3s ease;
+      }
+      
+      .player-nav-btn:hover {
+        background-color: #e9ecef;
+      }
+      
+      .player-nav-btn.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      
+      .back-btn {
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="14" cy="23" rx="10" ry="3" fill="#3B5998"/>
+            <rect x="11" y="10" width="6" height="8" rx="3" fill="#3B5998"/>
+            <circle cx="14" cy="8" r="5" fill="#3B5998"/>
+          </svg>
+          <span>Шахматный портал</span>
+        </div>
+        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="../index.html">О проекте</a></li>
+          <li><a href="../rules.html">Правила</a></li>
+          <li><a href="../learning.html">Обучение</a></li>
+          <li><a href="../openings.html">Дебюты</a></li>
+          <li><a href="../ratings.html">Рейтинги</a></li>
+          <li><a href="../players.html">Шахматисты</a></li>
+          <li><a href="../tournaments.html">Турниры</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Кнопка "Назад" для мобильных устройств удалена -->
+
+    <main>
+      <section class="container">
+        <a href="../players.html" class="back-btn player-nav-btn">
+          <i class="fas fa-arrow-left"></i>
+          <span>Вернуться к списку</span>
+        </a>
+        
+        <!-- Элемент для отображения ошибок -->
+        <div id="error" style="display: none; color: #e74c3c; background-color: #fdecea; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;"></div>
+        
+        <div class="player-details">
+          <div class="player-photo-container">
+            <img id="playerPhoto" src="" alt="Фото шахматиста" class="player-photo" onerror="this.src='../images/placeholder.jpg'">
+          </div>
+          
+          <div class="player-info">
+            <h1 id="playerName" class="player-name"></h1>
+            <h2 id="playerTitle" class="player-title"></h2>
+            
+            <div class="player-meta">
+              <div class="meta-item">
+                <strong>Рейтинг ФИДЕ</strong>
+                <span id="playerRating"></span>
+              </div>
+              
+              <div class="meta-item">
+                <strong>Страна</strong>
+                <span id="playerCountry"></span>
+              </div>
+              
+              <div class="meta-item">
+                <strong>Любимый дебют</strong>
+                <span id="playerBestOpening"></span>
+              </div>
+              
+              <div class="meta-item">
+                <strong>ID ФИДЕ</strong>
+                <span id="fideId" class="chess-id"></span>
+              </div>
+              
+              <div class="meta-item">
+                <strong>ID РШФ</strong>
+                <span id="rsfId" class="chess-id"></span>
+              </div>
+            </div>
+            
+            <div class="player-bio" id="playerBio"></div>
+          </div>
+        </div>
+        
+        <div class="player-sections">
+          <div class="player-section">
+            <h3 class="section-title">Достижения</h3>
+            <div class="section-content" id="playerAchievements"></div>
+          </div>
+          
+          <div class="player-section">
+            <h3 class="section-title">Турниры</h3>
+            <div class="section-content" id="playerTournaments"></div>
+          </div>
+          
+          <div class="player-section">
+            <h3 class="section-title">Стиль игры</h3>
+            <div class="section-content" id="playerStyle"></div>
+          </div>
+        </div>
+        
+        <div class="player-nav">
+          <a href="#" class="player-nav-btn" id="prevPlayerBtn">
+            <i class="fas fa-arrow-left"></i>
+            <span>Предыдущий игрок</span>
+          </a>
+          <a href="#" class="player-nav-btn" id="nextPlayerBtn">
+            <span>Следующий игрок</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Контакты</h3>
+          <p>Email: info@chessopenings.ru</p>
+          <p>Telegram: @chessopenings</p>
+        </div>
+        <div class="footer-section">
+          <h3>Социальные сети</h3>
+          <div class="social-links">
+            <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+            <a href="#" target="_blank">VK</a>
+            <a href="#" target="_blank">YouTube</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        2025 Портал шахматных дебютов. Все права защищены.
+      </div>
+    </footer>
+
+    <!-- Добавляем мобильную навигацию внизу экрана -->
+    <nav class="mobile-nav">
+      <a href="../index.html#about" class="mobile-nav-item">
+        <i class="fas fa-info-circle mobile-nav-icon"></i>
+        <span>О проекте</span>
+      </a>
+      <a href="../openings.html" class="mobile-nav-item">
+        <i class="fas fa-chess-pawn mobile-nav-icon"></i>
+        <span>Дебюты</span>
+      </a>
+      <a href="../ratings.html" class="mobile-nav-item">
+        <i class="fas fa-chart-line mobile-nav-icon"></i>
+        <span>Рейтинги</span>
+      </a>
+      <a href="../players.html" class="mobile-nav-item active">
+        <i class="fas fa-user mobile-nav-icon"></i>
+        <span>Шахматисты</span>
+      </a>
+      <a href="../index.html#support" class="mobile-nav-item">
+        <i class="fas fa-envelope mobile-nav-icon"></i>
+        <span>Контакты</span>
+      </a>
+    </nav>
+
+    <!-- Используем async для ускорения загрузки -->
+    <script src="player-detail.js"></script>
+  </body>
+</html>

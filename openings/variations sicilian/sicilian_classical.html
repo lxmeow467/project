@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Классический вариант в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Классический вариант - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+    <style>
+      /* Глобальные улучшения шрифтов */
+      body {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+      }
+
+      h1, h2, h3, h4 {
+        font-weight: 800;
+        letter-spacing: 0.01em;
+      }
+
+      h1 {
+        font-size: 2.2em;
+      }
+
+      h2 {
+        font-size: 1.8em;
+      }
+
+      p, li, .info-item p {
+        font-weight: 600;
+        line-height: 1.6;
+        color: #333;
+      }
+      
+      /* Стили для hero-блока */
+      .hero-content h1,
+      .hero-content p {
+        color: #ffffff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+      
+      /* Стили для шахматной диаграммы и подписи ходов */
+      .opening-board {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .static-board {
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        margin-bottom: 20px;
+      }
+      
+      .moves-notation {
+        background-color: #f2f6fc;
+        padding: 16px 22px;
+        border-radius: 10px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e0e8f5;
+      }
+      
+      .moves-notation p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.4em;
+        font-weight: 800;
+        color: #000000;
+        margin: 0;
+        letter-spacing: 0.03em;
+      }
+      
+      /* Стили для примера партии */
+      .example-game-container {
+        margin-top: 30px;
+        background-color: #f8fafd;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e4ebf5;
+      }
+      
+      .example-game-container h5 {
+        font-size: 1.4em;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        font-weight: 700;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e0e8f5;
+      }
+      
+      .game-details {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+      }
+      
+      .players {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      
+      .white-player, .black-player {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .player-name {
+        font-weight: 700;
+        font-size: 0.85em;
+        margin-bottom: 3px;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .white-player .player-name::before {
+        content: "⚪ ";
+      }
+      
+      .black-player .player-name::before {
+        content: "⚫ ";
+      }
+      
+      .player-rating {
+        font-size: 0.75em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .vs {
+        font-weight: 700;
+        color: #95a5a6;
+      }
+      
+      .game-info {
+        text-align: right;
+      }
+      
+      .tournament {
+        font-weight: 600;
+        color: #34495e;
+        margin-bottom: 5px;
+      }
+      
+      .date, .result {
+        color: #7f8c8d;
+        font-size: 0.9em;
+      }
+      
+      .result {
+        font-weight: 800;
+        font-size: 1.4em;
+        padding: 5px 15px;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        min-width: 70px;
+        margin: 0 5px;
+      }
+      
+      .game-moves {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+      
+      .moves-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+      }
+      
+      .moves-list {
+        padding-left: 25px;
+        margin-top: 0;
+        margin-bottom: 0;
+        flex: 1;
+        min-width: 280px;
+      }
+      
+      .moves-list li {
+        margin-bottom: 8px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      
+      .move-number {
+        color: #7f8c8d;
+        font-weight: 600;
+        width: 30px;
+        text-align: right;
+      }
+      
+      .move {
+        font-family: 'Courier New', monospace;
+        font-weight: 700;
+        color: #34495e;
+        width: 70px;
+      }
+      
+      .moves-list li .move:first-of-type {
+        color: #3498db;
+      }
+      
+      .moves-list li .move:last-of-type {
+        color: #2c3e50;
+      }
+      
+      .game-comments {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #3498db;
+      }
+      
+      .game-comments p {
+        margin-top: 0;
+        line-height: 1.7;
+      }
+      
+      .game-link {
+        margin-top: 15px;
+        margin-bottom: 0;
+      }
+      
+      .game-link a {
+        display: inline-block;
+        color: #2980b9;
+        text-decoration: none;
+        font-weight: 700;
+        padding: 8px 16px;
+        border: 2px solid #2980b9;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+      
+      .game-link a:hover {
+        background-color: #2980b9;
+        color: white;
+      }
+      
+      @media (max-width: 768px) {
+        .game-details {
+          flex-direction: column;
+          gap: 15px;
+        }
+        
+        .game-info {
+          text-align: left;
+        }
+        
+        .moves-container {
+          flex-direction: column;
+        }
+        
+        .moves-list {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Классический вариант</h1>
+          <p>1.e4 c5 2.Nf3 Nc6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 d6</p>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board">
+            <img src="images/Классическая сицианская защита.png" alt="Начальная позиция Классической Сицилианской защиты" class="static-board" style="max-width: 400px; margin-bottom: 20px;">
+            <div class="moves-notation">
+              <p>1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 *</p>
+            </div>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Универсальный</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Полуоткрытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Средний</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Средняя</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Классический вариант Сицилианской защиты - это солидное продолжение с развитием фигур и борьбой в центре. Этот вариант характеризуется развитием коня на c6 и пешечной структурой с пешками на d6 и e6, что создает прочную позицию.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Основная идея Классического варианта - создать прочную позицию с контролем центральных полей. Черные развивают фигуры на естественные поля и готовятся к контригре на ферзевом фланге. Ход d6 создает опору для коня на f6 и готовит продвижение e5 в подходящий момент.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Вариант с Be2</h4>
+                <img src="images/Классическая сицианская защита Се2.png" alt="Позиция Классической Сицилианской защиты" class="static-board" style="max-width: 400px; margin-top: 15px;">
+                <p><strong>Ходы:</strong> 6.Be2 e5 7.Nb3 Be7 8.O-O O-O 9.Be3</p>
+                <p>Белые развивают фигуры и рокируются, а черные создают прочную позицию с пешкой на e5.</p>
+                
+                <div class="example-game-container">
+                  <h5>Пример партии: Севиан - Фируджа (2019)</h5>
+                  <div class="game-details">
+                    <div class="players">
+                      <div class="white-player">
+                        <span class="player-name">Самуэль Севиан</span>
+                        <span class="player-rating">2666</span>
+                      </div>
+                      <div class="vs">vs</div>
+                      <div class="black-player">
+                        <span class="player-name">Алиреза Фируджа</span>
+                        <span class="player-rating">2682</span>
+                      </div>
+                    </div>
+                    <div class="game-info">
+                      <div class="tournament">Junior Speed Chess Championship, chess.com</div>
+                      <div class="date">09.07.2019</div>
+                      <div class="result">0-1</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-moves">
+                    <div class="moves-container">
+                      <ol class="moves-list">
+                        <li><span class="move-number">1.</span><span class="move">e4</span><span class="move">c5</span></li>
+                        <li><span class="move-number">2.</span><span class="move">Nf3</span><span class="move">d6</span></li>
+                        <li><span class="move-number">3.</span><span class="move">d4</span><span class="move">cxd4</span></li>
+                        <li><span class="move-number">4.</span><span class="move">Nxd4</span><span class="move">Nf6</span></li>
+                        <li><span class="move-number">5.</span><span class="move">Nc3</span><span class="move">Nc6</span></li>
+                        <li><span class="move-number">6.</span><span class="move">Be2</span><span class="move">e5</span></li>
+                        <li><span class="move-number">7.</span><span class="move">Nb3</span><span class="move">Be7</span></li>
+                        <li><span class="move-number">8.</span><span class="move">O-O</span><span class="move">O-O</span></li>
+                        <li><span class="move-number">9.</span><span class="move">Be3</span><span class="move">a5</span></li>
+                        <li><span class="move-number">10.</span><span class="move">a4</span><span class="move">Nb4</span></li>
+                        <li><span class="move-number">11.</span><span class="move">f4</span><span class="move">Bd7</span></li>
+                        <li><span class="move-number">12.</span><span class="move">Nd2</span><span class="move">Bc6</span></li>
+                        <li><span class="move-number">13.</span><span class="move">Bf3</span><span class="move">d5</span></li>
+                        <li><span class="move-number">14.</span><span class="move">fxe5</span><span class="move">d4</span></li>
+                        <li><span class="move-number">15.</span><span class="move">exf6</span><span class="move">Bxf6</span></li>
+                      </ol>
+                      <ol class="moves-list" start="16">
+                        <li><span class="move-number">16.</span><span class="move">e5</span><span class="move">dxe3</span></li>
+                        <li><span class="move-number">17.</span><span class="move">exf6</span><span class="move">exd2</span></li>
+                        <li><span class="move-number">18.</span><span class="move">Bxc6</span><span class="move">Qd4+</span></li>
+                        <li><span class="move-number">19.</span><span class="move">Rf2</span><span class="move">bxc6</span></li>
+                        <li><span class="move-number">20.</span><span class="move">Qxd2</span><span class="move">Qxd2</span></li>
+                        <li><span class="move-number">21.</span><span class="move">Rxd2</span><span class="move">gxf6</span></li>
+                        <li><span class="move-number">22.</span><span class="move">Rad1</span><span class="move">Rfe8</span></li>
+                        <li><span class="move-number">23.</span><span class="move">Ne2</span><span class="move">Nd5</span></li>
+                        <li><span class="move-number">24.</span><span class="move">b3</span><span class="move">Ne3</span></li>
+                        <li><span class="move-number">25.</span><span class="move">Re1</span><span class="move">Rad8</span></li>
+                        <li><span class="move-number">26.</span><span class="move">Nd4</span><span class="move">Re4</span></li>
+                        <li><span class="move-number">27.</span><span class="move">Nf3</span><span class="move">Rde8</span></li>
+                        <li><span class="move-number">28.</span><span class="move">Rde2</span><span class="move">f5</span></li>
+                        <li><span class="move-number">29.</span><span class="move">Nd2</span><span class="move">R4e6</span></li>
+                        <li><span class="move-number">30.</span><span class="move">Rc1</span><span class="move">Kg7</span></li>
+                      </ol>
+                      <ol class="moves-list" start="31">
+                        <li><span class="move-number">31.</span><span class="move">Nf3</span><span class="move">c5</span></li>
+                        <li><span class="move-number">32.</span><span class="move">h3</span><span class="move">h6</span></li>
+                        <li><span class="move-number">33.</span><span class="move">Rd2</span><span class="move">f4</span></li>
+                        <li><span class="move-number">34.</span><span class="move">Re1</span><span class="move">R8e7</span></li>
+                        <li><span class="move-number">35.</span><span class="move">Kf2</span><span class="move">Re4</span></li>
+                        <li><span class="move-number">36.</span><span class="move">Kg1</span><span class="move">c4</span></li>
+                        <li><span class="move-number">37.</span><span class="move">Rc1</span><span class="move">Nf5</span></li>
+                        <li><span class="move-number">38.</span><span class="move">Rd5</span><span class="move">Ng3</span></li>
+                        <li><span class="move-number">39.</span><span class="move">Kh2</span><span class="move">Rc7</span></li>
+                        <li><span class="move-number">40.</span><span class="move">Re1</span><span class="move">Rxe1</span></li>
+                        <li><span class="move-number">41.</span><span class="move">Nxe1</span><span class="move">cxb3</span></li>
+                        <li><span class="move-number">42.</span><span class="move">cxb3</span><span class="move">Rc1</span></li>
+                        <li><span class="move-number">43.</span><span class="move">Re5</span><span class="move">f6</span></li>
+                        <li><span class="move-number">44.</span><span class="move">Re7+</span><span class="move">Kf8</span></li>
+                        <li><span class="move-number">45.</span><span class="move">Re6</span><span class="move">Kf7</span></li>
+                      </ol>
+                    </div>
+                    <div class="game-comments">
+                      <p>В этой партии Фируджа демонстрирует отличное понимание классического варианта сицилианской защиты. После стандартных ходов дебюта (6.Be2 e5 7.Nb3 Be7 8.O-O O-O 9.Be3) чёрные пошли на осложнения с ходом 9...a5, подготавливая маневр коня на b4. После серии тактических осложнений и размена ферзей возникла сложная ладейная концовка, где молодой иранский гроссмейстер продемонстрировал отличную технику и переиграл своего американского соперника.</p>
+                      <p class="game-link"><a href="https://lichess.org/GKLfMwDt" target="_blank">Смотреть полную запись партии на Lichess</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с Be3</h4>
+                <p><strong>Ходы:</strong> 6.Be3 e5 7.Nb3 Be6 8.f3 Be7 9.Qd2</p>
+                <p>Белые готовятся к длинной рокировке и атаке на королевском фланге, а черные создают контригру на ферзевом фланге, похожую структуру мы могли видеть ранее в варианте <a href="najdorf.html">Найдорфа</a> который был разобран</p>
+                
+                <div class="example-game-container">
+                  <h5>Пример партии: Придорожный - Алексеев (2015)</h5>
+                  <div class="game-details">
+                    <div class="players">
+                      <div class="white-player">
+                        <span class="player-name">Александр Придорожный</span>
+                        <span class="player-rating">2556</span>
+                      </div>
+                      <div class="vs">vs</div>
+                      <div class="black-player">
+                        <span class="player-name">Евгений Алексеев</span>
+                        <span class="player-rating">2653</span>
+                      </div>
+                    </div>
+                    <div class="game-info">
+                      <div class="tournament">Чемпионат России по блицу</div>
+                      <div class="date">15.05.2015</div>
+                      <div class="result">1/2-1/2</div>
+                    </div>
+                  </div>
+                  
+                  <div class="game-moves">
+                    <div class="moves-container">
+                      <ol class="moves-list">
+                        <li><span class="move-number">1.</span><span class="move">e4</span><span class="move">c5</span></li>
+                        <li><span class="move-number">2.</span><span class="move">Nf3</span><span class="move">d6</span></li>
+                        <li><span class="move-number">3.</span><span class="move">d4</span><span class="move">cxd4</span></li>
+                        <li><span class="move-number">4.</span><span class="move">Nxd4</span><span class="move">Nf6</span></li>
+                        <li><span class="move-number">5.</span><span class="move">Nc3</span><span class="move">Nc6</span></li>
+                        <li><span class="move-number">6.</span><span class="move">f3</span><span class="move">e5</span></li>
+                        <li><span class="move-number">7.</span><span class="move">Nb3</span><span class="move">Be7</span></li>
+                        <li><span class="move-number">8.</span><span class="move">Be3</span><span class="move">Be6</span></li>
+                        <li><span class="move-number">9.</span><span class="move">Qd2</span><span class="move">d5</span></li>
+                        <li><span class="move-number">10.</span><span class="move">exd5</span><span class="move">Nxd5</span></li>
+                        <li><span class="move-number">11.</span><span class="move">Nxd5</span><span class="move">Qxd5</span></li>
+                        <li><span class="move-number">12.</span><span class="move">Qxd5</span><span class="move">Bxd5</span></li>
+                        <li><span class="move-number">13.</span><span class="move">O-O-O</span><span class="move">O-O-O</span></li>
+                        <li><span class="move-number">14.</span><span class="move">Bd3</span><span class="move">g6</span></li>
+                        <li><span class="move-number">15.</span><span class="move">Rhe1</span><span class="move">f5</span></li>
+                      </ol>
+                      <ol class="moves-list" start="16">
+                        <li><span class="move-number">16.</span><span class="move">Kb1</span><span class="move">Rhe8</span></li>
+                        <li><span class="move-number">17.</span><span class="move">Nd2</span><span class="move">Bh4</span></li>
+                        <li><span class="move-number">18.</span><span class="move">Rf1</span><span class="move">b6</span></li>
+                        <li><span class="move-number">19.</span><span class="move">a3</span><span class="move">Kc7</span></li>
+                        <li><span class="move-number">20.</span><span class="move">Kc1</span><span class="move">Rd7</span></li>
+                        <li><span class="move-number">21.</span><span class="move">Nb1</span><span class="move">Red8</span></li>
+                        <li><span class="move-number">22.</span><span class="move">Nc3</span><span class="move">Be6</span></li>
+                        <li><span class="move-number">23.</span><span class="move">Bb5</span><span class="move">Rxd1+</span></li>
+                        <li><span class="move-number">24.</span><span class="move">Rxd1</span><span class="move">Rxd1+</span></li>
+                        <li><span class="move-number">25.</span><span class="move">Kxd1</span><span class="move">Bf6</span></li>
+                        <li><span class="move-number">26.</span><span class="move">Bd3</span><span class="move">Kb7</span></li>
+                        <li><span class="move-number">27.</span><span class="move">Kc1</span><span class="move">Na5</span></li>
+                        <li><span class="move-number">28.</span><span class="move">Nb5</span><span class="move">Be7</span></li>
+                        <li><span class="move-number">29.</span><span class="move">Bh6</span><span class="move">Nc6</span></li>
+                        <li><span class="move-number">30.</span><span class="move">Nc3</span><span class="move">Bf6</span></li>
+                      </ol>
+                      <ol class="moves-list" start="31">
+                        <li><span class="move-number">31.</span><span class="move">Be3</span><span class="move">Na5</span></li>
+                        <li><span class="move-number">32.</span><span class="move">Nb5</span><span class="move">Be7</span></li>
+                        <li><span class="move-number">33.</span><span class="move">Bh6</span><span class="move">Nc6</span></li>
+                        <li><span class="move-number">34.</span><span class="move">Nc3</span><span class="move">Bc5</span></li>
+                        <li><span class="move-number">35.</span><span class="move">Bg7</span><span class="move">Kc7</span></li>
+                        <li><span class="move-number">36.</span><span class="move">b4</span><span class="move">Be3+</span></li>
+                        <li><span class="move-number">37.</span><span class="move">Kd1</span><span class="move">Kd7</span></li>
+                        <li><span class="move-number">38.</span><span class="move">b5</span><span class="move">Na5</span></li>
+                        <li><span class="move-number">39.</span><span class="move">Bxe5</span><span class="move">Nc4</span></li>
+                        <li><span class="move-number">40.</span><span class="move">Bb8</span><span class="move">Bd4</span></li>
+                        <li><span class="move-number">41.</span><span class="move">Ne2</span><span class="move">Bc5</span></li>
+                        <li><span class="move-number">42.</span><span class="move">Nf4</span><span class="move">Bf7</span></li>
+                        <li><span class="move-number">43.</span><span class="move">a4</span><span class="move">Kc8</span></li>
+                        <li><span class="move-number">44.</span><span class="move">Bxc4</span><span class="move">Bxc4</span></li>
+                        <li><span class="move-number">45.</span><span class="move">Be5</span><span class="move">Kd7</span></li>
+                      </ol>
+                    </div>
+                    <div class="game-comments">
+                      <p>Эта партия демонстрирует классический вариант Сицилианской защиты с ходом 6.f3, который готовит длинную рокировку и атаку на королевском фланге. Обратите внимание, как Алексеев быстро перешел к активной контригре на ферзевом фланге и в центре. После серии разменов возникла сложная позиция с неочевидной оценкой. Партия завершилась ничьей после 78 ходов, демонстрируя высокий уровень защиты с обеих сторон.</p>
+                      <p class="game-link"><a href="https://lichess.org/hSOlLfYi" target="_blank">Смотреть полную запись партии на Lichess</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Новый раздел с интересными партиями -->
+      <section id="interesting-games" class="section">
+        <div class="container">
+          <h2 class="section-title">Интересные партии</h2>
+          <p class="section-description">Изучите классические и современные партии гроссмейстеров, демонстрирующие ключевые идеи и стратегические планы в классическом варианте Сицилианской защиты.</p>
+          
+          <div class="interesting-games-grid">
+            <div class="game-card">
+              <div class="game-card-header">
+                <div class="players-info">
+                  <div class="player">
+                    <span class="player-circle white"></span>
+                    <span class="player-name">Фабиано Каруана</span>
+                    <span class="player-rating">2807</span>
+                  </div>
+                  <div class="result-container">
+                    <div class="result">
+                      <span class="score-white">½</span>
+                      <span class="score-separator">:</span>
+                      <span class="score-black">½</span>
+                    </div>
+                  </div>
+                  <div class="player">
+                    <span class="player-circle black"></span>
+                    <span class="player-name">Максим Вашье-Лаграв</span>
+                    <span class="player-rating">2819</span>
+                  </div>
+                </div>
+                <div class="game-info">
+                  <div class="tournament">Sinquefield Cup 2016</div>
+                  <div class="date">09.08.2016</div>
+                </div>
+              </div>
+              <div class="game-card-body">
+                <p class="opening-name">Сицилианская защита: Вариант Принса (B54)</p>
+                <p class="opening-moves">1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. f3 Nc6 6. Nc3 e5...</p>
+                <p class="game-description">Классическое противостояние двух элитных гроссмейстеров современности. Партия демонстрирует тонкую стратегическую борьбу с взаимными шансами и завершается ничьей после 47 ходов.</p>
+              </div>
+              <div class="game-card-footer">
+                <a href="https://lichess.org/ark0JJcA" target="_blank" class="view-game-btn">Смотреть на Lichess</a>
+              </div>
+            </div>
+            
+            <div class="game-card">
+              <div class="game-card-header">
+                <div class="players-info">
+                  <div class="player">
+                    <span class="player-circle white"></span>
+                    <span class="player-name">Максим Вашье-Лаграв</span>
+                    <span class="player-rating">2780</span>
+                  </div>
+                  <div class="result-container">
+                    <div class="result">
+                      <span class="score-white">1</span>
+                      <span class="score-separator">:</span>
+                      <span class="score-black">0</span>
+                    </div>
+                  </div>
+                  <div class="player">
+                    <span class="player-circle black"></span>
+                    <span class="player-name">Кирилл Алексеенко</span>
+                    <span class="player-rating">2637</span>
+                  </div>
+                </div>
+                <div class="game-info">
+                  <div class="tournament">PRO League Group Stage</div>
+                  <div class="date">14.03.2019</div>
+                </div>
+              </div>
+              <div class="game-card-body">
+                <p class="opening-name">Сицилианская защита: Классический вариант (B56)</p>
+                <p class="opening-moves">1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 6. f3 e5...</p>
+                <p class="game-description">Яркая победа Вашье-Лаграва, где он эффективно использует классические принципы игры против Сицилианской защиты и демонстрирует превосходное понимание возникающих позиций.</p>
+              </div>
+              <div class="game-card-footer">
+                <a href="https://lichess.org/HacyRzc6" target="_blank" class="view-game-btn">Смотреть на Lichess</a>
+              </div>
+            </div>
+            
+            <div class="game-card">
+              <div class="game-card-header">
+                <div class="players-info">
+                  <div class="player">
+                    <span class="player-circle white"></span>
+                    <span class="player-name">Уэсли Со</span>
+                    <span class="player-rating">2780</span>
+                  </div>
+                  <div class="result-container">
+                    <div class="result">
+                      <span class="score-white">0</span>
+                      <span class="score-separator">:</span>
+                      <span class="score-black">1</span>
+                    </div>
+                  </div>
+                  <div class="player">
+                    <span class="player-circle black"></span>
+                    <span class="player-name">Сантош Видит</span>
+                    <span class="player-rating">2718</span>
+                  </div>
+                </div>
+                <div class="game-info">
+                  <div class="tournament">Chess.com Speed Chess 2018</div>
+                  <div class="date">09.10.2018</div>
+                </div>
+              </div>
+              <div class="game-card-body">
+                <p class="opening-name">Сицилианская защита: Классический вариант (B56)</p>
+                <p class="opening-moves">1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. f3 e5...</p>
+                <p class="game-description">Драматичная партия, где индийский гроссмейстер Видит сумел переиграть одного из сильнейших шахматистов мира Уэсли Со в блице, продемонстрировав глубокое понимание тактических мотивов.</p>
+              </div>
+              <div class="game-card-footer">
+                <a href="https://lichess.org/aFg5oqlX" target="_blank" class="view-game-btn">Смотреть на Lichess</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <p style="color: white;">© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <style>
+      /* Стили для раздела Интересные партии */
+      #interesting-games {
+        background-color: #f8fafd;
+        padding: 60px 0;
+      }
+      
+      .section-title {
+        font-size: 2.2em;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 15px;
+        color: #2c3e50;
+      }
+      
+      .section-description {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 40px;
+        font-size: 1.1em;
+        line-height: 1.7;
+        color: #5d6d7e;
+      }
+      
+      .interesting-games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .game-card {
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      
+      .game-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+      
+      .game-card-header {
+        background: linear-gradient(135deg, #3498db, #2c3e50);
+        color: white;
+        padding: 20px 25px;
+      }
+      
+      .players-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+      
+      .player {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 35%;
+      }
+      
+      .black-player-info {
+        align-items: flex-end;
+      }
+      
+      .player-circle {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        margin-bottom: 6px;
+      }
+      
+      .player-circle.white {
+        background-color: white;
+        border: 1px solid #eee;
+      }
+      
+      .player-circle.black {
+        background-color: #333;
+        border: 1px solid #222;
+      }
+      
+      .player-name {
+        font-weight: 700;
+        font-size: 0.85em;
+        margin-bottom: 3px;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .player-rating {
+        font-size: 0.75em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .result-container {
+        display: flex;
+        align-items: center;
+        width: 30%;
+        justify-content: center;
+      }
+      
+      .result {
+        font-weight: 800;
+        font-size: 1.4em;
+        padding: 5px 15px;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        min-width: 70px;
+        margin: 0 5px;
+      }
+      
+      .score-white {
+        color: #ecf0f1;
+        margin-right: 3px;
+      }
+      
+      .score-separator {
+        color: #bdc3c7;
+        margin: 0 3px;
+      }
+      
+      .score-black {
+        color: #ecf0f1;
+        margin-left: 3px;
+      }
+      
+      .game-info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9em;
+      }
+      
+      .tournament {
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      
+      .date {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .game-card-body {
+        padding: 25px;
+        flex-grow: 1;
+      }
+      
+      .opening-name {
+        font-weight: 700;
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+      
+      .opening-moves {
+        font-family: 'Courier New', monospace;
+        color: #7f8c8d;
+        background-color: #f7f9fc;
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+      }
+      
+      .game-description {
+        line-height: 1.6;
+        color: #34495e;
+        margin-bottom: 0;
+      }
+      
+      .game-card-footer {
+        padding: 20px 25px;
+        background-color: #f7f9fc;
+        border-top: 1px solid #e9ecef;
+      }
+      
+      .view-game-btn {
+        display: block;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        padding: 12px 20px;
+        border-radius: 6px;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+      }
+      
+      .view-game-btn:hover {
+        background-color: #2980b9;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+      }
+      
+      @media (max-width: 768px) {
+        .interesting-games-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .game-card {
+          max-width: 500px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+  </body>
+</html>

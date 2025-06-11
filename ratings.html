@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Информационный портал о шахматных дебютах - изучайте теорию, следите за рейтингами и учитесь у лучших" />
+    <title>Рейтинги - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="14" cy="23" rx="10" ry="3" fill="#3B5998"/>
+            <rect x="11" y="10" width="6" height="8" rx="3" fill="#3B5998"/>
+            <circle cx="14" cy="8" r="5" fill="#3B5998"/>
+          </svg>
+          <span>Шахматный портал</span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html">О проекте</a></li>
+          <li><a href="rules.html"><i class="fas fa-scroll mobile-nav-icon"></i><span>Правила</span></a></li>
+          <li><a href="learning.html">Обучение</a></li>
+          <li><a href="openings.html">Дебюты</a></li>
+          <li><a href="ratings.html" class="active">Рейтинги</a></li>
+          <li><a href="players.html">Шахматисты</a></li>
+          <li><a href="tournaments.html">Турниры</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Шахматные рейтинги</h1>
+          <p>Отслеживайте рейтинги и прогресс шахматистов</p>
+          <button class="cta-button" id="enrollButton">Начать изучение</button>
+        </div>
+      </section>
+
+      <section id="ratings" class="section">
+        <!-- Поиск рейтингов и заголовок удалены по просьбе пользователя -->
+      </section>
+
+      <section id="rating-info" class="section">
+        <h2>О рейтинговых системах</h2>
+        <div class="rating-info-container">
+          <div class="rating-info-box">
+            <h3>Рейтинг Эло</h3>
+            <p>Система рейтингов Эло — метод расчёта относительной силы игроков в играх, в которых участвуют два игрока. Эта система названа в честь её создателя Арпада Эло, американского физика венгерского происхождения.</p>
+            <p>Рейтинг Эло — это число, которое отражает силу игрока на основании результатов его партий с другими игроками. Чем выше рейтинг, тем сильнее игрок.</p>
+          </div>
+          <div class="rating-info-box">
+            <h3>Как рассчитывается рейтинг</h3>
+            <p>Рейтинг рассчитывается на основе результатов партий игрока и рейтингов его соперников. После каждой партии рейтинг игрока изменяется: увеличивается в случае победы и уменьшается в случае поражения.</p>
+            <p>Величина изменения зависит от разницы рейтингов игроков: чем больше разница, тем меньше изменение рейтинга при ожидаемом результате и больше при неожиданном.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="rating-calculator" class="section">
+        <h2>Калькулятор рейтинга</h2>
+        <div class="calculator-container">
+          <div class="calculator-box">
+            <p>Рассчитайте изменение вашего рейтинга после серии партий по формуле Эло.</p>
+            <form id="ratingCalculatorForm" class="calculator-form">
+              <div class="form-group">
+                <label for="playerRating">Ваш начальный рейтинг:</label>
+                <input type="number" id="playerRating" placeholder="Введите ваш рейтинг" required min="100" max="3000" value="1600">
+              </div>
+              
+              <div class="games-container" id="gamesContainer">
+                <h4>Список партий</h4>
+                <div class="game-row header-row">
+                  <div class="game-cell">№</div>
+                  <div class="game-cell">Рейтинг соперника</div>
+                  <div class="game-cell">Результат</div>
+                  <div class="game-cell">Коэффициент K</div>
+                  <div class="game-cell">Действия</div>
+                </div>
+                
+                <div id="gamesList">
+                  <!-- Первая партия (всегда присутствует) -->
+                  <div class="game-row" data-index="1">
+                    <div class="game-cell game-number">1</div>
+                    <div class="game-cell" data-label="Рейтинг соперника">
+                      <input type="number" class="opponent-rating" placeholder="Рейтинг соперника" required min="100" max="3000" value="1600">
+                    </div>
+                    <div class="game-cell" data-label="Результат">
+                      <select class="game-result" required>
+                        <option value="win">Победа</option>
+                        <option value="draw">Ничья</option>
+                        <option value="loss">Поражение</option>
+                      </select>
+                    </div>
+                    <div class="game-cell" data-label="Коэффициент K">
+                      <select class="k-factor" required>
+                        <option value="10">K=10</option>
+                        <option value="20" selected>K=20</option>
+                        <option value="40">K=40</option>
+                        <option value="custom">Другой</option>
+                      </select>
+                      <input type="number" class="custom-k-factor" placeholder="K" min="1" max="100" value="20" style="display: none;">
+                    </div>
+                    <div class="game-cell" data-label="Действия">
+                      <button type="button" class="delete-game-btn" disabled>Удалить</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="button" id="addGameBtn" class="action-button">Добавить партию</button>
+                <button type="submit" class="calculate-button">Рассчитать</button>
+              </div>
+            </form>
+            
+            <div id="calculationResult" class="calculation-result"></div>
+            
+            <div id="stepByStepResults" class="step-results">
+              <h4>Пошаговый расчет</h4>
+              <div class="step-table">
+                <div class="step-row header-row">
+                  <div class="step-cell">№ партии</div>
+                  <div class="step-cell">Рейтинг соперника</div>
+                  <div class="step-cell">Результат</div>
+                  <div class="step-cell">Изменение</div>
+                  <div class="step-cell">Новый рейтинг</div>
+                </div>
+                <div id="stepsList">
+                  <!-- Здесь будут добавляться строки с шагами расчета -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rating-categories" class="section">
+        <h2>Категории рейтингов</h2>
+        <div class="categories-container">
+          <div class="category-box">
+            <h3><a href="ratings/classical.html">Классические шахматы</a></h3>
+            <p>Рейтинг в классических шахматах рассчитывается на основе партий с длительным контролем времени (обычно от 60 минут на партию каждому игроку).</p>
+          </div>
+          <div class="category-box">
+            <h3><a href="ratings/rapid.html">Быстрые шахматы (рапид)</a></h3>
+            <p>Рейтинг в быстрых шахматах рассчитывается на основе партий с контролем времени от 10 до 60 минут на партию каждому игроку.</p>
+          </div>
+          <div class="category-box">
+            <h3><a href="ratings/blitz.html">Блиц</a></h3>
+            <p>Рейтинг в блице рассчитывается на основе партий с контролем времени менее 10 минут на партию каждому игроку.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Контакты</h3>
+          <p>Email: info@chessopenings.ru</p>
+          <p>Telegram: <a href="https://t.me/chessopeningsru" target="_blank" style="text-decoration: none; color: inherit;">chessopeningsru</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Социальные сети</h3>
+          <div class="social-links">
+            <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Портал шахматных дебютов. Все права защищены.
+      </div>
+    </footer>
+
+    <!-- Добавляем мобильную навигацию внизу экрана -->
+    <nav class="mobile-nav">
+      <a href="index.html" class="mobile-nav-item">
+        <i class="fas fa-info-circle mobile-nav-icon"></i>
+        <span>О проекте</span>
+      </a>
+      <a href="rules.html" class="mobile-nav-item"><i class="fas fa-scroll mobile-nav-icon"></i><span>Правила</span></a>
+      <a href="learning.html" class="mobile-nav-item">
+        <i class="fas fa-book mobile-nav-icon"></i>
+        <span>Обучение</span>
+      </a>
+      <a href="openings.html" class="mobile-nav-item">
+        <i class="fas fa-chess-knight mobile-nav-icon"></i>
+        <span>Дебюты</span>
+      </a>
+      <a href="ratings.html" class="mobile-nav-item">
+        <i class="fas fa-trophy mobile-nav-icon"></i>
+        <span>Рейтинги</span>
+      </a>
+      <a href="players.html" class="mobile-nav-item">
+        <i class="fas fa-user-friends mobile-nav-icon"></i>
+        <span>Шахматисты</span>
+      </a>
+      <a href="tournaments.html" class="mobile-nav-item">
+        <i class="fas fa-trophy mobile-nav-icon"></i>
+        <span>Турниры</span>
+      </a>
+    </nav>
+
+    <script type="module" src="/ratings.js"></script>
+    <script>
+      // Обработка кликов по ссылкам на главную страницу для сброса якоря
+      document.addEventListener('DOMContentLoaded', function() {
+        const mainPageLinks = document.querySelectorAll('a[href="index.html"]');
+        
+        mainPageLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            // Проверяем, что мы не на главной странице уже
+            if (window.location.pathname !== '/index.html' && window.location.pathname !== '/') {
+              e.preventDefault(); // Отменяем стандартное действие
+              window.location.href = 'index.html'; // Переходим без якоря
+            }
+            // Если мы уже на главной, обычный переход сработает как надо
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

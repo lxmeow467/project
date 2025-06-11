@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Московский вариант в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Московский вариант - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Добавляем библиотеки для шахматной доски -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+    <style>
+      .example-game {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid #3d85c6;
+        padding-left: 12px;
+      }
+      
+      .example-link {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: #333;
+        padding: 16px;
+        border-radius: 10px;
+        background-color: #eef5ff;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border: 1px solid #d5e3f7;
+      }
+      
+      .example-link:hover {
+        background-color: #deeafd;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        transform: translateY(-3px);
+      }
+      
+      .example-title {
+        font-weight: 800;
+        color: #2554a0;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+      }
+      
+      .example-players {
+        font-size: 1.05em;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      
+      .example-players-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      .example-year {
+        font-weight: 700;
+        color: #444;
+        background-color: #deeafd;
+        padding: 4px 10px;
+        border-radius: 14px;
+        font-size: 0.95em;
+      }
+      
+      .example-moves {
+        font-family: 'Courier New', monospace;
+        background-color: rgba(0, 0, 0, 0.05);
+        padding: 12px;
+        border-radius: 6px;
+        margin-top: 8px;
+        font-size: 1em;
+        font-weight: 700;
+        color: #222;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Московский вариант</h1>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board">
+            <img src="images/московский вариант.png" alt="Позиция после хода 3.Bb5+" class="static-board">
+            <p class="diagram-moves">1. e4 c5 2. Nf3 d6 3. Bb5+</p>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Очень высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Тактический</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Открытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Высокий</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Продвинутый</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Московский вариант - альтернативное название для варианта с ранним развитием белопольного слона на b5 с шахом в Сицилианской защите. Этот вариант позволяет белым избежать очень теоретически нагруженных продолжений и создаёт неудобства для черных уже на ранней стадии дебюта. Вариант получил распространение в московской шахматной школе, откуда и получил свое название.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Основная идея Московского варианта - ранний шах слоном на b5, что вынуждает черных либо поставить фигуру между королем и слоном (обычно Bd7 или Nd7). Белые стремятся нарушить планы черных по стандартному развитию и заставить их тратить темпы на защиту короля. После размена слона на коня c6 (если черные выбирают эту защиту) у черных появляются сдвоенные пешки, что создает структурную слабость.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Вариант с 3...Bd7</h4>
+                <p><strong>Ходы:</strong> 3...Bd7 4.Bxd7+ Qxd7 5.0-0 Nc6 6.c3</p>
+                <p>Наиболее распространенный ответ, где черные защищаются развитием слона. После размена слонов белые могут быстро завершить развитие фигур и обеспечить безопасность короля.</p>
+                <p>Черные не возражают против размена слонов, полагая, что данный факт приблизит их к уравнению. После 4.Bxd7+ у черных выбор: бить ферзем или конем. Обе возможности примерно равноценны. Ход 4…Qxd7 является более распространенным продолжением.</p>
+                <div class="sub-variation-diagram">
+                  <img src="images/московский вариант Bd7.png" alt="Позиция после хода 3...Bd7" class="static-board">
+                  <p class="diagram-moves">3...Bd7 4.Bxd7+ Qxd7</p>
+                  <div class="example-game">
+                    <a href="https://lichess.org/WU4RXHtP" target="_blank" rel="noopener noreferrer" class="example-link">
+                      <span class="example-title">Пример партии:</span>
+                      <div class="example-players-container">
+                        <span class="example-players"><strong>Шорт, Найджел</strong> - <strong>Ананд, Вишванатан</strong></span>
+                        <span class="example-year">2011, 0-1</span>
+                      </div>
+                      <div class="example-moves">1.e4 c5 2.Nf3 d6 3.Bb5+ Bd7 4.Bxd7+ Qxd7</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с 3...Nd7</h4>
+                <p><strong>Ходы:</strong> 3...Nd7 4.0-0 a6 5.Bd3 Ngf6 6.Re1</p>
+                <p>Защита конем позволяет черным избежать размена, но замедляет развитие коня на f6. Белые получают удобную позицию с возможностью играть в центре.</p>
+                <div class="sub-variation-diagram">
+                  <img src="images/московский вариант Nd7.png" alt="Позиция после хода 3...Nd7" class="static-board">
+                  <p class="diagram-moves">3...Nd7 4.0-0 a6 5.Bd3 Ngf6 6. Rfe1</p>
+                  <div class="example-game">
+                    <a href="https://lichess.org/7p42Gi72" target="_blank" rel="noopener noreferrer" class="example-link">
+                      <span class="example-title">Пример партии:</span>
+                      <div class="example-players-container">
+                        <span class="example-players"><strong>Кривороучко, Юрий</strong> - <strong>Карлсен, Магнус</strong></span>
+                        <span class="example-year">2014, 0-1</span>
+                      </div>
+                      <div class="example-moves">1.e4 c5 2.Nf3 d6 3.Bb5+ Nd7 4.c3 Nf6 5.Qe2 a6 6.Ba4 e5</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с 3...Nc6</h4>
+                <p><strong>Ходы:</strong> 3...Nc6 4.0-0 a6 5.Bxd7+ Bxd7 6.d4</p>
+                <p>Альтернативная защита конем, позволяющая после размена слонов более удачно расположить белопольного слона черных.</p>
+                <div class="sub-variation-diagram">
+                  <img src="images/московский вариант Nc6.png" alt="Позиция после хода 3...Nc6" class="static-board">
+                  <p class="diagram-moves">Одно из возможных продолжений...Nc6 4.0-0 a6 5.Bxc6+ bxc6 6.d4 cxd4 7.Фxd4</p>
+                  <div class="example-game">
+                    <a href="https://lichess.org/fh5QErDm" target="_blank" rel="noopener noreferrer" class="example-link">
+                      <span class="example-title">Пример партии:</span>
+                      <div class="example-players-container">
+                        <span class="example-players"><strong>Малахов, Владимир</strong> - <strong>Грищук, Александр</strong></span>
+                        <span class="example-year">2014, 0-1</span>
+                      </div>
+                      <div class="example-moves">1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Qxd4 Nc6 5.Bb5 a6 6.Bxc6+ bxc6 7.0-0 e5</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="interesting-games" class="section">
+        <div class="variation-theory">
+          <h2>Интересные партии</h2>
+          <div class="interesting-games-container">
+            <div class="game-card">
+              <div class="game-card-header">
+                <div class="players-info">
+                  <span class="player white">Карлсен, Магнус</span>
+                  <span class="vs">vs</span>
+                  <span class="player black">Топалов, Веселин</span>
+                </div>
+                <div class="game-info">
+                  <span class="tournament">Sinquefield Cup</span>
+                  <span class="year">2015</span>
+                  <span class="result black-win">0-1</span>
+                </div>
+              </div>
+              <div class="game-card-body">
+                <div class="game-opening">Сицилианская защита: Московский вариант</div>
+                <div class="game-moves">1.e4 c5 2.Nf3 d6 3.Bb5+ Nd7 4.O-O Nf6 5.Re1 a6 6.Bd3 b5</div>
+                <a href="https://lichess.org/CA4oVUCt" target="_blank" class="game-link">
+                  <span class="link-text">Смотреть на Lichess</span>
+                  <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="game-card">
+              <div class="game-card-header">
+                <div class="players-info">
+                  <span class="player white">Карлсен, Магнус</span>
+                  <span class="vs">vs</span>
+                  <span class="player black">Непомнящий, Ян</span>
+                </div>
+                <div class="game-info">
+                  <span class="tournament">Tata Steel India Rapid</span>
+                  <span class="year">2019</span>
+                  <span class="result white-win">1-0</span>
+                </div>
+              </div>
+              <div class="game-card-body">
+                <div class="game-opening">Сицилианская защита: Московский вариант</div>
+                <div class="game-moves">1.e4 c5 2.Nf3 d6 3.Bb5+ Nd7 4.d4 cxd4 5.Qxd4 a6 6.Be2 Ngf6</div>
+                <a href="https://lichess.org/P25cFUZY" target="_blank" class="game-link">
+                  <span class="link-text">Смотреть на Lichess</span>
+                  <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="game-card">
+              <div class="game-card-header">
+                <div class="players-info">
+                  <span class="player white">Со, Уэсли</span>
+                  <span class="vs">vs</span>
+                  <span class="player black">Карлсен, Магнус</span>
+                </div>
+                <div class="game-info">
+                  <span class="tournament">Opera Euro Rapid</span>
+                  <span class="year">2021</span>
+                  <span class="result white-win">1-0</span>
+                </div>
+              </div>
+              <div class="game-card-body">
+                <div class="game-opening">Сицилианская защита: Московский вариант, вариант Соколского</div>
+                <div class="game-moves">1.e4 c5 2.Nf3 d6 3.Bb5+ Bd7 4.Bxd7+ Qxd7 5.c4 Nf6</div>
+                <a href="https://lichess.org/0A9Lhop7" target="_blank" class="game-link">
+                  <span class="link-text">Смотреть на Lichess</span>
+                  <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="game-card">
+              <div class="game-card-header">
+                <div class="players-info">
+                  <span class="player white">Грищук, Александр</span>
+                  <span class="vs">vs</span>
+                  <span class="player black">Карякин, Сергей</span>
+                </div>
+                <div class="game-info">
+                  <span class="tournament">Турнир претендентов</span>
+                  <span class="year">2020</span>
+                  <span class="result draw">½-½</span>
+                </div>
+              </div>
+              <div class="game-card-body">
+                <div class="game-opening">Сицилианская защита: Московский вариант</div>
+                <div class="game-moves">1.e4 c5 2.Nf3 d6 3.Bb5+ Nd7 4.d4 Ngf6 5.Nc3 a6</div>
+                <a href="https://lichess.org/NwAnGfvg" target="_blank" class="game-link">
+                  <span class="link-text">Смотреть на Lichess</span>
+                  <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <p>© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Основная функциональность страницы
+      });
+    </script>
+
+    <style>
+      /* Стили для раздела "Интересные партии" */
+      .interesting-games-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+      }
+
+      .game-card {
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: #fff;
+        border: 1px solid #d0d0d0;
+      }
+
+      .game-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .game-card-header {
+        background: linear-gradient(135deg, #2554a0, #123965);
+        color: white;
+        padding: 22px 24px;
+      }
+
+      .players-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        font-weight: 800;
+        font-size: 1.1em;
+      }
+
+      .player {
+        max-width: 45%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-shadow: 0 2px 3px rgba(0,0,0,0.25);
+        letter-spacing: 0.02em;
+      }
+
+      .vs {
+        font-size: 0.85em;
+        opacity: 0.8;
+        font-style: italic;
+      }
+
+      .game-info {
+        display: flex;
+        align-items: center;
+        font-size: 0.95em;
+        gap: 16px;
+      }
+
+      .tournament {
+        font-weight: 700;
+        max-width: 60%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .year {
+        background: rgba(255, 255, 255, 0.25);
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-weight: 700;
+      }
+
+      .result {
+        font-weight: 800;
+        padding: 4px 12px;
+        border-radius: 6px;
+        margin-left: auto;
+      }
+
+      .white-win {
+        background: #f8f8f8;
+        color: #000;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .black-win {
+        background: #222;
+        color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+
+      .draw {
+        background: #e0e0e0;
+        color: #333;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .game-card-body {
+        padding: 24px;
+      }
+
+      .game-opening {
+        font-weight: 800;
+        color: #2554a0;
+        margin-bottom: 16px;
+        font-size: 1.1em;
+      }
+
+      .game-moves {
+        font-family: 'Courier New', monospace;
+        background-color: #f2f6fc;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 1em;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 20px;
+        overflow-x: auto;
+        white-space: nowrap;
+        border: 1px solid #e0e8f5;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      }
+
+      .game-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-decoration: none;
+        background: #e5eff9;
+        color: #2554a0;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-weight: 700;
+        transition: all 0.2s ease;
+        margin-top: 14px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      .game-link:hover {
+        background: #d2e3f7;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+
+      .link-text {
+        font-size: 1.05em;
+        letter-spacing: 0.02em;
+      }
+
+      .arrow-icon {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.2s ease;
+        stroke-width: 2.5px;
+      }
+
+      .game-link:hover .arrow-icon {
+        transform: translate(4px, -4px);
+      }
+
+      /* Глобальные улучшения шрифтов */
+      body {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+      }
+
+      h1, h2, h3, h4 {
+        font-weight: 800;
+        letter-spacing: 0.01em;
+      }
+
+      h1 {
+        font-size: 2.2em;
+      }
+
+      h2 {
+        font-size: 1.8em;
+      }
+
+      p, li, .info-item p {
+        font-weight: 600;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      /* Улучшения карточек примеров */
+      .example-link {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: #333;
+        padding: 16px;
+        border-radius: 10px;
+        background-color: #eef5ff;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border: 1px solid #d5e3f7;
+      }
+      
+      .example-link:hover {
+        background-color: #deeafd;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        transform: translateY(-3px);
+      }
+      
+      .example-title {
+        font-weight: 800;
+        color: #2554a0;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+      }
+      
+      .example-players {
+        font-size: 1.05em;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      
+      .example-players-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      .example-year {
+        font-weight: 700;
+        color: #444;
+        background-color: #deeafd;
+        padding: 4px 10px;
+        border-radius: 14px;
+        font-size: 0.95em;
+      }
+      
+      .example-moves {
+        font-family: 'Courier New', monospace;
+        background-color: rgba(0, 0, 0, 0.05);
+        padding: 12px;
+        border-radius: 6px;
+        margin-top: 8px;
+        font-size: 1em;
+        font-weight: 700;
+        color: #222;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      }
+
+      /* Медиа-запросы для адаптивности */
+      @media (max-width: 768px) {
+        .interesting-games-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html> 

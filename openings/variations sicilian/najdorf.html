@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Вариант Найдорфа в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Вариант Найдорфа - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Добавляем Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+    <!-- Добавляем шахматную библиотеку chess.js и chessboard.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <style>
+      .theory-content p {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      
+      .sub-variation p {
+        font-size: 1.2rem;
+        line-height: 1.7;
+      }
+      
+      .theory-content h3 {
+        font-size: 1.6rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+      
+      .sub-variation h4 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+      
+      /* Стили для интерактивной доски */
+      .interactive-board {
+        max-width: 600px;
+        margin: 30px auto;
+      }
+      
+      .board-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      
+      .game-controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 15px;
+      }
+      
+      .game-controls button {
+        padding: 8px 12px;
+        background-color: #2b4c7e;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+      
+      .game-controls button:hover {
+        background-color: #1e3a61;
+      }
+      
+      .game-controls button:focus {
+        outline: 2px solid #4b6cb7;
+      }
+      
+      .moves-container {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 6px;
+        background-color: #f8f8f8;
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #e0e0e0;
+      }
+      
+      .moves-container p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+      
+      .current-move {
+        font-weight: bold;
+        color: #2b4c7e;
+      }
+      
+      /* Скрываем элементы с undefined */
+      .undefined-element,
+      [id*="undefined"],
+      .moves-list-bottom, 
+      .pgn-navigation {
+        display: none !important;
+      }
+      
+      /* Стиль для подсказки о навигации */
+      .navigation-hint {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #e9f5ff; 
+        border-radius: 6px;
+        border-left: 4px solid #2b4c7e;
+        font-size: 0.9rem;
+      }
+      
+      /* Улучшаем стиль для мобильных устройств */
+      @media (max-width: 768px) {
+        .game-controls button {
+          padding: 10px 15px;
+          font-size: 1.1rem;
+        }
+        
+        .navigation-hint {
+          padding: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Вариант Найдорфа</h1>
+          <p>1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6</p>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 20px;">
+            <div style="flex: 1; min-width: 300px;">
+              <img src="./images/найдорф.png" alt="Вариант Найдорфа в Сицилианской защите" class="chess-position-img" style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+            </div>
+            
+            <div class="notation" style="flex: 1; min-width: 250px; padding: 15px; border-radius: 8px; margin-top: 0;">
+              <p style="line-height: 1.8; font-size: 1.25rem;">
+                <div style="display: grid; grid-template-columns: 120px 120px; gap: 20px; font-size: 1.4rem; font-family: 'Montserrat', sans-serif;">
+                  <div style="font-weight: 600; color: #2b4c7e; padding: 5px 0;">1.e4</div>
+                  <div style="font-weight: 600; color: #333; padding: 5px 0;">c5</div>
+                  
+                  <div style="font-weight: 600; color: #2b4c7e; padding: l5px 0;">2.Nf3</div>
+                  <div style="font-weight: 600; color: #333; padding: 5px 0;">d6</div>
+                  
+                  <div style="font-weight: 600; color: #2b4c7e; padding: 5px 0;">3.d4</div>
+                  <div style="font-weight: 600; color: #333; padding: 5px 0;">cxd4</div>
+                  
+                  <div style="font-weight: 600; color: #2b4c7e; padding: 5px 0;">4.Nxd4</div>
+                  <div style="font-weight: 600; color: #333; padding: 5px 0;">Nf6</div>
+                  
+                  <div style="font-weight: 600; color: #2b4c7e; padding: 5px 0;">5.Nc3</div>
+                  <div style="font-weight: 600; color: #333; padding: 5px 0;">a6</div>
+                </div>
+              </p>
+            </div>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Очень высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Тактический</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Открытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Высокий</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Продвинутый</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Вариант Найдорфа — одна из самых известных и динамичных линий сицилианской защиты в шахматах. Он получил своё название в честь аргентинского гроссмейстера Мигеля Найдорфа, который в середине XX века систематически использовал эту схему в своих партиях и внёс значительный вклад в её теоретическое развитие. Изначально идея заключалась в том, чтобы задать чёрным гибкую, но одновременно агрессивную позицию, позволяющую контролировать центровые поля и создавать активную игру на ферзевом фланге.</p>
+            
+            <p>Популярность варианта начала стремительно расти благодаря тому, что он сочетал в себе множество тактических и стратегических возможностей, делая его пригодным как для остроконечных атакующих идей, так и для длительной манёвровой борьбы. В последующие десятилетия его активно применяли ведущие шахматисты мира, такие как Борис Спасский, Роберт Фишер и Гарри Каспаров. Их использование Найдорфа в турнирах и чемпионатах мира способствовало дальнейшему развитию этой теории, постоянно обогащая её новыми идеями и вариантами.</p>
+            
+            <p>Сегодня Найдорф остаётся актуальным выбором для чёрных на элитном уровне, благодаря своей остроте и богатству возможностей для контратаки. Он продолжает занимать важное место в современной шахматной теории, чему способствуют регулярные исследовательские работы и анализ на компьютерном уровне.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Контроль центра. Вариант направлен на усиление давления на центральные поля, особенно на квадрат d5. Чёрные планируют добиться этого за счёт подготовки пешечных прорывов, позволяющих уменьшить инициативу белых.</p>
+            
+            <p>Гибкая пешечная структура. Основной замысел — сохранить возможность выбора планов. Чёрные не жёстко фиксируют свою структуру, а держат пешки в «резерве», что позволяет переходить от активной контригры к манёвровой игре. Это создаёт асимметрии, с которых можно позже проводить мощную атаку.</p>
+            
+            <p>Быстрое выведение фигур. Вариант требует оперативной разработки фигур. Быстрое и правильное размещение коней, слонов и ферзя создаёт динамичное положение, в котором даже небольшие ошибки соперника могут обернуться серьёзными проблемами.</p>
+            
+            <p>Контригра и динамика. Хотя белые выбирают мирные планы, идея Найдорфа — быть всегда готовым к резкому изменению ситуации. Чёрные сохраняют возможность быстро менять направление игры, используя как острые, так и манёвровые идеи.</p>
+            
+            <p>Готовность к изменениям. Даже если белые выбирают мирные планы, идея Найдорфа — быть всегда готовым к резкому изменению ситуации. Чёрные сохраняют возможность быстро менять направление игры, используя как острые, так и манёвровые идеи.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Английская атака</h4>
+                <p><strong>Ходы:</strong> 6.Be3 e5 7.Nb3 Be6 8.f3 Be7 9.Qd2 O-O 10.O-O-O</p>
+                <p>Популярная и агрессивная система в сицилианской защите, где белые строят собственную атаку на королевском фланге, одновременно готовясь к контратаке. В типичной схеме белые развивают слона на e3, коня на b3, играют f3, затем ферзя на d2 и рокируют длинную сторону (O-O-O). Такой план позволяет укрепить центр и подготовить продвижение пешек (g4–g5) для вскрытия обороны вокруг короля противника. В ответ черные часто выбирают активную игру на ферзевом фланге, реализуя идею контратаки через ходы b5–b4, чтобы ослабить центр и создать собственные угрозы. Эта система отличается динамичностью и требует от обеих сторон точного расчёта, что делает позицию весьма острой и богатой тактическими возможностями.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
+                  <div style="flex: 1; min-width: 280px;">
+                    <img src="./images/английская атака.png" alt="Английская атака в варианте Найдорфа" style="width: 100%; max-width: 300px; border-radius: 6px; margin-top: 10px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);">
+                    <p><strong>Возможные продолжения:</strong> 10...Nbd7 11.g4 b5 12.g5 Nh5 — и игра начинает приобретать атаку, характерную для позиций с разносторонними рокировками.</p>
+                    <img src="./images/английская атака продолжение.png" alt="Продолжение английской атаки" style="width: 100%; max-width: 300px; border-radius: 6px; margin-top: 10px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);">
+                  </div>
+                  <div style="flex: 1; min-width: 280px;">
+                    <div class="board-container">
+                      <div style="text-align: center; margin-bottom: 10px; font-size: 1.1rem;">
+                        <strong>Непомнящий, Ян (2766) - Фирузджа, Алиреза (2793)</strong><br>
+                        FIDE Candidates 2022, Мадрид, 21.06.2022
+                      </div>
+                      <div id="myBoard" style="width: 100%"></div>
+                    </div>
+                    <div class="game-controls" style="margin-top: 15px;">
+                      <button id="startBtn">«</button>
+                      <button id="prevBtn">‹</button>
+                      <button id="nextBtn">›</button>
+                      <button id="endBtn">»</button>
+                    </div>
+                    
+                    <!-- Удаляем контейнер с ходами партии -->
+                    <div style="margin-top: 15px; padding: 10px; background-color: #e9f5ff; border-radius: 6px; border-left: 4px solid #2b4c7e;">
+                      <p style="font-size: 0.9rem; margin: 0;"><i class="fas fa-info-circle"></i> <strong>Подсказка:</strong> Используйте клавиши со стрелками (←/→) для перемещения по ходам партии. Кнопки навигации также доступны для управления мышью.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                  <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; justify-content: center;">
+                    <div style="flex: 0 1 500px;">
+                      <div class="board-container">
+                        <div style="text-align: center; margin-bottom: 10px; font-size: 1.1rem;">
+                          <strong>Дуда, Ян-Кшиштоф (2738) - Вашье-Лаграв, Максим (2763)</strong><br>
+                          Meltwater Tour Final chess24.com, 29.09.2021
+                        </div>
+                        <div id="myBoard2" style="width: 100%"></div>
+                      </div>
+                      <div class="game-controls" style="margin-top: 15px;">
+                        <button id="startBtn2">«</button>
+                        <button id="prevBtn2">‹</button>
+                        <button id="nextBtn2">›</button>
+                        <button id="endBtn2">»</button>
+                      </div>
+                      <div class="moves-container">
+                        <p id="movesText2" style="font-size: 1rem;">Ходы партии будут отображаться здесь после загрузки PGN</p>
+                      </div>
+                    </div>
+                    
+                    <div style="flex: 0 1 400px; margin-top: 20px;">
+                      <h4 style="font-size: 1.3rem; margin-bottom: 15px;">Анализ партии</h4>
+                      <p style="font-size: 1.1rem; line-height: 1.6;">
+                        В этой партии мы видим классический пример английской атаки в варианте Найдорфа. Вашье-Лаграв выбирает вместо 11...b5 ход 11...Nd7, что приводит к интересной позиции.
+                      </p>
+                      <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">
+                        Черные проводят эффективную контригру на ферзевом фланге, используя тактические возможности. Особенно показательны ходы 14...Nc4 и 15...bxc4, которые демонстрируют типичную стратегию черных на расширение игры на ферзевом фланге.
+                      </p>
+                      <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">
+                        Завершающая комбинация с 31...Qxb3+ и 32...Nxd5 демонстрирует тактическую гибкость, характерную для разносторонних рокировок в варианте Найдорфа.
+                      </p>
+                      
+                      <div style="margin-top: 25px; padding: 15px; background-color: #f9f9f9; border-radius: 6px; border-left: 4px solid #2b4c7e;">
+                        <h5 style="font-size: 1.2rem; margin-bottom: 10px;">Ходы партии:</h5>
+                        <div style="font-size: 1.1rem; line-height: 1.6; font-family: 'Montserrat', sans-serif;" id="staticMoves">
+                          1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3 Be7
+                          9. Qd2 O-O 10. O-O-O Nbd7 11. g4 b5 12. g5 Nd7 13. h4 Nb6 14. Qf2 Nc4 15. Bxc4 bxc4
+                          16. Nd5 Qc7 17. Nxe7+ Qxe7 18. Nd2 a5 19. Ncd5 Bxd5 20. exd5 Rfc8 21. Rhg1 c5
+                          22. dxc6 Qb7 23. cxb7 Qxb5 24. Qxd5 Rab8 25. Qxd6 Rc2 26. Kxc2 Rc8 27. Qxe6+
+                          Kh8 28. Bb3 Qb4 29. Qa7 Nc5+ 30. Bxe5 Qxb3+ 31. axb3 Nxd5 32. Nf5 Nb4+ 0-1
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sub-variation">
+                <h4>Атака Фишера-Созина</h4>
+                <p><strong>Ходы:</strong> 6.Bc4 e6 7.Bb3 b5 8.O-O Be7 9.Qf3 Qc7</p>
+                <p>Это динамичный вариант для белых, где ключевую роль играет раннее развитие слона на c4 для давления на чёрных, особенно на слабый пункт d6. Игра характеризуется быстрым набором инициативы и подготовкой к резкой атаке, что зачастую приводит к сложным тактическим позициям.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 15px;">
+                  <div style="flex: 1; min-width: 280px;">
+                    <img src="./images/атака созина.png" alt="Атака Фишера-Созина в варианте Найдорфа" style="width: 100%; max-width: 350px; border-radius: 6px; margin-top: 10px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);">
+                  </div>
+                </div>
+              </div>
+              <div class="sub-variation">
+                <h4>Классический вариант с 6.Bg5</h4>
+                <p><strong>Ходы:</strong> 6.Bg5 e6 7.f4 Be7 8.Qf3 Qc7 9.O-O-O Nbd7</p>
+                <p>Исторически первое серьезное продолжение против варианта Найдорфа. Белые развивают фигуры агрессивно и готовят атаку на королевском фланге.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 15px;">
+                  <div style="flex: 1; min-width: 280px;">
+                    <img src="./images/атака созина Bg5.png" alt="Классический вариант с 6.Bg5 в варианте Найдорфа" style="width: 100%; max-width: 350px; border-radius: 6px; margin-top: 10px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);">
+                  </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                  <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; justify-content: center;">
+                    <div style="flex: 0 1 500px;">
+                      <div class="board-container">
+                        <div style="text-align: center; margin-bottom: 10px; font-size: 1.1rem;">
+                          <strong>Грищук, Александр (2732) - Аронян, Левон (2742)</strong><br>
+                          Amsterdam Levitov Rapid, Амстердам, 22.09.2023
+                        </div>
+                        <div id="myBoard3" style="width: 100%"></div>
+                      </div>
+                      <div class="game-controls" style="margin-top: 15px;">
+                        <button id="startBtn3">«</button>
+                        <button id="prevBtn3">‹</button>
+                        <button id="nextBtn3">›</button>
+                        <button id="endBtn3">»</button>
+                      </div>
+                      <div class="moves-container">
+                        <p id="movesText3" style="font-size: 1rem;">Ходы партии будут отображаться здесь после загрузки PGN</p>
+                      </div>
+                    </div>
+                    
+                    <div style="flex: 0 1 400px; margin-top: 20px;">
+                      <h4 style="font-size: 1.3rem; margin-bottom: 15px;">Анализ партии</h4>
+                      <p style="font-size: 1.1rem; line-height: 1.6;">
+                        В этой партии мы видим классический пример атаки в варианте Найдорфа с ходом 6.Bg5. Грищук выбирает агрессивный план с продвижением пешек на королевском фланге, что приводит к острой позиции.
+                      </p>
+                      <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">
+                        Особенно интересны ходы 12.g5 и 13.f5, которыми белые пытаются вскрыть позицию черного короля. Однако Аронян находит контригру на ферзевом фланге с помощью продвижения пешки b4 и активизации фигур.
+                      </p>
+                      <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">
+                        Завершающая комбинация с 45...Qd4# демонстрирует тактическую гибкость черных и показывает, как важно сохранять баланс между атакой и защитой в варианте Найдорфа.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+          <div class="footer-section">
+            <h3>Социальные сети</h3>
+            <div class="social-links">
+              <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+            </div>
+          </div>
+        <p>© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Инициализация интерактивной доски
+        let board = null;
+        let game = new Chess();
+        let moveHistory = [];
+        let currentMoveIndex = -1;
+        
+        // Функция для удаления ненужных элементов с undefined
+        const removeUndefinedElements = () => {
+          // Находим и удаляем блок с undefined элементами
+          const undefinedBlocks = document.querySelectorAll('.moves-list-bottom, .pgn-navigation');
+          undefinedBlocks.forEach(block => {
+            if (block) {
+              block.style.display = 'none';
+            }
+          });
+          
+          // Очищаем контент внизу страницы, где могут быть undefined
+          const bottomContent = document.querySelector('.bottom-content');
+          if (bottomContent) {
+            bottomContent.innerHTML = '';
+          }
+        };
+        
+        // Вызываем функцию удаления после загрузки страницы
+        setTimeout(removeUndefinedElements, 500);
+        
+        // Запускаем её еще раз после полной загрузки всех компонентов
+        window.addEventListener('load', () => {
+          setTimeout(removeUndefinedElements, 1000);
+        });
+
+        // Функция для обновления истории ходов
+        function updateMoveHistory() {
+          moveHistory = [];
+          let tempGame = new Chess();
+          const moves = game.history({ verbose: true });
+          
+          moves.forEach(move => {
+            tempGame.move(move);
+            moveHistory.push({
+              move: move,
+              fen: tempGame.fen(),
+              pgn: tempGame.pgn()
+            });
+          });
+        }
+
+        // Функция для отображения ходов в текстовом виде
+        function displayMoves() {
+          const movesText = document.getElementById('movesText');
+          let html = '';
+          
+          if (moveHistory.length === 0) {
+            movesText.innerHTML = 'Ходы партии будут отображаться здесь после загрузки PGN';
+            return;
+          }
+          
+          for (let i = 0; i < moveHistory.length; i += 2) {
+            const moveNumber = Math.floor(i / 2) + 1;
+            const whiteMove = moveHistory[i] ? moveHistory[i].move.san : '';
+            const blackMove = (i+1 < moveHistory.length) ? moveHistory[i+1].move.san : '';
+            
+            html += `${moveNumber}. `;
+            
+            // Добавляем ход белых с возможностью клика
+            if (i === currentMoveIndex) {
+              html += `<span class="current-move" style="cursor: pointer;" onclick="goToMove(${i})">${whiteMove}</span> `;
+            } else {
+              html += `<span style="cursor: pointer;" onclick="goToMove(${i})">${whiteMove}</span> `;
+            }
+            
+            // Добавляем ход черных с возможностью клика, если он существует
+            if (i+1 < moveHistory.length) {
+              if (i+1 === currentMoveIndex) {
+                html += `<span class="current-move" style="cursor: pointer;" onclick="goToMove(${i+1})">${blackMove}</span> `;
+              } else {
+                html += `<span style="cursor: pointer;" onclick="goToMove(${i+1})">${blackMove}</span> `;
+              }
+            }
+            
+            html += ' ';
+          }
+          
+          movesText.innerHTML = html;
+          
+          // Обновляем статический текст с ходами внизу страницы
+          updateStaticMoves();
+        }
+        
+        // Функция для обновления статического текста с ходами
+        function updateStaticMoves() {
+          const movesButtons = document.querySelectorAll('.pgn-nav-buttons');
+          const movesList = document.querySelector('.moves-list');
+          
+          if (movesList) {
+            let html = '';
+            const allMoves = game.history();
+            
+            for (let i = 0; i < allMoves.length; i += 2) {
+              const moveNumber = Math.floor(i / 2) + 1;
+              const whiteMove = allMoves[i];
+              const blackMove = i + 1 < allMoves.length ? allMoves[i + 1] : '';
+              
+              html += `<span>${moveNumber}. ${whiteMove} ${blackMove}</span> `;
+            }
+            
+            movesList.innerHTML = html;
+          }
+        }
+        
+        // Функция для перехода к определенному ходу
+        function goToMove(moveIndex) {
+          if (moveIndex < -1 || moveIndex >= moveHistory.length) return;
+          
+          // Сбрасываем доску в начальное положение
+          game.reset();
+          
+          // Применяем ходы до текущего индекса
+          for (let i = 0; i <= moveIndex; i++) {
+            game.move(moveHistory[i].move.san);
+          }
+          
+          currentMoveIndex = moveIndex;
+          board.position(game.fen());
+          displayMoves();
+        }
+        
+        // Инициализация доски
+        board = Chessboard('myBoard', {
+          position: 'start',
+          pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
+        });
+        
+        // Кнопки управления
+        document.getElementById('startBtn').addEventListener('click', () => {
+          goToMove(-1);
+        });
+        
+        document.getElementById('prevBtn').addEventListener('click', () => {
+          goToMove(currentMoveIndex - 1);
+        });
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+          goToMove(currentMoveIndex + 1);
+        });
+        
+        document.getElementById('endBtn').addEventListener('click', () => {
+          goToMove(moveHistory.length - 1);
+        });
+        
+        // Добавляем обработчик клавиш для перемещения по ходам доски
+        document.addEventListener('keydown', function(event) {
+          switch(event.key) {
+            case 'ArrowLeft':
+              goToMove(currentMoveIndex - 1);
+              break;
+            case 'ArrowRight':
+              goToMove(currentMoveIndex + 1);
+              break;
+            case 'Home':
+              goToMove(-1);
+              break;
+            case 'End':
+              goToMove(moveHistory.length - 1);
+              break;
+          }
+        });
+        
+        // Добавляем партию Непомнящий-Фирузджа
+        const nepomniachtchiFirouzjaPgn = `[Event "Candidates Tournament"]
+[White "Nepomniachtchi, Ian"]
+[Black "Firouzja, Alireza"]
+[Site "Madrid"]
+[Round "4"]
+[Result "1-0"]
+[Date "2022.06.21"]
+[ECO "B90"]
+[WhiteElo "2766"]
+[BlackElo "2793"]
+[PlyCount "77"]
+[GameId "438100038460"]
+[EventDate "2022.06.17"]
+[EventType "tourn"]
+[EventRounds "14"]
+[EventCountry "ESP"]
+[EventCategory "21"]
+[SourceTitle "CBM 209"]
+[Source "ChessBase"]
+[SourceDate "2022.08.31"]
+[SourceVersion "1"]
+[SourceVersionDate "2022.08.31"]
+[SourceQuality "1"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. f3 e5 7. Nb3 Be6 8. Be3 Be7 9. Qd2 O-O 10. O-O-O Nbd7 11. g4 b5 12. g5 b4 13. Ne2 Ne8 14. f4 a5 15. f5 Bc4 16. Kb1 a4 17. Nbc1 d5 18. f6 gxf6 19. gxf6 Ndxf6 20. Ng3 Bxf1 21. Rhxf1 a3 22. b3 Kh8 23. exd5 Nd6 24. Qxb4 Rc8 25. Bb6 Qd7 26. Qe1 Rb8 27. Ba5 Nc4 28. d6 Bd8 29. Bc3 Qe6 30. Nd3 Nd5 31. Nf4 Nxf4 32. Rxf4 f6 33. Qe2 Nb2 34. Rdf1 Re8 35. Rh4 f5 36. Rxh7+ Kxh7 37. Qh5+ Kg8 38. Nxf5 Bf6 39. Rg1+ 1-0`;
+        
+        // Добавляем партию Грищук-Аронян
+        const grischukAronianPgn = `[Event "Amsterdam Levitov Rapid"]
+[White "Grischuk, Alexander"]
+[Black "Aronian, Levon"]
+[Site "Amsterdam"]
+[Round "4"]
+[Result "0-1"]
+[Date "2023.09.22"]
+[ECO "B99"]
+[WhiteElo "2732"]
+[BlackElo "2742"]
+[PlyCount "90"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e6 7. f4 Be7 8. Qf3 Qc7 9. O-O-O Nbd7 10. g4 b5 11. Bxf6 Nxf6 12. g5 Nd7 13. f5 O-O 14. Rg1 b4 15. Nce2 e5 16. f6 exd4 17. fxe7 Re8 18. Nxd4 Ne5 19. Qg3 Bb7 20. Bg2 Rxe7 21. h4 Qc5 22. h5 a5 23. h6 g6 24. Nb3 Qc8 25. Qf4 a4 26. Qf6 Qf8 27. Nd4 Ra6 28. Bf1 Rb6 29. Bd3 b3 30. a3 bxc2 31. Bxc2 Rc7 32. Kb1 Nc4 33. Ka1 d5 34. Qf4 Rxb2 35. Rg3 Re7 36. Bd3 Rb6 37. Bxc4 dxc4 38. e5 Rd7 39. Rf1 Rb3 40. Nc2 Bd5 41. Nb4 Be6 42. Rxb3 axb3 43. Kb2 Qd8 44. Rf2 Rd1 45. Qf6 Qd4# 0-1`;
+
+        // Добавляем партию Дуда-Вашье-Лаграв
+        const dudaVLPgn = `[Event "Meltwater Tour Final chess24.com INT rapid (5.3)"]
+[Site "chess24.com"]
+[Date "2021.09.29"]
+[Round "5.3"]
+[White "Duda, Jan-Krzysztof"]
+[Black "Vachier-Lagrave, Maxime"]
+[Result "0-1"]
+[ECO "B90"]
+[Opening "Sicilian Defense: Najdorf Variation"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3 Be7 9. Qd2 O-O 
+10. O-O-O Nbd7 11. g4 b5 12. g5 Nh5 13. Rg1 Nb6 14. Qf2 Nc4 15. Bxc4 bxc4 16. Nc5 Qc7 
+17. N5a4 Rab8 18. Nb6 Nf4 19. Ncd5 Nxd5 20. Nxd5 Bxd5 21. Rxd5 Qb7 22. c3 f5 23. Qe2 Qc6 24. g6 h6 
+25. Kb1 Rb5 26. Rgd1 Rf6 27. Qg2 Rxd5 28. exd5 Qe8 29. Rg1 Qb5 30. f4 e4 31. Qd2 Qe8 32. Qg2 Qb5 
+33. Rd1 Qe8 34. Qe2 Qb5 35. Rd4 Rxg6 36. Rxc4 Kh7 37. Rd4 Qc6 38. c4 Rg4 39. a3 Qe8 41. Ka2 Qh5 
+42. b4 Qf7 43. Kb3 Rh4 44. Ka2 Rh3 45. a4 Bf6 46. Rd5 Qd7 47. Kb3 Qa7 48. c5 Qf7 49. Kc4 dxc5 50. b5 axb5+ 51. axb5 Bd4 0-1`;
+
+        // Настройка доски для партии Дуда - Вашье-Лаграв
+        let board2 = null;
+        let game2 = new Chess();
+        let moveHistory2 = [];
+        let currentMove2 = -1;
+        
+        function initializeBoard2() {
+          const config = {
+            draggable: false,
+            position: 'start',
+            pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
+          };
+          board2 = Chessboard('myBoard2', config);
+          
+          // Загружаем партию из PGN
+          game2.load_pgn(dudaVLPgn);
+          
+          // Получаем историю ходов
+          moveHistory2 = [];
+          let tempGame = new Chess();
+          const moves = game2.history({ verbose: true });
+          
+          moves.forEach(move => {
+            tempGame.move(move);
+            moveHistory2.push({
+              move: move,
+              fen: tempGame.fen(),
+              pgn: tempGame.pgn()
+            });
+          });
+          
+          // Устанавливаем начальную позицию
+          game2.reset();
+          board2.position(game2.fen());
+          currentMove2 = -1;
+          
+          // Обновляем отображение ходов
+          updateMoveText2();
+        }
+        
+        function updateMoveText2() {
+          let html = '';
+          const moves = game2.history();
+          
+          // Создаем красивое форматирование ходов
+          for (let i = 0; i < moves.length; i += 2) {
+            const moveNumber = Math.floor(i / 2) + 1;
+            const whiteMove = moves[i] || '';
+            const blackMove = moves[i + 1] || '';
+            
+            html += `${moveNumber}. `;
+            
+            if (i === currentMove2 * 2) {
+              html += `<span class="current-move">${whiteMove}</span> `;
+            } else if (i === (currentMove2 * 2) + 1) {
+              html += `${whiteMove} `;
+            } else {
+              html += `${whiteMove} `;
+            }
+            
+            if ((i + 1) === currentMove2 * 2) {
+              html += `<span class="current-move">${blackMove}</span> `;
+            } else if ((i + 1) === (currentMove2 * 2) + 1) {
+              html += `${blackMove} `;
+            } else {
+              html += `${blackMove} `;
+            }
+          }
+          
+          document.getElementById('movesText2').innerHTML = html;
+        }
+        
+        function playStaticMove(moveIndex) {
+          // Эта функция будет вызываться при нажатии на ход в статическом тексте
+          // Перезагружаем игру
+          game2.reset();
+          
+          // Проверяем, что у нас есть история ходов, если нет - загружаем из PGN
+          if (moveHistory2.length === 0) {
+            game2.load_pgn(dudaVLPgn);
+            
+            // Получаем историю ходов
+            moveHistory2 = [];
+            let tempGame = new Chess();
+            const moves = game2.history({ verbose: true });
+            
+            moves.forEach(move => {
+              tempGame.move(move);
+              moveHistory2.push({
+                move: move,
+                fen: tempGame.fen(),
+                pgn: tempGame.pgn()
+              });
+            });
+            
+            // Сбрасываем игру
+            game2.reset();
+          }
+          
+          // Делаем все ходы до указанного индекса
+          for (let i = 0; i <= moveIndex && i < moveHistory2.length; i++) {
+            game2.move(moveHistory2[i].move);
+          }
+          
+          // Обновляем доску и текущий ход
+          board2.position(game2.fen());
+          currentMove2 = moveIndex;
+          
+          // Выделяем текущий ход в списке
+          document.querySelectorAll('#staticMoves span').forEach((span, index) => {
+            if (index === moveIndex) {
+              span.style.fontWeight = 'bold';
+              span.style.backgroundColor = '#e6f0ff';
+            } else {
+              span.style.fontWeight = 'normal';
+              span.style.backgroundColor = 'transparent';
+            }
+          });
+        }
+        
+        function goToStart2() {
+          game2.reset();
+          board2.position(game2.fen());
+          currentMove2 = -1;
+          updateMoveText2();
+        }
+        
+        function goToEnd2() {
+          game2.reset();
+          moveHistory2.forEach(move => {
+            game2.move(move.move);
+          });
+          board2.position(game2.fen());
+          currentMove2 = moveHistory2.length - 1;
+          updateMoveText2();
+        }
+        
+        function goToPrevMove2() {
+          if (currentMove2 >= 0) {
+            currentMove2--;
+            game2.reset();
+            
+            for (let i = 0; i <= currentMove2; i++) {
+              game2.move(moveHistory2[i].move);
+            }
+            
+            board2.position(game2.fen());
+            updateMoveText2();
+          }
+        }
+        
+        function goToNextMove2() {
+          if (currentMove2 < moveHistory2.length - 1) {
+            currentMove2++;
+            game2.move(moveHistory2[currentMove2].move);
+            board2.position(game2.fen());
+            updateMoveText2();
+          }
+        }
+        
+        // Добавляем обработчики событий для кнопок
+        document.getElementById('startBtn2').addEventListener('click', goToStart2);
+        document.getElementById('prevBtn2').addEventListener('click', goToPrevMove2);
+        document.getElementById('nextBtn2').addEventListener('click', goToNextMove2);
+        document.getElementById('endBtn2').addEventListener('click', goToEnd2);
+        
+        // Добавляем обработчик клавиш для перемещения по ходам
+        document.addEventListener('keydown', function(event) {
+          switch(event.key) {
+            case 'ArrowLeft':
+              goToPrevMove2();
+              break;
+            case 'ArrowRight':
+              goToNextMove2();
+              break;
+            case 'Home':
+              goToStart2();
+              break;
+            case 'End':
+              goToEnd2();
+              break;
+          }
+        });
+        
+        // Инициализируем вторую доску при загрузке
+        initializeBoard2();
+        
+        // Настройка доски для партии Грищук - Аронян
+        let board3 = null;
+        let game3 = new Chess();
+        let moveHistory3 = [];
+        let currentMove3 = -1;
+        
+        function initializeBoard3() {
+          const config = {
+            draggable: false,
+            position: 'start',
+            pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
+          };
+          board3 = Chessboard('myBoard3', config);
+          
+          // Загружаем партию из PGN
+          game3.load_pgn(grischukAronianPgn);
+          
+          // Получаем историю ходов
+          moveHistory3 = [];
+          let tempGame = new Chess();
+          const moves = game3.history({ verbose: true });
+          
+          moves.forEach(move => {
+            tempGame.move(move);
+            moveHistory3.push({
+              move: move,
+              fen: tempGame.fen(),
+              pgn: tempGame.pgn()
+            });
+          });
+          
+          // Устанавливаем начальную позицию
+          game3.reset();
+          board3.position(game3.fen());
+          currentMove3 = -1;
+          
+          // Обновляем отображение ходов
+          updateMoveText3();
+        }
+        
+        function updateMoveText3() {
+          let html = '';
+          const moves = game3.history();
+          
+          // Создаем красивое форматирование ходов
+          for (let i = 0; i < moves.length; i += 2) {
+            const moveNumber = Math.floor(i / 2) + 1;
+            const whiteMove = moves[i] || '';
+            const blackMove = moves[i + 1] || '';
+            
+            html += `${moveNumber}. `;
+            
+            if (i === currentMove3 * 2) {
+              html += `<span class="current-move">${whiteMove}</span> `;
+            } else if (i === (currentMove3 * 2) + 1) {
+              html += `${whiteMove} `;
+            } else {
+              html += `${whiteMove} `;
+            }
+            
+            if ((i + 1) === currentMove3 * 2) {
+              html += `<span class="current-move">${blackMove}</span> `;
+            } else if ((i + 1) === (currentMove3 * 2) + 1) {
+              html += `${blackMove} `;
+            } else {
+              html += `${blackMove} `;
+            }
+          }
+          
+          document.getElementById('movesText3').innerHTML = html;
+        }
+        
+        function goToStart3() {
+          game3.reset();
+          board3.position(game3.fen());
+          currentMove3 = -1;
+          updateMoveText3();
+        }
+        
+        function goToEnd3() {
+          game3.reset();
+          moveHistory3.forEach(move => {
+            game3.move(move.move);
+          });
+          board3.position(game3.fen());
+          currentMove3 = moveHistory3.length - 1;
+          updateMoveText3();
+        }
+        
+        function goToPrevMove3() {
+          if (currentMove3 >= 0) {
+            currentMove3--;
+            game3.reset();
+            
+            for (let i = 0; i <= currentMove3; i++) {
+              game3.move(moveHistory3[i].move);
+            }
+            
+            board3.position(game3.fen());
+            updateMoveText3();
+          }
+        }
+        
+        function goToNextMove3() {
+          if (currentMove3 < moveHistory3.length - 1) {
+            currentMove3++;
+            game3.move(moveHistory3[currentMove3].move);
+            board3.position(game3.fen());
+            updateMoveText3();
+          }
+        }
+        
+        // Добавляем обработчики событий для кнопок
+        document.getElementById('startBtn3').addEventListener('click', goToStart3);
+        document.getElementById('prevBtn3').addEventListener('click', goToPrevMove3);
+        document.getElementById('nextBtn3').addEventListener('click', goToNextMove3);
+        document.getElementById('endBtn3').addEventListener('click', goToEnd3);
+        
+        // Инициализируем третью доску при загрузке
+        initializeBoard3();
+        
+        // Экспортируем функцию playStaticMove в глобальную область
+        window.playStaticMove = playStaticMove;
+
+        // Функция для инициализации первой доски
+        function initializeBoard1() {
+          // Загружаем партию из PGN
+          game.load_pgn(nepomniachtchiFirouzjaPgn);
+          
+          // Получаем историю ходов
+          moveHistory = [];
+          let tempGame = new Chess();
+          const moves = game.history({ verbose: true });
+          
+          moves.forEach(move => {
+            tempGame.move(move);
+            moveHistory.push({
+              move: move,
+              fen: tempGame.fen(),
+              pgn: tempGame.pgn()
+            });
+          });
+          
+          // Устанавливаем начальную позицию
+          game.reset();
+          board.position(game.fen());
+          currentMoveIndex = -1;
+          
+          // Обновляем отображение ходов
+          displayMoves();
+        }
+        
+        // Добавляем обработчик клавиш для перемещения по ходам первой доски
+        document.addEventListener('keydown', function(event) {
+          // Проверяем фокус на первой доске
+          const boardContainer = document.getElementById('myBoard').closest('.board-container');
+          if (boardContainer && boardContainer.matches(':hover')) {
+            switch(event.key) {
+              case 'ArrowLeft':
+                goToMove(currentMoveIndex - 1);
+                break;
+              case 'ArrowRight':
+                goToMove(currentMoveIndex + 1);
+                break;
+              case 'Home':
+                goToMove(-1);
+                break;
+              case 'End':
+                goToMove(moveHistory.length - 1);
+                break;
+            }
+          }
+        });
+        
+        // Инициализируем первую доску при загрузке
+        initializeBoard1();
+        
+        // Добавляем обработчик для кнопки показать все ходы
+        document.getElementById('showAllBtn').addEventListener('click', function() {
+          const movesList = document.querySelector('.moves-list');
+          if (movesList.style.maxHeight) {
+            movesList.style.maxHeight = null;
+            this.textContent = 'Показать все ходы';
+          } else {
+            movesList.style.maxHeight = '1000px';
+            this.textContent = 'Скрыть ходы';
+          }
+        });
+        
+        // Загружаем и отображаем первую партию сразу при загрузке страницы
+        initializeBoard1();
+        
+        // Запускаем функцию обновления статических ходов после полной инициализации
+        setTimeout(function() {
+          const movesText = document.querySelector('.moves-list');
+          if (movesText) {
+            movesText.innerHTML = `1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. f3 e5 7. Nb3 Be6 8. Be3 Be7 9. Qd2 O-O 
+            10. O-O-O Nbd7 11. g4 b5 12. g5 b4 13. Ne2 Ne8 14. f4 a5 15. f5 Bc4 16. Kb1 a4 17. Nbc1 d5 
+            18. f6 gxf6 19. gxf6 Ndxf6 20. Ng3 Bxf1 21. Rhxf1 a3 22. b3 Kh8 23. exd5 Nd6 24. Qxb4 Rc8 
+            25. Bb6 Qd7 26. Qe1 Rb8 27. Ba5 Nc4 28. d6 Bd8 29. Bc3 Qe6 30. Nd3 Nd5 31. Nf4 Nxf4 
+            32. Rxf4 f6 33. Qe2 Nb2 34. Rdf1 Re8 35. Rh4 f5 36. Rxh7+ Kxh7 37. Qh5+ Kg8 38. Nxf5 Bf6 39. Rg1+`;
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

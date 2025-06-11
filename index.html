@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Всеобъемлющий шахматный портал - обучение, теория, турниры, рейтинги и многое другое для шахматистов всех уровней" />
+    <title>Шахматный портал - Ваш путь к мастерству</title>
+    <!-- Предзагрузка ключевых ресурсов -->
+    <link rel="preload" href="/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="14" cy="23" rx="10" ry="3" fill="#3B5998"/>
+            <rect x="11" y="10" width="6" height="8" rx="3" fill="#3B5998"/>
+            <circle cx="14" cy="8" r="5" fill="#3B5998"/>
+          </svg>
+          <span>Шахматный портал</span>
+        </div>
+        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html">О проекте</a></li>
+          <li><a href="rules.html">Правила</a></li>
+          <li><a href="learning.html">Обучение</a></li>
+          <li><a href="openings.html">Дебюты</a></li>
+          <li><a href="ratings.html">Рейтинги</a></li>
+          <li><a href="players.html">Шахматисты</a></li>
+          <li><a href="tournaments.html">Турниры</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Почему стоит изучать шахматы вместе с нами</h1>
+          <p>Откройте для себя мир шахмат: от основ до высшего мастерства</p>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <h2>О проекте</h2>
+        <div class="about-content">
+          <p>Наш портал - это комплексная платформа для всех, кто хочет развиваться в шахматах. Мы предлагаем обучение для начинающих, углубленную теорию для продвинутых игроков, актуальную информацию о турнирах и рейтингах, а также возможность следить за игрой ведущих шахматистов мира.</p>
+          <div class="features-grid">
+            <div class="feature-card">
+              <i class="fas fa-graduation-cap feature-icon"></i>
+              <h3>Обучение</h3>
+              <p>Пошаговые курсы для начинающих и продвинутых игроков, включая основы, тактику и стратегию.</p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-chess feature-icon"></i>
+              <h3>Теория</h3>
+              <p>Подробный разбор дебютов, миттельшпиля и эндшпиля с примерами из практики гроссмейстеров.</p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-trophy feature-icon"></i>
+              <h3>Турниры</h3>
+              <p>Актуальная информация о соревнованиях, результаты и анализы важнейших партий.</p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-chart-line feature-icon"></i>
+              <h3>Рейтинги</h3>
+              <p>Следите за рейтингами ведущих шахматистов и своим прогрессом.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="why-us" class="section">
+        <h2>Почему выбирают наш портал</h2>
+        <div class="why-us-content">
+          <div class="why-us-item">
+            <div class="why-us-number">01</div>
+            <div class="why-us-text">
+              <h3>Комплексный подход</h3>
+              <p>От базовых знаний до продвинутых стратегий - всё необходимое для роста в шахматах.</p>
+            </div>
+          </div>
+          <div class="why-us-item">
+            <div class="why-us-number">02</div>
+            <div class="why-us-text">
+              <h3>Экспертный контент</h3>
+              <p>Материалы подготовлены опытными тренерами и действующими гроссмейстерами.</p>
+            </div>
+          </div>
+          <div class="why-us-item">
+            <div class="why-us-number">03</div>
+            <div class="why-us-text">
+              <h3>Актуальность</h3>
+              <p>Регулярное обновление контента с учетом последних тенденций в мире шахмат.</p>
+            </div>
+          </div>
+          <div class="why-us-item">
+            <div class="why-us-number">04</div>
+            <div class="why-us-text">
+              <h3>Сообщество</h3>
+              <p>Общение с единомышленниками, обмен опытом и совместное развитие.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" class="section">
+        <h2>Отзывы наших пользователей</h2>
+        <div class="testimonials-container">
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <p>"Благодаря материалам портала я значительно улучшил понимание дебютной стадии. За полгода мой рейтинг вырос на 150 пунктов!"</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <i class="fas fa-user-circle"></i>
+              </div>
+              <div class="testimonial-info">
+                <h4>Алексей Петров</h4>
+                <p>Кандидат в мастера спорта</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <p>"Очень доступное изложение сложного материала. Интерактивные доски и видео-комментарии особенно полезны для понимания идей."</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <i class="fas fa-user-circle"></i>
+              </div>
+              <div class="testimonial-info">
+                <h4>Мария Иванова</h4>
+                <p>Любитель, 1 разряд</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <p>"Использую материалы портала в тренерской работе. Отличная систематизация и методически грамотная подача информации."</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <i class="fas fa-user-circle"></i>
+              </div>
+              <div class="testimonial-info">
+                <h4>Игорь Смирнов</h4>
+                <p>Тренер ФИДЕ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Контакты</h3>
+          <p>Email: info@chessopenings.ru</p>
+          <p>Telegram: <a href="https://t.me/chessopeningsru" target="_blank" style="text-decoration: none; color: inherit;">chessopeningsru</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Социальные сети</h3>
+          <div class="social-links">
+            <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        2025 Портал шахматных дебютов. Все права защищены.
+      </div>
+    </footer>
+    
+    <!-- Добавляем мобильную навигацию внизу экрана -->
+    <nav class="mobile-nav">
+      <a href="index.html" class="mobile-nav-item active">
+        <i class="fas fa-info-circle mobile-nav-icon"></i>
+        <span>О проекте</span>
+      </a>
+      <a href="rules.html" class="mobile-nav-item"><i class="fas fa-scroll mobile-nav-icon"></i><span>Правила</span></a>
+      <a href="learning.html" class="mobile-nav-item">
+        <i class="fas fa-book mobile-nav-icon"></i>
+        <span>Обучение</span>
+      </a>
+      <a href="openings.html" class="mobile-nav-item">
+        <i class="fas fa-chess-pawn mobile-nav-icon"></i>
+        <span>Дебюты</span>
+      </a>
+      <a href="ratings.html" class="mobile-nav-item">
+        <i class="fas fa-chart-line mobile-nav-icon"></i>
+        <span>Рейтинги</span>
+      </a>
+      <a href="players.html" class="mobile-nav-item">
+        <i class="fas fa-user mobile-nav-icon"></i>
+        <span>Шахматисты</span>
+      </a>
+      <a href="tournaments.html" class="mobile-nav-item">
+        <i class="fas fa-trophy mobile-nav-icon"></i>
+        <span>Турниры</span>
+      </a>
+    </nav>
+
+    <script async defer src="/main.js"></script>
+    <script>
+      // Активация текущего пункта мобильной навигации
+      document.addEventListener('DOMContentLoaded', function() {
+        // Получаем текущий путь
+        const currentPath = window.location.pathname;
+        const currentHash = window.location.hash;
+        
+        // Находим все пункты мобильной навигации
+        const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+        
+        // Перебираем их и устанавливаем активный класс
+        mobileNavItems.forEach(item => {
+          const href = item.getAttribute('href');
+          // Проверяем совпадение URL или хэша
+          if (href === currentPath || (currentHash && href === currentHash)) {
+            item.classList.add('active');
+          } else if (currentPath.includes('openings') && href === 'openings.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('ratings') && href === 'ratings.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('players') && href === 'players.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('tournaments') && href === 'tournaments.html') {
+            item.classList.add('active');
+          } else if (currentPath.includes('rules') && href === 'rules.html') {
+             item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      });
+
+      // Принудительная прокрутка в начало страницы при загрузке
+      window.addEventListener('load', function() {
+        window.scrollTo(0, 0);
+      });
+    </script>
+  </body>
+</html>

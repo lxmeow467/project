@@ -1,0 +1,362 @@
+.chess-diagram {
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chess-diagram-small {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 20px auto 0;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.diagram-container {
+  margin: 15px 0 20px;
+  text-align: center;
+}
+
+.diagram-caption {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #555;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.variation-moves {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  background-color: rgba(240, 240, 240, 0.3);
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.sub-variation .chess-diagram-small {
+  max-width: 320px;
+}
+
+.yugoslav-attack {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.yugoslav-attack h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #333;
+  text-align: center;
+}
+
+.opening-board {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 30px;
+  max-width: 1000px;
+  margin: 0 auto 30px;
+}
+
+.side-moves {
+  min-width: 220px;
+  padding: 20px 15px 15px 5px;
+  background-color: transparent;
+}
+
+.side-moves h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #222;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.moves-list-visible {
+  padding-left: 0;
+  list-style-type: none;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  line-height: 1.8;
+}
+
+.moves-list-visible li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.moves-list-visible li::before {
+  content: counter(item) ".";
+  counter-increment: item;
+  font-weight: 700;
+  color: #444;
+  margin-right: 12px;
+  min-width: 25px;
+  text-align: right;
+}
+
+.moves-list-visible {
+  counter-reset: item;
+}
+
+.move-white {
+  font-weight: 600;
+  color: #222;
+  margin-right: 15px;
+}
+
+.move-black {
+  font-weight: 600;
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .chess-diagram {
+    max-width: 100%;
+  }
+  
+  .opening-board {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .side-moves {
+    width: 100%;
+    max-width: 650px;
+    padding: 10px 0;
+  }
+  
+  .side-moves h4 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .moves-list-visible {
+    padding: 0 20px;
+  }
+  
+  .interactive-board {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .pgn-moves {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .interactive-board {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .control-btn {
+    width: 40px;
+    height: 35px;
+    font-size: 16px;
+  }
+  
+  .game-container {
+    gap: 10px;
+  }
+}
+
+/* Стили для просмотра партии */
+.game-viewer {
+  margin: 30px 0;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-viewer h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.game-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.interactive-board {
+  width: 400px !important;
+  height: 400px !important;
+  margin: 0 auto !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 8px !important;
+  position: relative !important;
+  background-color: #fff !important;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+/* Важные переопределения для Chessboard.js */
+.chess-board {
+  width: 100%;
+  height: 100%;
+}
+
+#board1 {
+  width: 400px !important;
+  height: 400px !important;
+  display: block !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  background-color: #fff !important;
+  z-index: 1 !important;
+}
+
+/* Фикс для доски и её элементов */
+.board-b72b1 {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 8px !important;
+}
+
+.board-b72b1 > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Исправления размера для координат и клеток доски */
+.numeric-8b63c {
+  font-size: 14px !important;
+}
+
+.square-55d63 {
+  width: 12.5% !important;
+  height: 12.5% !important;
+  position: relative !important;
+  float: left !important;
+}
+
+/* Убедимся, что изображения фигур отображаются */
+.piece-417db {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.white-1e1d7 {
+  background-color: #f0d9b5 !important;
+}
+
+.black-3c85d {
+  background-color: #b58863 !important;
+}
+
+.pgn-moves {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.controls-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.control-btn {
+  font-size: 18px;
+  width: 50px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.control-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.current-move {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.pgn-move {
+  display: inline-block;
+  padding: 2px 5px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.pgn-move:hover {
+  background-color: #e0e0e0;
+}
+
+.pgn-move.active {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.pgn-move-number {
+  font-weight: 600;
+  color: #555;
+  margin-right: 4px;
+}
+
+.pgn-white-move {
+  margin-right: 8px;
+}

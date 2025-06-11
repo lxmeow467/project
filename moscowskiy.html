@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Московский вариант в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Московский вариант - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Добавляем библиотеки для шахматной доски -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Московский вариант</h1>
+          <p>1.e4 c5 2.Nf3 d6 3.Bb5+</p>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board">
+            <img src="images/moscow_position.jpg" alt="Позиция после хода 3.Bb5+" class="static-board">
+            <div class="position-notation">
+              <p>Позиция после хода 3.Bb5+</p>
+            </div>
+            <div id="movesList" class="moves-list"></div>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Очень высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Тактический</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Открытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Высокий</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Продвинутый</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Московский вариант - альтернативное название для варианта с ранним развитием белопольного слона на b5 с шахом в Сицилианской защите. Этот вариант позволяет белым избежать очень теоретически нагруженных продолжений и создаёт неудобства для черных уже на ранней стадии дебюта. Вариант получил распространение в московской шахматной школе, откуда и получил свое название.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Основная идея Московского варианта - ранний шах слоном на b5, что вынуждает черных либо поставить фигуру между королем и слоном (обычно Bd7 или Nd7), либо отступить королем. Белые стремятся нарушить планы черных по стандартному развитию и заставить их тратить темпы на защиту короля. После размена слона на коня c6 (если черные выбирают эту защиту) у черных появляются сдвоенные пешки, что создает структурную слабость.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Вариант с 3...Bd7</h4>
+                <p><strong>Ходы:</strong> 3...Bd7 4.Bxd7+ Qxd7 5.0-0 Nc6 6.c3</p>
+                <p>Наиболее распространенный ответ, где черные защищаются развитием слона. После размена слонов белые могут быстро завершить развитие фигур и обеспечить безопасность короля.</p>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с 3...Nd7</h4>
+                <p><strong>Ходы:</strong> 3...Nd7 4.0-0 a6 5.Bd3 Ngf6 6.Re1</p>
+                <p>Защита конем позволяет черным избежать размена, но замедляет развитие коня на f6. Белые получают удобную позицию с возможностью играть в центре.</p>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с 3...Nbd7</h4>
+                <p><strong>Ходы:</strong> 3...Nbd7 4.0-0 a6 5.Bxd7+ Bxd7 6.d4</p>
+                <p>Альтернативная защита конем, позволяющая после размена слонов более удачно расположить белопольного слона черных.</p>
+              </div>
+            </div>
+            
+            <h3>Примерные партии</h3>
+            <div class="games">
+              <div class="game">
+                <p><strong>Карлсен, Магнус</strong> - <strong>Каруана, Фабиано</strong>, 2018, 1/2-1/2</p>
+                <a href="https://www.chessgames.com/perl/chessgame?gid=1937714" target="_blank" rel="noopener noreferrer">Посмотреть партию</a>
+              </div>
+              <div class="game">
+                <p><strong>Крамник, Владимир</strong> - <strong>Ананд, Вишванатан</strong>, 2008, 1-0</p>
+                <a href="https://www.chessgames.com/perl/chessgame?gid=1497898" target="_blank" rel="noopener noreferrer">Посмотреть партию</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-notes">
+          <h2>Ваши заметки</h2>
+          <textarea id="userNotes" placeholder="Добавьте свои заметки по этому варианту..."></textarea>
+          <button id="saveNotes" class="btn">Сохранить заметки</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <p>© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Проверяем загрузку необходимых библиотек
+        if (typeof Chess === 'undefined' || typeof Chessboard === 'undefined') {
+          console.error('Chess.js или Chessboard.js не загружены');
+          return;
+        }
+        
+        // Инициализация доски
+        const chess = new Chess();
+        const movesString = '1.e4 c5 2.Nf3 d6 3.Bb5+';
+        const movesArray = movesString.split(/\s+/).filter(move => move.match(/^\d+\./) === null && move.trim() !== '');
+        
+        // Создаем массив позиций для каждого хода
+        const positions = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'];
+        
+        // Применяем каждый ход и сохраняем позицию
+        for (let i = 0; i < movesArray.length; i++) {
+          try {
+            chess.move(movesArray[i]);
+            positions.push(chess.fen());
+          } catch (error) {
+            console.error(`Ошибка при выполнении хода ${movesArray[i]}:`, error);
+          }
+        }
+        
+        // Сбрасываем шахматную игру в начальное положение
+        chess.reset();
+        
+        // Текущий индекс хода
+        let currentMoveIndex = 0;
+        
+        // Функция для обновления доски
+        function updateBoard(index) {
+          if (index >= 0 && index < positions.length) {
+            currentMoveIndex = index;
+            
+            // Обновляем выделение текущего хода в списке
+            const moveElements = document.querySelectorAll('.move-notation');
+            moveElements.forEach((el, i) => {
+              if (i === index - 1) {
+                el.classList.add('current-move');
+              } else {
+                el.classList.remove('current-move');
+              }
+            });
+          }
+        }
+        
+        // Создаем список ходов
+        const movesList = document.getElementById('movesList');
+        movesList.innerHTML = '';
+        
+        // Форматируем и отображаем ходы
+        let moveNumber = 1;
+        let moveRow = document.createElement('div');
+        moveRow.className = 'move-row';
+        
+        // Добавляем номер хода
+        const moveNumberSpan = document.createElement('span');
+        moveNumberSpan.className = 'move-number';
+        moveNumberSpan.textContent = moveNumber + '.';
+        moveRow.appendChild(moveNumberSpan);
+        
+        for (let i = 0; i < movesArray.length; i++) {
+          // Создаем элемент для хода
+          const moveElement = document.createElement('span');
+          moveElement.className = 'move-notation ' + (i % 2 === 0 ? 'white' : 'black');
+          moveElement.textContent = movesArray[i];
+          moveElement.dataset.index = i + 1; // +1 потому что первая позиция - начальная
+          
+          // Добавляем обработчик клика
+          moveElement.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            updateBoard(index);
+          });
+          
+          moveRow.appendChild(moveElement);
+          
+          // Если это ход черных, создаем новую строку для следующего номера хода
+          if (i % 2 === 1) {
+            movesList.appendChild(moveRow);
+            moveNumber++;
+            
+            // Создаем новую строку для следующего хода
+            moveRow = document.createElement('div');
+            moveRow.className = 'move-row';
+            
+            // Добавляем номер хода
+            const moveNumberSpan = document.createElement('span');
+            moveNumberSpan.className = 'move-number';
+            moveNumberSpan.textContent = moveNumber + '.';
+            moveRow.appendChild(moveNumberSpan);
+          }
+        }
+        
+        // Добавляем последнюю строку, если она не пустая
+        if (moveRow.childNodes.length > 1) {
+          movesList.appendChild(moveRow);
+        }
+        
+        // Настраиваем кнопки управления
+        document.getElementById('startBtn')?.addEventListener('click', function() {
+          updateBoard(0);
+        });
+        
+        document.getElementById('prevBtn')?.addEventListener('click', function() {
+          if (currentMoveIndex > 0) {
+            updateBoard(currentMoveIndex - 1);
+          }
+        });
+        
+        document.getElementById('nextBtn')?.addEventListener('click', function() {
+          if (currentMoveIndex < positions.length - 1) {
+            updateBoard(currentMoveIndex + 1);
+          }
+        });
+        
+        document.getElementById('endBtn')?.addEventListener('click', function() {
+          updateBoard(positions.length - 1);
+        });
+        
+        // Показываем конечную позицию
+        updateBoard(positions.length - 1);
+        
+        // Функционал для заметок пользователя
+        const userNotes = document.getElementById('userNotes');
+        const saveNotesBtn = document.getElementById('saveNotes');
+        
+        // Загружаем сохраненные заметки, если они есть
+        const savedNotes = localStorage.getItem('moscowVariationNotes');
+        if (savedNotes) {
+          userNotes.value = savedNotes;
+        }
+        
+        // Сохраняем заметки в localStorage
+        saveNotesBtn.addEventListener('click', function() {
+          localStorage.setItem('moscowVariationNotes', userNotes.value);
+          alert('Заметки сохранены!');
+        });
+      });
+    </script>
+  </body>
+</html> 

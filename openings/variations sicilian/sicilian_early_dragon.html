@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Вариант Раннего дракона в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Ранний дракон - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Добавляем библиотеки для шахматной доски -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Ранний дракон</h1>
+          <p>1.e4 c5 2.Nf3 Nc6 3.d4 cxd4 4.Nxd4 g6</p>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+            <img src="images/ускоренный дракон.png" alt="Диаграмма позиции Раннего дракона" style="max-width: 80%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.15); border-radius: 8px; margin-bottom: 15px;">
+            
+            <div class="moves-notation" style="font-family: 'Montserrat', sans-serif; background: linear-gradient(145deg, #f8f8f8, #ffffff); padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 4px solid #b58863; margin-top: 10px; width: 90%;">
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px;">
+                <span style="display: inline-block; font-weight: 600; color: #555;">1.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">e4</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 15px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.06);">c5</span>
+                
+                <span style="display: inline-block; font-weight: 600; color: #555;">2.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">Nf3</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 15px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.06);">Nc6</span>
+                
+                <span style="display: inline-block; font-weight: 600; color: #555;">3.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">d4</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 15px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.06);">cxd4</span>
+                
+                <span style="display: inline-block; font-weight: 600; color: #555;">4.</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #2c3e50; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.03);">Nxd4</span>
+                <span style="display: inline-block; font-weight: 500; margin-right: 8px; color: #34495e; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.06);">g6</span>
+                <span style="display: inline-block; font-weight: 700; color: #b58863; font-size: 1.1em;">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Средняя</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Тактический</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Открытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Высокий</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Средняя</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Ранний дракон - это упрощенная версия варианта Дракона, где черные сразу начинают фианкеттирование слона на g7, не дожидаясь развития коня на f6. Это создает асимметричную позицию с возможностями для обеих сторон.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Основная идея Раннего дракона - быстрое фианкеттирование слона на g7, создавая давление по большой диагонали h8-a1. Черные стремятся к контригре на ферзевом фланге, в то время как белые часто атакуют на королевском фланге. Отсутствие коня на f6 дает белым дополнительные возможности для атаки.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Классическое продолжение</h4>
+                <p><strong>Ходы:</strong> 5.Nc3 Bg7 6.Be3 Nf6 7.Bc4 O-O 8.Bb3</p>
+                <p>Белые развивают фигуры и готовятся к рокировке в короткую сторону, после чего могут начать атаку на королевском фланге. Позиция приобреает характер классического варианта дракона. Но по сколько белые не пошли на самый принципиальный вариант с ходом c4, черные сами пытаются завладеть инициативой и проводят сразу 8...d5 и в случае 9...exd5 черный конь стремится разменять себя на защитника пешки слона на b3 поэтому 9. Na5! и позиция ближе к равенству</p>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с c4</h4>
+                <p><strong>Ходы:</strong> 5.c4 Bg7 6.Be3 Nf6 7.Nc3 O-O 8.Be2</p>
+                <p>Белые ходом c4 показывают черным минус отсуствие хода Nf6, так как он не нападал на пешку на е4, белые в свою же очередь воспользовались этим с захватили центр и под их контролем находится поле d5. Игра черных будет строится на попытке прорвать поле d5 и вести активные действия на ферзевом фланге, в то время как белые будут укреплять центр и в какой-то момент подрывать путем хода e5</p>
+              </div>
+            </div>
+            
+            <h3>Примерные партии</h3>
+            <div class="games">
+              <div class="game" style="background: linear-gradient(145deg, #f9f9f9, #fff); border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.05); margin: 25px 0; overflow: hidden;">
+                <div class="game-header" style="background: linear-gradient(90deg, #4a6fa5, #3c5a8a); color: white; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                  <div style="font-weight: 600; font-size: 1.1em; letter-spacing: 0.3px;">
+                    <span style="font-weight: 700;">Вашье-Лаграв, М.</span> (2795) - <span style="font-weight: 700;">Гельфанд, Б.</span> (2724)
+                  </div>
+                  <div style="font-size: 0.9em; opacity: 0.9;">Moscow Grand Prix, 2017</div>
+                </div>
+                
+                <div class="game-content" style="padding: 20px;">
+                  <div class="pgn-info" style="display: flex; flex-wrap: wrap; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <div style="flex: 1; min-width: 200px; margin-bottom: 10px;">
+                      <div style="color: #666; font-size: 0.9em; margin-bottom: 4px;">Дебют</div>
+                      <div style="font-weight: 500;">Сицилианская защита: Ускоренный дракон</div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; margin-bottom: 10px;">
+                      <div style="color: #666; font-size: 0.9em; margin-bottom: 4px;">Результат</div>
+                      <div style="font-weight: 500;">1/2-1/2</div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; margin-bottom: 10px;">
+                      <div style="color: #666; font-size: 0.9em; margin-bottom: 4px;">ECO</div>
+                      <div style="font-weight: 500;">B35</div>
+                    </div>
+                  </div>
+                  
+                  <div class="moves" style="font-family: 'Noto Chess', 'Noto Sans', sans-serif; line-height: 1.6; margin-bottom: 20px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px 12px;">
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">1.</span>
+                        <span style="color: #2c3e50;">e4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">c5</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">2.</span>
+                        <span style="color: #2c3e50;">Nf3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nc6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">3.</span>
+                        <span style="color: #2c3e50;">Nc3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">g6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">4.</span>
+                        <span style="color: #2c3e50;">d4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">cxd4</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">5.</span>
+                        <span style="color: #2c3e50;">Nxd4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Bg7</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">6.</span>
+                        <span style="color: #2c3e50;">Be3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nf6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">7.</span>
+                        <span style="color: #2c3e50;">Bc4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">O-O</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">8.</span>
+                        <span style="color: #2c3e50;">Bb3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">d5</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">9.</span>
+                        <span style="color: #2c3e50;">exd5</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Na5</span>
+                      </div>
+                    </div>
+                    <div style="height: 1px; background: #eee; margin: 10px 0; opacity: 0.7;"></div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px 12px;">
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">10.</span>
+                        <span style="color: #2c3e50;">Qd2</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nxb3</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">11.</span>
+                        <span style="color: #2c3e50;">Nxb3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">b5</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">12.</span>
+                        <span style="color: #2c3e50;">Nxb5</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Qxd5</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">13.</span>
+                        <span style="color: #2c3e50;">Qxd5</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nxd5</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">14.</span>
+                        <span style="color: #2c3e50;">Bd4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Rb8</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">15.</span>
+                        <span style="color: #2c3e50;">Bxg7</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Kxg7</span>
+                      </div>
+                    </div>
+                    <div style="margin-top: 10px; font-style: italic; font-size: 0.9em; color: #666; text-align: right;">
+                      <span style="color: #b58863; font-weight: 600;">½-½</span> (43 хода)
+                    </div>
+                  </div>
+                  
+                  <div class="game-analysis" style="padding: 15px; background: rgba(181, 136, 99, 0.05); border-radius: 8px; margin: 15px 0; border-left: 3px solid #b58863;">
+                    <h4 style="margin-top: 0; margin-bottom: 10px; color: #333; font-size: 1em;">Анализ ключевых моментов</h4>
+                    <p style="margin: 0 0 10px 0; line-height: 1.5; font-size: 0.95em;">
+                      Классический вариант с 8...d5 показывает главную идею черных — борьбу за центр и активную контригру. После 9.exd5 черный конь идет на a5, атакуя слона белых, что заставляет белых разменивать фигуры. 
+                    </p>
+                    <p style="margin: 0; line-height: 1.5; font-size: 0.95em;">
+                      Перевес белых в центре и пространственное преимущество компенсируются активностью фигур черных. В миттельшпиле белые пытались развить инициативу, но чёрные грамотно защищались, что привело к равной позиции и ничьей на 43-м ходу.
+                    </p>
+                  </div>
+                  
+                  <div class="game-footer" style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="color: #666; font-size: 0.9em;">Партия демонстрирует классические идеи варианта</div>
+                    <a href="https://lichess.org/qfwTDLbm" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 8px 16px; background: linear-gradient(90deg, #4a6fa5, #3c5a8a); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">Смотреть полную партию</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="game" style="background: linear-gradient(145deg, #f9f9f9, #fff); border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.05); margin: 25px 0; overflow: hidden;">
+                <div class="game-header" style="background: linear-gradient(90deg, #4a6fa5, #3c5a8a); color: white; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                  <div style="font-weight: 600; font-size: 1.1em; letter-spacing: 0.3px;">
+                    <span style="font-weight: 700;">Гири, А.</span> (2776) - <span style="font-weight: 700;">Карлсен, М.</span> (2847)
+                  </div>
+                  <div style="font-size: 0.9em; opacity: 0.9;">Magnus Carlsen Invitational, 2021</div>
+                </div>
+                
+                <div class="game-content" style="padding: 20px;">
+                  <div class="pgn-info" style="display: flex; flex-wrap: wrap; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <div style="flex: 1; min-width: 200px; margin-bottom: 10px;">
+                      <div style="color: #666; font-size: 0.9em; margin-bottom: 4px;">Дебют</div>
+                      <div style="font-weight: 500;">Сицилианская защита: Ускоренный дракон вариант Мароци (B36)</div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; margin-bottom: 10px;">
+                      <div style="color: #666; font-size: 0.9em; margin-bottom: 4px;">Результат</div>
+                      <div style="font-weight: 500; color: #7e392f;">1-0</div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; margin-bottom: 10px;">
+                      <div style="color: #666; font-size: 0.9em; margin-bottom: 4px;">ECO</div>
+                      <div style="font-weight: 500;">B36</div>
+                    </div>
+                  </div>
+                  
+                  <div class="moves" style="font-family: 'Noto Chess', 'Noto Sans', sans-serif; line-height: 1.6; margin-bottom: 20px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px 12px;">
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">1.</span>
+                        <span style="color: #2c3e50;">e4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">c5</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">2.</span>
+                        <span style="color: #2c3e50;">Nf3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">g6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">3.</span>
+                        <span style="color: #2c3e50;">d4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">cxd4</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">4.</span>
+                        <span style="color: #2c3e50;">Nxd4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nc6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">5.</span>
+                        <span style="color: #2c3e50;">c4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nf6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">6.</span>
+                        <span style="color: #2c3e50;">Nc3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">d6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">7.</span>
+                        <span style="color: #2c3e50;">Be2</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nxd4</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">8.</span>
+                        <span style="color: #2c3e50;">Qxd4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Bg7</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">9.</span>
+                        <span style="color: #2c3e50;">O-O</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">O-O</span>
+                      </div>
+                    </div>
+                    <div style="height: 1px; background: #eee; margin: 10px 0; opacity: 0.7;"></div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px 12px;">
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">10.</span>
+                        <span style="color: #2c3e50;">Qd3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">a5</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">11.</span>
+                        <span style="color: #2c3e50;">Be3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Bd7</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">12.</span>
+                        <span style="color: #2c3e50;">Bd4</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Bc6</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">13.</span>
+                        <span style="color: #2c3e50;">b3</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Nd7</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">14.</span>
+                        <span style="color: #2c3e50;">Bxg7</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Kxg7</span>
+                      </div>
+                      <div style="display: flex; align-items: center; white-space: nowrap;">
+                        <span style="font-weight: 600; color: #555; margin-right: 5px;">15.</span>
+                        <span style="color: #2c3e50;">Qd4+</span>
+                        <span style="margin: 0 5px; color: #777;">-</span>
+                        <span style="color: #34495e;">Kg8</span>
+                      </div>
+                    </div>
+                    <div style="margin-top: 10px; font-style: italic; font-size: 0.9em; color: #666; text-align: right;">
+                      <span style="color: #7e392f; font-weight: 600;">1-0</span> (58 ходов)
+                    </div>
+                  </div>
+                  
+                  <div class="game-analysis" style="padding: 15px; background: rgba(181, 136, 99, 0.05); border-radius: 8px; margin: 15px 0; border-left: 3px solid #b58863;">
+                    <h4 style="margin-top: 0; margin-bottom: 10px; color: #333; font-size: 1em;">Анализ ключевых моментов</h4>
+                    <p style="margin: 0 0 10px 0; line-height: 1.5; font-size: 0.95em;">
+                      Эта партия демонстрирует вариант Марочи (5.c4) - мощное оружие против Ускоренного Дракона. Белые создают прочный пешечный центр с пешками на c4 и e4, стесняя активность чернопольного слона черных.
+                    </p>
+                    <p style="margin: 0; line-height: 1.5; font-size: 0.95em;">
+                      После размена слонов на g7 белые получили небольшой перевес. В эндшпиле Гири сумел реализовать свое преимущество благодаря активным фигурам и тактическим возможностям. В решающий момент на 57 ходу Карлсен допустил ошибку Rxa2, после чего позиция стала проигрышной.
+                    </p>
+                  </div>
+                  
+                  <div class="game-footer" style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="color: #666; font-size: 0.9em;">Редкий случай победы Гири над Карлсеном</div>
+                    <a href="https://lichess.org/LdrjbTID" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 8px 16px; background: linear-gradient(90deg, #4a6fa5, #3c5a8a); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">Смотреть полную партию</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="interesting-games" class="section">
+        <div class="interesting-games-content">
+          <h2>Интересные партии</h2>
+          
+          <div class="games-carousel" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px;">
+            <!-- Карточка партии 1: Карякин-Дубов -->
+            <div class="game-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; position: relative;">
+              <div class="card-header" style="background: linear-gradient(135deg, #435869, #2c3e50); padding: 15px; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="color: white; font-weight: 600; font-size: 0.95em;">Карякин С. - Дубов Д.</div>
+                  <div style="color: rgba(255,255,255,0.8); font-size: 0.8em;">Qatar Masters, 2015</div>
+                </div>
+                <div style="color: white; margin-top: 8px; font-size: 0.85em; opacity: 0.9;">
+                  Ускоренный дракон, вариант Bc4
+                </div>
+              </div>
+              <div class="card-body" style="padding: 15px;">
+                <div style="font-family: 'Noto Sans', sans-serif; font-size: 0.9em; line-height: 1.6; margin-bottom: 15px;">
+                  <div style="display: flex; flex-wrap: wrap; gap: 5px 8px;">
+                    <span style="white-space: nowrap;"><span style="color: #555;">1.</span> e4 c5</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">2.</span> Nf3 Nc6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">3.</span> Nc3 g6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">4.</span> d4 cxd4</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">5.</span> Nxd4 Bg7</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">6.</span> Be3 Nf6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">7.</span> Bc4 O-O</span>
+                  </div>
+                </div>
+                <div style="font-size: 0.85em; color: #555; margin-bottom: 12px; line-height: 1.5;">
+                  Классический вариант с Bc4, где белые атакуют поле f7 и готовятся к дальнейшему развитию инициативы.
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="font-weight: 600; color: #7e392f;">Результат: 1-0</div>
+                  <a href="https://lichess.org/RT2mlUMf" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #2c3e50; font-size: 0.9em; display: flex; align-items: center;">
+                    Смотреть
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Карточка партии 2: Эльянов-Каруана -->
+            <div class="game-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; position: relative;">
+              <div class="card-header" style="background: linear-gradient(135deg, #38726c, #25504c); padding: 15px; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="color: white; font-weight: 600; font-size: 0.95em;">Эльянов П. - Каруана Ф.</div>
+                  <div style="color: rgba(255,255,255,0.8); font-size: 0.8em;">NC World Masters, 2023</div>
+                </div>
+                <div style="color: white; margin-top: 8px; font-size: 0.85em; opacity: 0.9;">
+                  Ускоренный дракон, вариант Мароци
+                </div>
+              </div>
+              <div class="card-body" style="padding: 15px;">
+                <div style="font-family: 'Noto Sans', sans-serif; font-size: 0.9em; line-height: 1.6; margin-bottom: 15px;">
+                  <div style="display: flex; flex-wrap: wrap; gap: 5px 8px;">
+                    <span style="white-space: nowrap;"><span style="color: #555;">1.</span> c4 c5</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">2.</span> Nf3 g6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">3.</span> d4 cxd4</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">4.</span> Nxd4 Bg7</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">5.</span> e4 Nc6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">6.</span> Be3 d6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">7.</span> Nc3 Nf6</span>
+                  </div>
+                </div>
+                <div style="font-size: 0.85em; color: #555; margin-bottom: 12px; line-height: 1.5;">
+                  Современная трактовка варианта Мароци с ранним c4, где белые создают прочный пешечный центр.
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="font-weight: 600; color: #2c3e50;">Результат: 0-1</div>
+                  <a href="https://lichess.org/6PR0cQAr" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #2c3e50; font-size: 0.9em; display: flex; align-items: center;">
+                    Смотреть
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Карточка партии 3: Карлсен-Мамедов -->
+            <div class="game-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; position: relative;">
+              <div class="card-header" style="background: linear-gradient(135deg, #4b5d65, #30383f); padding: 15px; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="color: white; font-weight: 600; font-size: 0.95em;">Карлсен М. - Мамедов Р.</div>
+                  <div style="color: rgba(255,255,255,0.8); font-size: 0.8em;">Wch Blitz 5th, 2010</div>
+                </div>
+                <div style="color: white; margin-top: 8px; font-size: 0.85em; opacity: 0.9;">
+                  Ускоренный дракон, вариант Мароци
+                </div>
+              </div>
+              <div class="card-body" style="padding: 15px;">
+                <div style="font-family: 'Noto Sans', sans-serif; font-size: 0.9em; line-height: 1.6; margin-bottom: 15px;">
+                  <div style="display: flex; flex-wrap: wrap; gap: 5px 8px;">
+                    <span style="white-space: nowrap;"><span style="color: #555;">1.</span> e4 c5</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">2.</span> Ne2 Nc6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">3.</span> d4 cxd4</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">4.</span> Nxd4 g6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">5.</span> c4 Bg7</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">6.</span> Be3 Nf6</span>
+                    <span style="white-space: nowrap;"><span style="color: #555;">7.</span> Nc3 O-O</span>
+                  </div>
+                </div>
+                <div style="font-size: 0.85em; color: #555; margin-bottom: 12px; line-height: 1.5;">
+                  Необычное начало с 2.Ne2, где белые гибко подходят к защите поля d4 и последующему построению системы Мароци.
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="font-weight: 600; color: #7e392f;">Результат: 1-0</div>
+                  <a href="https://lichess.org/m4gZHsQt" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #2c3e50; font-size: 0.9em; display: flex; align-items: center;">
+                    Смотреть
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="games-collection-footer" style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
+            <a href="https://lichess.org/study/yDhGDx2d/ZiCE1RGJ" target="_blank" rel="noopener noreferrer" style="display: inline-block; text-decoration: none; padding: 12px 24px; background: linear-gradient(135deg, #656565, #444); color: white; border-radius: 6px; font-weight: 500; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: all 0.3s;">
+              Изучить больше партий в Ускоренном драконе
+              <span style="display: inline-block; margin-left: 6px; transform: translateY(2px);">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <p>© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+  </body>
+</html>

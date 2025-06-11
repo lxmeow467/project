@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Вариант Россолимо в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Вариант Россолимо - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Добавляем библиотеки для шахматной доски -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Вариант Россолимо</h1>
+          <p>1.e4 c5 2.Nf3 Nc6 3.Bb5</p>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board">
+            <div id="chessboard" class="chessboard"></div>
+
+            <div id="movesList" class="moves-list"></div>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Позиционный</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Полуоткрытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Низкий</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Средняя</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Вариант Россолимо - это альтернатива основным линиям Сицилианской защиты, где белые развивают слона на b5, атакуя коня на c6. Этот вариант назван в честь американского шахматиста Николая Россолимо, который внес значительный вклад в его развитие в 1950-х годах.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Основная идея варианта Россолимо - избежать теоретически нагруженных вариантов Сицилианской защиты и создать позиционную игру с небольшим преимуществом. Белые оказывают давление на коня c6 и готовятся к рокировке в короткую сторону. Этот вариант часто ведет к позициям, где белые имеют небольшое пространственное преимущество.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Классическое продолжение</h4>
+                <p><strong>Ходы:</strong> 3...g6 4.Bxc6 bxc6 5.O-O Bg7 6.Re1 Nf6 7.e5 Nd5</p>
+                <p>Черные фианкеттируют слона и создают прочную позицию, готовясь к контригре в центре.</p>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант с 3...e6</h4>
+                <p><strong>Ходы:</strong> 3...e6 4.O-O Nge7 5.Re1 a6 6.Bf1 d5 7.exd5</p>
+                <p>Черные создают прочную пешечную структуру и готовятся к контригре в центре.</p>
+              </div>
+            </div>
+            
+            <h3>Примерные партии</h3>
+            <div class="games">
+              <div class="game">
+                <p><strong>Карлсен, Магнус</strong> - <strong>Каруана, Фабиано</strong>, 2018, 1-0</p>
+                <a href="https://www.chessgames.com" target="_blank" rel="noopener noreferrer">Посмотреть партию</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-notes">
+          <h2>Ваши заметки</h2>
+          <textarea id="userNotes" placeholder="Добавьте свои заметки по этому варианту..."></textarea>
+          <button id="saveNotes" class="btn">Сохранить заметки</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <p>© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Проверяем загрузку необходимых библиотек
+        if (typeof Chess === 'undefined' || typeof Chessboard === 'undefined') {
+          console.error('Chess.js или Chessboard.js не загружены');
+          return;
+        }
+        
+        // Инициализация доски
+        const chess = new Chess();
+        const movesString = '1.e4 c5 2.Nf3 Nc6 3.Bb5';
+        const movesArray = movesString.split(/\s+/).filter(move => move.match(/^\d+\./) === null && move.trim() !== '');
+        
+        // Создаем массив позиций для каждого хода
+        const positions = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'];
+        
+        // Применяем каждый ход и сохраняем позицию
+        for (let i = 0; i < movesArray.length; i++) {
+          try {
+            chess.move(movesArray[i]);
+            positions.push(chess.fen());
+          } catch (error) {
+            console.error(`Ошибка при выполнении хода ${movesArray[i]}:`, error);
+          }
+        }
+        
+        // Сбрасываем шахматную игру в начальное положение
+        chess.reset();
+        
+        // Инициализируем доску
+        const board = Chessboard('chessboard', {
+          position: 'start',
+          pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
+        });
+        
+        // Текущий индекс хода
+        let currentMoveIndex = 0;
+        
+        // Функция для обновления доски
+        function updateBoard(index) {
+          if (index >= 0 && index < positions.length) {
+            board.position(positions[index]);
+            currentMoveIndex = index;
+            
+            // Обновляем выделение текущего хода в списке
+            const moveElements = document.querySelectorAll('.move-notation');
+            moveElements.forEach((el, i) => {
+              if (i === index - 1) {
+                el.classList.add('current-move');
+              } else {
+                el.classList.remove('current-move');
+              }
+            });
+          }
+        }
+        
+        // Создаем список ходов
+        const movesList = document.getElementById('movesList');
+        movesList.innerHTML = '';
+        
+        // Форматируем и отображаем ходы
+        let moveNumber = 1;
+        let moveHtml = '';
+        
+        for (let i = 0; i < movesArray.length; i++) {
+          if (i % 2 === 0) {
+            moveHtml += `<div class="move"><span class="move-number">${moveNumber}.</span>`;
+          }
+          
+          moveHtml += `<span class="move-notation" data-index="${i+1}">${movesArray[i]}</span>`;
+          
+          if (i % 2 === 1 || i === movesArray.length - 1) {
+            moveHtml += '</div>';
+            moveNumber++;
+          }
+        }
+        
+        movesList.innerHTML = moveHtml;
+        
+        // Добавляем обработчики событий для кнопок управления
+        document.getElementById('startBtn').addEventListener('click', () => updateBoard(0));
+        document.getElementById('prevBtn').addEventListener('click', () => updateBoard(currentMoveIndex - 1));
+        document.getElementById('nextBtn').addEventListener('click', () => updateBoard(currentMoveIndex + 1));
+        document.getElementById('endBtn').addEventListener('click', () => updateBoard(positions.length - 1));
+        
+        // Добавляем обработчики событий для ходов в списке
+        document.querySelectorAll('.move-notation').forEach(el => {
+          el.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            updateBoard(index);
+          });
+        });
+        
+        // Устанавливаем начальную позицию
+        updateBoard(positions.length - 1);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Вариант Дракона в Сицилианской защите - Портал шахматных дебютов" />
+    <title>Вариант Дракона - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./chess-diagram.css" />
+    
+    <!-- Библиотеки для шахматной доски - локальные версии -->
+    <style>
+      /* Базовые стили для шахматной доски */
+      .chess-board {
+        width: 400px;
+        height: 400px;
+        border: 1px solid #b58863;
+        margin: 20px auto;
+        position: relative;
+      }
+      
+      .chess-square {
+        float: left;
+        width: 12.5%;
+        height: 12.5%;
+        font-size: 24px;
+        text-align: center;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .chess-square-light {
+        background-color: #f0d9b5; /* Светло-бежевый цвет */
+      }
+      
+      .chess-square-dark {
+        background-color: #b58863; /* Коричневый цвет */
+      }
+      
+      /* Стили для шахматных фигур */
+      .chess-piece {
+        width: 90%;
+        height: 90%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      
+      /* Белые фигуры */
+      .piece-K {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wk.png');
+      }
+      .piece-Q {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wq.png');
+      }
+      .piece-R {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wr.png');
+      }
+      .piece-B {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wb.png');
+      }
+      .piece-N {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wn.png');
+      }
+      .piece-P {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wp.png');
+      }
+      
+      /* Черные фигуры */
+      .piece-k {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bk.png');
+      }
+      .piece-q {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bq.png');
+      }
+      .piece-r {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/br.png');
+      }
+      .piece-b {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bb.png');
+      }
+      .piece-n {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bn.png');
+      }
+      .piece-p {
+        background-image: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bp.png');
+      }
+      
+      /* Координаты доски */
+      .board-coordinates {
+        position: absolute;
+        font-size: 12px;
+        color: #333;
+        font-weight: bold;
+      }
+      
+      .coordinate-rank {
+        left: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      
+      .coordinate-file {
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      /* Стили для контролов */
+      .game-container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .control-btn {
+        padding: 5px 15px;
+        margin: 5px;
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .pgn-moves {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      
+      .pgn-move {
+        display: inline-block;
+        padding: 2px 5px;
+        margin: 2px;
+        cursor: pointer;
+        border-radius: 3px;
+      }
+      
+      .pgn-move:hover {
+        background-color: #e0e0e0;
+      }
+      
+      .pgn-move.active {
+        background-color: #4a90e2;
+        color: white;
+      }
+      
+      .pgn-move-number {
+        color: #666;
+        font-weight: 600;
+        margin-right: 2px;
+      }
+      
+      /* Стили для интерактивных кнопок */
+      .control-btn:hover {
+        background-color: #8d6e54 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      .control-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        background-color: #704b2b !important;
+      }
+      
+      /* Улучшенные стили для шахматной партии */
+      .game-moves-container {
+        margin-top: 20px !important;
+        padding: 20px !important;
+        background-color: #fff !important;
+        border: 1px solid #d0b89c !important;
+        border-radius: 8px !important;
+        max-height: 300px !important;
+        overflow-y: auto !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05) !important;
+      }
+      
+      .move-gm {
+        display: inline-block;
+        padding: 4px 8px;
+        margin: 3px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 15px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+      
+      .move-gm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      
+      .current-move {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 18px !important;
+        color: #333;
+        font-weight: 600;
+      }
+      
+      .chess-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+      }
+      
+      .controls-row {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+      
+      .all-moves {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        padding: 5px;
+      }
+      
+      .move-number {
+        font-weight: bold;
+        color: #8d6e54;
+        min-width: 30px;
+        display: inline-block;
+        text-align: right;
+        margin-right: 5px;
+        font-family: 'Roboto Mono', monospace;
+      }
+      
+      .move-pair {
+        display: flex;
+        margin-bottom: 8px;
+        align-items: center;
+      }
+      
+      /* Стиль для активного хода */
+      .move-gm.active {
+        background-color: #4a90e2 !important;
+        color: white !important;
+        font-weight: bold !important;
+        transform: scale(1.05);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+      }
+    </style>
+    
+    <!-- Исправляем путь к скрипту -->
+    <script src="../../openings.js"></script>
+    <script src="./variation-detail.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1>Сицилианская защита: Вариант Дракона</h1>
+          <p>1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 g6</p>
+        </div>
+      </section>
+
+      <section id="variation-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board">
+            <img src="./images/вариант дракона.png" alt="Вариант Дракона" class="chess-diagram" />
+            
+            <div class="side-moves">
+              <h4>Ходы варианта:</h4>
+              <ol class="moves-list-visible">
+                <li><span class="move-white">e4</span><span class="move-black">c5</span></li>
+                <li><span class="move-white">Nf3</span><span class="move-black">d6</span></li>
+                <li><span class="move-white">d4</span><span class="move-black">cxd4</span></li>
+                <li><span class="move-white">Nxd4</span><span class="move-black">Nf6</span></li>
+                <li><span class="move-white">Nc3</span><span class="move-black">g6</span></li>
+              </ol>
+            </div>
+            
+            <div id="chessboard" class="chessboard" style="display: none;"></div>
+            <div id="movesList" class="moves-list" style="display: none;"></div>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о варианте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p>Очень высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p>Тактический</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p>Открытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p>Высокий</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p>Продвинутый</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variation-theory">
+          <h2>Теория варианта</h2>
+          <div class="theory-content">
+            <h3>Описание</h3>
+            <p>Вариант Дракона - один из самых острых и агрессивных вариантов Сицилианской защиты. Название происходит от пешечной структуры на королевском фланге черных, которая напоминает созвездие Дракона. Черные фианкеттируют слона на g7, создавая мощную диагональ h8-a1.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p>Основная идея варианта Дракона - создание мощного давления по большой диагонали h8-a1 с помощью слона на g7. Черные часто играют на атаку по полуоткрытой линии c, в то время как белые обычно атакуют на королевском фланге. Это приводит к обоюдоострой игре с высоким тактическим потенциалом.</p>
+            
+            <h3>Основные продолжения</h3>
+            <div class="sub-variations">
+              <div class="sub-variation">
+                <h4>Югославская атака</h4>
+                <p class="variation-moves"><strong>Ходы:</strong> 6.Be3 Bg7 7.f3 O-O 8.Qd2 Nc6 9.Bc4 Bd7 10.O-O-O</p>
+                <p>Самое острое продолжение, где белые рокируют в длинную сторону и начинают пешечный штурм на королевском фланге. Черные контратакуют на ферзевом фланге, что приводит к обоюдоострой игре.</p>
+                <div class="diagram-container">
+                  <img src="./images/югославская атака.png" alt="Югославская атака" class="chess-diagram-small" />
+                  <p class="diagram-caption">Позиция после 10.O-O-O</p>
+                </div>
+                
+                <div class="game" style="margin-top: 20px; padding: 15px; background-color: #f8f8f8; border-radius: 8px; border-left: 4px solid #b58863;">
+                  <p style="margin-bottom: 10px; font-weight: 600; font-size: 15px;">
+                    <strong>Грищук, Александр (2777)</strong> - <strong>Карлсен, Магнус (2863)</strong>, 2020, 1-0
+                  </p>
+                  <a href="https://lichess.org/RjbXhrby" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 10px 18px; background-color: #b58863; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    <span style="display: flex; align-items: center; justify-content: center;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                      Посмотреть партию
+                    </span>
+                  </a>
+                </div>
+                
+                <div class="game" style="margin-top: 15px; padding: 15px; background-color: #f8f8f8; border-radius: 8px; border-left: 4px solid #4a90e2;">
+                  <p style="margin-bottom: 10px; font-weight: 600; font-size: 15px;">
+                    <strong>Динг Лирен (2791)</strong> - <strong>Карлсен, Магнус (2863)</strong>, 2020, 0-1
+                  </p>
+                  <a href="https://lichess.org/6ra0xjZ4" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 10px 18px; background-color: #4a90e2; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    <span style="display: flex; align-items: center; justify-content: center;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                      Посмотреть партию
+                    </span>
+                  </a>
+                </div>
+                
+                <div class="game" style="margin-top: 15px; padding: 15px; background-color: #f8f8f8; border-radius: 8px; border-left: 4px solid #6bb25e;">
+                  <p style="margin-bottom: 10px; font-weight: 600; font-size: 15px;">
+                    <strong>Свидлер, Петр (2750)</strong> - <strong>Карлсен, Магнус (2813)</strong>, 2010, 0-1
+                  </p>
+                  <a href="https://lichess.org/HSJKsqHS" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 10px 18px; background-color: #6bb25e; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    <span style="display: flex; align-items: center; justify-content: center;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                      Посмотреть партию
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="sub-variation">
+                <h4>Классический вариант</h4>
+                <p><strong>Ходы:</strong> 6.Be2 Bg7 7.O-O O-O 8.Be3 Nc6 9.Nb3 Be6</p>
+                <p>Более спокойное продолжение, где белые рокируют в короткую сторону. Игра обычно развивается медленнее, но все равно сохраняет тактический потенциал.</p>
+                <div class="diagram-container">
+                  <img src="./images/классическая (дракон).png" alt="Классический вариант дракона" class="chess-diagram-small" />
+                  <p class="diagram-caption">Позиция после 9.Nb3 Be6</p>
+                </div>
+                <div class="position-evaluation" style="margin-top: 15px; padding: 15px; background-color: #f5f5f5; border-radius: 8px; border-left: 4px solid #4a90e2;">
+                  <p style="margin: 0; line-height: 1.6; color: #333;">
+                    <strong>Оценка позиции:</strong> Белые имеют небольшое преимущество благодаря лучшему развитию и контролю центра. Чёрным нужно завершить развитие и активизировать фигуры. Белые могут продолжить развитие и создавать угрозы на королевском фланге.
+                  </p>
+                </div>
+                
+                <h4 style="margin-top: 25px;">Примеры партий:</h4>
+                <div class="games-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 15px;">
+                  <div class="game-card" style="overflow: hidden; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div class="game-header" style="background-color: #f9f7f5; padding: 12px 15px; border-bottom: 1px solid #eee;">
+                      <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">
+                        <strong>Бронштейн, Давид (2590)</strong> - <strong>Корчной, Виктор (2665)</strong>
+                      </p>
+                      <p style="margin: 3px 0 0; font-size: 12px; color: #666;">Хастингс, 1976, 1-0</p>
+                    </div>
+                    <div class="game-footer" style="padding: 12px 15px; display: flex; justify-content: space-between; align-items: center;">
+                      <span style="font-size: 12px; color: #666; font-style: italic;">Классический вариант</span>
+                      <a href="https://lichess.org/Q3JhRYYP" target="_blank" rel="noopener noreferrer" class="view-game-btn" style="display: inline-block; padding: 8px 16px; background-color: #8d6e54; color: white; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 500; transition: all 0.2s ease; border: none; cursor: pointer;">
+                        <span style="display: flex; align-items: center; justify-content: center;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                          </svg>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                
+                  <div class="game-card" style="overflow: hidden; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div class="game-header" style="background-color: #f5f9ff; padding: 12px 15px; border-bottom: 1px solid #eee;">
+                      <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">
+                        <strong>Ананд, Вишванатан (2798)</strong> - <strong>Карлсен, Магнус (2775)</strong>
+                      </p>
+                      <p style="margin: 3px 0 0; font-size: 12px; color: #666;">Майнц, 2008, ½-½</p>
+                    </div>
+                    <div class="game-footer" style="padding: 12px 15px; display: flex; justify-content: space-between; align-items: center;">
+                      <span style="font-size: 12px; color: #666; font-style: italic;">Югославская атака</span>
+                      <a href="https://lichess.org/w3yzPrTD" target="_blank" rel="noopener noreferrer" class="view-game-btn" style="display: inline-block; padding: 8px 16px; background-color: #4a90e2; color: white; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 500; transition: all 0.2s ease; border: none; cursor: pointer;">
+                        <span style="display: flex; align-items: center; justify-content: center;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                          </svg>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                
+                  <div class="game-card" style="overflow: hidden; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div class="game-header" style="background-color: #f5fff7; padding: 12px 15px; border-bottom: 1px solid #eee;">
+                      <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">
+                        <strong>Ананд, Вишванатан (2776)</strong> - <strong>Накамура, Хикару (2787)</strong>
+                      </p>
+                      <p style="margin: 3px 0 0; font-size: 12px; color: #666;">Мемориал Таля, 2018, ½-½</p>
+                    </div>
+                    <div class="game-footer" style="padding: 12px 15px; display: flex; justify-content: space-between; align-items: center;">
+                      <span style="font-size: 12px; color: #666; font-style: italic;">Современная линия</span>
+                      <a href="https://lichess.org/naifzCXK" target="_blank" rel="noopener noreferrer" class="view-game-btn" style="display: inline-block; padding: 8px 16px; background-color: #6bb25e; color: white; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 500; transition: all 0.2s ease; border: none; cursor: pointer;">
+                        <span style="display: flex; align-items: center; justify-content: center;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                          </svg>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <script>
+                  // Добавляем динамические эффекты для карточек партий
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const gameCards = document.querySelectorAll('.game-card');
+                    
+                    gameCards.forEach(card => {
+                      // Эффект при наведении
+                      card.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-5px)';
+                        this.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+                      });
+                      
+                      // Возвращаем начальное состояние
+                      card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.08)';
+                      });
+                      
+                      // Эффект нажатия
+                      card.addEventListener('mousedown', function() {
+                        this.style.transform = 'translateY(-2px)';
+                      });
+                      
+                      // Возвращаем наведенное состояние после нажатия
+                      card.addEventListener('mouseup', function() {
+                        this.style.transform = 'translateY(-5px)';
+                      });
+                    });
+                    
+                    // Динамические эффекты для кнопок
+                    const buttons = document.querySelectorAll('.view-game-btn');
+                    
+                    buttons.forEach(button => {
+                      button.addEventListener('mouseenter', function() {
+                        this.style.transform = 'scale(1.05)';
+                      });
+                      
+                      button.addEventListener('mouseleave', function() {
+                        this.style.transform = 'scale(1)';
+                      });
+                    });
+                  });
+                </script>
+              </div>
+              <div class="sub-variation">
+                <h4>Вариант Левенфиша</h4>
+                <p><strong>Ходы:</strong> 6.f4 Bg7 7.e5 dxe5 8.fxe5 Nfd7 9.Bc4 O-O</p>
+                <p>Агрессивный вариант, где белые сразу атакуют в центре. Это создает напряженную позицию с возможностями для обеих сторон.</p>
+                <div class="diagram-container">
+                  <img src="./images/вариант левенфиша.png" alt="Вариант Левенфиша" class="chess-diagram-small" />
+                  <p class="diagram-caption">Позиция после 9.Bc4 O-O</p>
+                </div>
+                <div class="position-evaluation" style="margin-top: 15px; padding: 15px; background-color: #f5f5f5; border-radius: 8px; border-left: 4px solid #d9534f;">
+                  <p style="margin: 0; line-height: 1.6; color: #333;">
+                    <strong>Оценка позиции:</strong> Белые заняли центр и готовы атаковать на королевском фланге. Конь f6 черных вынужден отступить, но это дает черным возможность контратаки на ферзевом фланге. Позиция остается обоюдоострой.
+                  </p>
+                </div>
+                
+                <h4 style="margin-top: 25px; font-size: 1.25rem; color: #333; position: relative; display: inline-block; padding-bottom: 10px;">
+                  Примеры партий в варианте Левенфиша
+                  <span style="position: absolute; bottom: 0; left: 0; width: 60%; height: 3px; background: linear-gradient(90deg, #d9534f, transparent);"></span>
+                </h4>
+                
+                <style>
+                  /* Более профессиональные стили для карточек шахматных партий */
+                  .pro-chess-cards {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 35px;
+                    margin-top: 25px;
+                    perspective: 2000px;
+                  }
+                  
+                  .pro-chess-card {
+                    background-color: #fff;
+                    border-radius: 20px;
+                    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                    overflow: hidden;
+                    transform-style: preserve-3d;
+                    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+                  }
+                  
+                  .pro-chess-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+                  }
+                  
+                  .pro-card-header {
+                    position: relative;
+                    height: 240px;
+                    overflow: hidden;
+                  }
+                  
+                  .pro-card-bg-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+                    z-index: 1;
+                  }
+                  
+                  .pro-player-photos {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    z-index: 0;
+                  }
+                  
+                  .pro-player-photo {
+                    width: 50%;
+                    height: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    transition: all 0.5s ease-out;
+                  }
+                  
+                  .pro-player-white {
+                    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+                    box-shadow: inset 10px 0 15px rgba(0,0,0,0.1);
+                  }
+                  
+                  .pro-player-black {
+                    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+                    box-shadow: inset -10px 0 15px rgba(0,0,0,0.1);
+                  }
+                  
+                  .pro-card:hover .pro-player-white {
+                    transform: scale(1.05) translateX(-5px);
+                  }
+                  
+                  .pro-card:hover .pro-player-black {
+                    transform: scale(1.05) translateX(5px);
+                  }
+                  
+                  .pro-game-info {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 20px;
+                    color: white;
+                    z-index: 2;
+                  }
+                  
+                  .pro-game-title {
+                    font-size: 22px;
+                    font-weight: 700;
+                    margin: 0 0 5px;
+                    text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+                  }
+                  
+                  .pro-game-meta {
+                    font-size: 14px;
+                    margin: 0;
+                    opacity: 0.9;
+                    display: flex;
+                    align-items: center;
+                  }
+                  
+                  .pro-game-result {
+                    display: inline-block;
+                    padding: 4px 10px;
+                    background-color: rgba(255,255,255,0.25);
+                    border-radius: 20px;
+                    margin-right: 10px;
+                    backdrop-filter: blur(5px);
+                  }
+                  
+                  .pro-card-body {
+                    padding: 25px;
+                  }
+                  
+                  .pro-game-description {
+                    font-size: 15px;
+                    line-height: 1.6;
+                    color: #555;
+                    margin-top: 0;
+                    margin-bottom: 20px;
+                  }
+                  
+                  .pro-game-tags {
+                    display: flex;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                  }
+                  
+                  .pro-game-tag {
+                    padding: 6px 12px;
+                    background-color: #f5f5f5;
+                    border-radius: 20px;
+                    font-size: 13px;
+                    color: #666;
+                    font-weight: 500;
+                  }
+                  
+                  .pro-view-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    padding: 12px 24px;
+                    background: linear-gradient(135deg, #2c3e50, #1a252f);
+                    color: white;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+                    transition: all 0.3s ease;
+                    border: none;
+                    overflow: hidden;
+                    position: relative;
+                  }
+                  
+                  .pro-view-btn:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+                  }
+                  
+                  .pro-view-btn:active {
+                    transform: translateY(-1px);
+                  }
+                  
+                  .pro-btn-shine {
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(
+                      to right,
+                      rgba(255,255,255,0) 0%,
+                      rgba(255,255,255,0.3) 50%,
+                      rgba(255,255,255,0) 100%
+                    );
+                    transform: skewX(-25deg);
+                    transition: all 0.75s ease;
+                  }
+                  
+                  .pro-view-btn:hover .pro-btn-shine {
+                    left: 100%;
+                  }
+                  
+                  .pro-btn-icon {
+                    margin-right: 10px;
+                  }
+                  
+                  .pro-chess-notation {
+                    display: flex;
+                    gap: 15px;
+                    margin-top: 15px;
+                    overflow-x: auto;
+                    padding-bottom: 10px;
+                  }
+                  
+                  .pro-chess-move {
+                    min-width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    font-family: 'Roboto Mono', monospace;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: #333;
+                    background-color: #f5f5f5;
+                    transition: all 0.2s ease;
+                  }
+                  
+                  .pro-chess-move:hover {
+                    background-color: #e0e0e0;
+                    transform: translateY(-3px);
+                  }
+                  
+                  /* Анимация шахматных фигур */
+                  @keyframes float {
+                    0% { transform: translateY(0) rotate(0); }
+                    50% { transform: translateY(-10px) rotate(5deg); }
+                    100% { transform: translateY(0) rotate(0); }
+                  }
+                  
+                  .pro-chess-piece {
+                    position: absolute;
+                    font-size: 40px;
+                    color: rgba(255,255,255,0.3);
+                    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    pointer-events: none;
+                    z-index: 2;
+                  }
+                  
+                  .pro-piece-1 {
+                    top: 30px;
+                    left: 20%;
+                    animation: float 6s ease-in-out infinite;
+                  }
+                  
+                  .pro-piece-2 {
+                    top: 60px;
+                    right: 25%;
+                    animation: float 8s ease-in-out infinite;
+                    animation-delay: 1s;
+                  }
+                  
+                  .pro-piece-3 {
+                    bottom: 50px;
+                    left: 35%;
+                    animation: float 7s ease-in-out infinite;
+                    animation-delay: 0.5s;
+                  }
+                  
+                  .pro-piece-4 {
+                    bottom: 80px;
+                    right: 30%;
+                    animation: float 9s ease-in-out infinite;
+                    animation-delay: 1.5s;
+                  }
+                </style>
+                
+                <div class="pro-chess-cards">
+                  <!-- Первая партия -->
+                  <div class="pro-chess-card">
+                    <div class="pro-card-header" style="background-image: url('https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/PedroPinhata/phpZCZbO1.jpeg'); background-size: cover; background-position: center;">
+                      <div class="pro-player-photos">
+                        <div class="pro-player-photo pro-player-white" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Luis_Garcia_Caballero.jpg/220px-Luis_Garcia_Caballero.jpg');"></div>
+                        <div class="pro-player-photo pro-player-black" style="background-image: url('https://theweekinchess.com/assets/images/twic/g/gonzalez-angel-martin-2024.jpg');"></div>
+                      </div>
+                      <div class="pro-card-bg-overlay"></div>
+                      <div class="pro-game-info">
+                        <h3 class="pro-game-title">Гарсия Кабальеро - Мартин Гонсалес</h3>
+                        <p class="pro-game-meta">
+                          <span class="pro-game-result">1-0</span>
+                          <span>ESP-chT, Понферрада, 1997</span>
+                        </p>
+                      </div>
+                      <div class="pro-chess-piece pro-piece-1">♞</div>
+                      <div class="pro-chess-piece pro-piece-2">♝</div>
+                      <div class="pro-chess-piece pro-piece-3">♟︎</div>
+                    </div>
+                    <div class="pro-card-body">
+                      <p class="pro-game-description">
+                        Яркий пример атаки белых с жертвой пешки e6, ведущей к открытию позиции черного короля. После 10.Bb5+ и 12.O-O+ белые получили инициативу, результатом которой стала победа.
+                      </p>
+                      <div class="pro-game-tags">
+                        <span class="pro-game-tag">ECO: B71</span>
+                        <span class="pro-game-tag">Вариант Левенфиша</span>
+                        <span class="pro-game-tag">Жертва пешки</span>
+                      </div>
+                      <div class="pro-chess-notation">
+                        <div class="pro-chess-move">e4</div>
+                        <div class="pro-chess-move">c5</div>
+                        <div class="pro-chess-move">Nf3</div>
+                        <div class="pro-chess-move">d6</div>
+                        <div class="pro-chess-move">d4</div>
+                        <div class="pro-chess-move">cxd4</div>
+                      </div>
+                      <a href="https://lichess.org/A6kD0kwy" target="_blank" rel="noopener noreferrer" class="pro-view-btn">
+                        <span class="pro-btn-shine"></span>
+                        <svg class="pro-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Смотреть партию
+                      </a>
+                    </div>
+                  </div>
+                
+                  <!-- Вторая партия -->
+                  <div class="pro-chess-card">
+                    <div class="pro-card-header" style="background-image: url('https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/PedroPinhata/phpzW5PEm.jpeg'); background-size: cover; background-position: center;">
+                      <div class="pro-player-photos">
+                        <div class="pro-player-photo pro-player-white" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Vasil_Spasov_Bulgarian_chess_player.jpg/220px-Vasil_Spasov_Bulgarian_chess_player.jpg');"></div>
+                        <div class="pro-player-photo pro-player-black" style="background-image: url('https://www.fide.com/upload/wysiwyg/3fe1b5d38adb1fa4e6a99ce6f7aa0844.jpeg');"></div>
+                      </div>
+                      <div class="pro-card-bg-overlay" style="background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));"></div>
+                      <div class="pro-game-info">
+                        <h3 class="pro-game-title">Спасов - Деметер</h3>
+                        <p class="pro-game-meta">
+                          <span class="pro-game-result">1-0</span>
+                          <span>Marianske Lazne, 1989</span>
+                        </p>
+                      </div>
+                      <div class="pro-chess-piece pro-piece-1">♛</div>
+                      <div class="pro-chess-piece pro-piece-2">♚</div>
+                      <div class="pro-chess-piece pro-piece-4">♜</div>
+                    </div>
+                    <div class="pro-card-body">
+                      <p class="pro-game-description">
+                        Классическая позиция варианта Левенфиша. После жертвы пешки e6 и шаха 12.O-O+ белые получили инициативу. Позднее белые смогли реализовать материальное преимущество в позиционной игре.
+                      </p>
+                      <div class="pro-game-tags">
+                        <span class="pro-game-tag">ECO: B71</span>
+                        <span class="pro-game-tag">Вариант Левенфиша</span>
+                        <span class="pro-game-tag">Позиционная игра</span>
+                      </div>
+                      <div class="pro-chess-notation">
+                        <div class="pro-chess-move">e4</div>
+                        <div class="pro-chess-move">c5</div>
+                        <div class="pro-chess-move">Nf3</div>
+                        <div class="pro-chess-move">d6</div>
+                        <div class="pro-chess-move">d4</div>
+                        <div class="pro-chess-move">cxd4</div>
+                      </div>
+                      <a href="https://lichess.org/a3eMo8Mb" target="_blank" rel="noopener noreferrer" class="pro-view-btn">
+                        <span class="pro-btn-shine"></span>
+                        <svg class="pro-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Смотреть партию
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <style>
+                  /* Улучшенные анимации для карточек */
+                  @keyframes cardFloat {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-15px); }
+                  }
+                  
+                  @keyframes cardGlow {
+                    0%, 100% { box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+                    50% { box-shadow: 0 25px 50px rgba(37, 87, 167, 0.3); }
+                  }
+                  
+                  @keyframes shimmer {
+                    0% { transform: translateX(-100%) skewX(-25deg); }
+                    100% { transform: translateX(200%) skewX(-25deg); }
+                  }
+                  
+                  @keyframes pieceSpin {
+                    0% { transform: rotate(0deg) translateY(0px); opacity: 0.3; }
+                    50% { transform: rotate(180deg) translateY(-15px); opacity: 0.8; }
+                    100% { transform: rotate(360deg) translateY(0px); opacity: 0.3; }
+                  }
+                  
+                  .pro-chess-card {
+                    transform-style: preserve-3d;
+                    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+                    position: relative;
+                    border: 1px solid rgba(255,255,255,0.1);
+                  }
+                  
+                  .pro-chess-card:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 20px;
+                    background: linear-gradient(130deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                    pointer-events: none;
+                  }
+                  
+                  .pro-chess-card:hover:after {
+                    opacity: 1;
+                  }
+                  
+                  .pro-chess-piece {
+                    font-size: 48px;
+                    color: rgba(255,255,255,0.4);
+                    text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+                    filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
+                    transition: all 0.8s ease;
+                  }
+                  
+                  .pro-chess-card:hover .pro-chess-piece {
+                    animation: pieceSpin 8s infinite ease-in-out;
+                  }
+                  
+                  .pro-game-title {
+                    position: relative;
+                    display: inline-block;
+                  }
+                  
+                  .pro-game-title:after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: -5px;
+                    width: 0;
+                    height: 2px;
+                    background: linear-gradient(to right, #fff, transparent);
+                    transition: width 0.4s ease;
+                  }
+                  
+                  .pro-chess-card:hover .pro-game-title:after {
+                    width: 100%;
+                  }
+                  
+                  .pro-view-btn:before {
+                    content: '';
+                    position: absolute;
+                    top: -2px;
+                    left: -2px;
+                    right: -2px;
+                    bottom: -2px;
+                    border-radius: 50px;
+                    background: linear-gradient(45deg, #ff7675, #6c5ce7, #00cec9, #fdcb6e);
+                    background-size: 400% 400%;
+                    z-index: -1;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                  }
+                  
+                  .pro-view-btn:hover:before {
+                    opacity: 0.3;
+                    animation: gradientBG 3s ease infinite;
+                  }
+                  
+                  @keyframes gradientBG {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                  }
+                  
+                  .pro-chess-move {
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                    overflow: hidden;
+                    position: relative;
+                  }
+                  
+                  .pro-chess-move:after {
+                    content: '';
+                    position: absolute;
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+                    opacity: 0;
+                    transform: scale(0.5);
+                    transition: transform 0.3s ease, opacity 0.3s ease;
+                  }
+                  
+                  .pro-chess-move:hover:after {
+                    opacity: 0.4;
+                    transform: scale(1);
+                  }
+                </style>
+                
+                <script>
+                  // JavaScript для улучшенных интерактивных эффектов 
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const proCards = document.querySelectorAll('.pro-chess-card');
+                    
+                    // Добавляем 3D эффект параллакса
+                    proCards.forEach(card => {
+                      let cardRect = card.getBoundingClientRect();
+                      
+                      // Настраиваем начальное состояние с небольшой случайной анимацией
+                      const randomDelay = Math.random() * 2;
+                      card.style.animationDelay = `${randomDelay}s`;
+                      
+                      card.addEventListener('mouseenter', function() {
+                        // Добавляем сияние и более выраженные эффекты при наведении
+                        this.style.transform = 'translateY(-15px) scale(1.03)';
+                        this.style.boxShadow = '0 30px 60px rgba(0,0,0,0.18), 0 15px 30px rgba(0,0,0,0.17)';
+                        
+                        // Эффект для фотографий
+                        const whitePlayer = this.querySelector('.pro-player-white');
+                        const blackPlayer = this.querySelector('.pro-player-black');
+                        
+                        if (whitePlayer) whitePlayer.style.transform = 'scale(1.12) translateX(-15px)';
+                        if (blackPlayer) blackPlayer.style.transform = 'scale(1.12) translateX(15px)';
+                        
+                        // Активируем блики на кнопке
+                        const btn = this.querySelector('.pro-view-btn');
+                        if (btn) {
+                          const shine = btn.querySelector('.pro-btn-shine');
+                          if (shine) shine.style.left = '100%';
+                        }
+                        
+                        // Анимируем фигуры более выразительно
+                        const pieces = this.querySelectorAll('.pro-chess-piece');
+                        pieces.forEach((piece, i) => {
+                          piece.style.textShadow = '0 0 15px rgba(255,255,255,0.7)';
+                          piece.style.color = 'rgba(255,255,255,0.8)';
+                          
+                          // Добавляем задержку для каждой фигуры
+                          setTimeout(() => {
+                            piece.style.transform = `translateY(-${10 + i*5}px) rotate(${5 + i*10}deg)`;
+                          }, i * 100);
+                        });
+                      });
+                      
+                      card.addEventListener('mouseleave', function() {
+                        // Возвращаем исходное состояние
+                        this.style.transform = 'translateY(0) scale(1)';
+                        this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.1)';
+                        
+                        // Сброс эффекта для фотографий
+                        const whitePlayer = this.querySelector('.pro-player-white');
+                        const blackPlayer = this.querySelector('.pro-player-black');
+                        
+                        if (whitePlayer) whitePlayer.style.transform = 'scale(1) translateX(0)';
+                        if (blackPlayer) blackPlayer.style.transform = 'scale(1) translateX(0)';
+                        
+                        // Сбрасываем стили фигур
+                        const pieces = this.querySelectorAll('.pro-chess-piece');
+                        pieces.forEach(piece => {
+                          piece.style.textShadow = '0 3px 8px rgba(0,0,0,0.4)';
+                          piece.style.color = 'rgba(255,255,255,0.4)';
+                          piece.style.transform = 'translateY(0) rotate(0)';
+                        });
+                      });
+                      
+                      // Усовершенствованный параллакс для карточек
+                      card.addEventListener('mousemove', function(e) {
+                        cardRect = this.getBoundingClientRect(); // Обновляем размер при каждом движении
+                        const x = e.clientX - cardRect.left; 
+                        const y = e.clientY - cardRect.top;
+                        
+                        // Нормализуем координаты от -1 до 1
+                        const xPercent = (x / cardRect.width) * 2 - 1;
+                        const yPercent = (y / cardRect.height) * 2 - 1;
+                        
+                        // Разная интенсивность для разных эффектов
+                        const intensity = 10; // Максимальный угол наклона
+                        const multiplier = 1.5; // Множитель для глубины эффекта
+                        
+                        // Применяем 3D эффект с более плавной анимацией
+                        this.style.transition = 'transform 0.1s cubic-bezier(0.23, 1, 0.32, 1)';
+                        this.style.transform = `translateY(-15px) scale(1.03) 
+                                               rotateY(${xPercent * intensity}deg) 
+                                               rotateX(${-yPercent * intensity}deg)`;
+                        
+                        // Создаем иллюзию глубины, перемещая фигуры с разной интенсивностью
+                        const pieces = this.querySelectorAll('.pro-chess-piece');
+                        pieces.forEach((piece, index) => {
+                          const depth = multiplier * (index + 1) * 5;
+                          piece.style.transform = `translate(
+                            ${xPercent * depth}px, 
+                            ${yPercent * depth - 10}px) 
+                            rotate(${(xPercent + yPercent) * 5}deg)`;
+                        });
+                        
+                        // Анимация фона карточки для создания светового эффекта
+                        const headerOverlay = this.querySelector('.pro-card-bg-overlay');
+                        if (headerOverlay) {
+                          headerOverlay.style.background = `radial-gradient(
+                            circle at ${x}px ${y}px, 
+                            rgba(0,0,0,0.4) 0%, 
+                            rgba(0,0,0,0.8) 80%)`;
+                        }
+                        
+                        // Добавляем подсветку на стороне, куда направлен курсор
+                        const borderColor = `rgba(255,255,255,${0.1 + Math.abs(xPercent) * 0.2})`;
+                        if (xPercent > 0) {
+                          this.style.borderRight = `1px solid ${borderColor}`;
+                          this.style.borderLeft = '1px solid rgba(255,255,255,0.05)';
+                        } else {
+                          this.style.borderLeft = `1px solid ${borderColor}`;
+                          this.style.borderRight = '1px solid rgba(255,255,255,0.05)';
+                        }
+                        
+                        if (yPercent > 0) {
+                          this.style.borderBottom = `1px solid ${borderColor}`;
+                          this.style.borderTop = '1px solid rgba(255,255,255,0.05)';
+                        } else {
+                          this.style.borderTop = `1px solid ${borderColor}`;
+                          this.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                        }
+                      });
+                    });
+                    
+                    // Улучшенные эффекты для кнопок
+                    const proButtons = document.querySelectorAll('.pro-view-btn');
+                    
+                    proButtons.forEach(button => {
+                      button.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                        this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+                        
+                        // Запускаем анимацию блика
+                        const shine = this.querySelector('.pro-btn-shine');
+                        if (shine) {
+                          shine.style.transition = 'all 0.5s ease';
+                          shine.style.left = '100%';
+                        }
+                      });
+                      
+                      button.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                        this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.15)';
+                        
+                        // Сбрасываем анимацию блика
+                        const shine = this.querySelector('.pro-btn-shine');
+                        if (shine) {
+                          shine.style.transition = 'none';
+                          shine.style.left = '-100%';
+                        }
+                      });
+                      
+                      button.addEventListener('mousedown', function() {
+                        this.style.transform = 'translateY(-2px) scale(1.02)';
+                        this.style.boxShadow = '0 5px 10px rgba(0,0,0,0.15)';
+                      });
+                      
+                      button.addEventListener('mouseup', function() {
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                        this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+                      });
+                    });
+                    
+                    // Улучшенная анимация для ходов
+                    const chessMoves = document.querySelectorAll('.pro-chess-move');
+                    
+                    chessMoves.forEach(move => {
+                      move.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-8px) scale(1.1)';
+                        this.style.boxShadow = '0 8px 15px rgba(0,0,0,0.1)';
+                        this.style.backgroundColor = '#e8f0fe';
+                        this.style.color = '#2c3e50';
+                        this.style.fontWeight = '600';
+                      });
+                      
+                      move.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                        this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)';
+                        this.style.backgroundColor = '#f5f5f5';
+                        this.style.color = '#333';
+                        this.style.fontWeight = '500';
+                      });
+                      
+                      // Добавляем эффект пульсации при загрузке страницы
+                      const delay = Math.random() * 3;
+                      move.style.animation = `pulse 2s ease-in-out ${delay}s`;
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <div class="footer-section">
+          <h3>Социальные сети</h3>
+          <div class="social-links">
+            <a href="https://t.me/chessopeningsru" target="_blank">Telegram</a>
+          </div>
+        </div>
+        <p>© 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+  </body>
+</html>

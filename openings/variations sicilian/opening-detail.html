@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Информация о шахматном дебюте - Портал шахматных дебютов" />
+    <title>Дебют - Портал шахматных дебютов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Добавляем библиотеки для шахматной доски -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <!-- Исправляем путь к скрипту -->
+    <script src="../openings.js"></script>
+    <script src="./opening-detail.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">Портал дебютов</div>
+        <ul class="nav-menu">
+          <li><a href="/index.html#about">О проекте</a></li>
+          <li><a href="/openings.html">Дебюты</a></li>
+          <li><a href="/ratings.html">Рейтинги</a></li>
+          <li><a href="/players.html">Шахматисты</a></li>
+          <li><a href="/index.html#support">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero opening-hero">
+        <div class="hero-content">
+          <h1 id="openingName">Сицилианская защита</h1>
+          <p id="openingMoves">1. e4 - c5</p>
+        </div>
+      </section>
+
+      <section id="opening-info" class="section">
+        <div class="opening-profile">
+          <div class="opening-board">
+            <div id="chessboard" class="chessboard"></div>
+          </div>
+          <div class="opening-details">
+            <h2>Информация о дебюте</h2>
+            <div class="opening-info-grid">
+              <div class="info-item">
+                <h3>Популярность</h3>
+                <p id="openingPopularity">Высокая</p>
+              </div>
+              <div class="info-item">
+                <h3>Стиль игры</h3>
+                <p id="openingStyle">Тактический</p>
+              </div>
+              <div class="info-item">
+                <h3>Тип позиции</h3>
+                <p id="openingPosition">Открытая</p>
+              </div>
+              <div class="info-item">
+                <h3>Уровень риска</h3>
+                <p id="openingRisk">Средний</p>
+              </div>
+              <div class="info-item">
+                <h3>Сторона</h3>
+                <p id="openingColor">Белые</p>
+              </div>
+              <div class="info-item">
+                <h3>Сложность</h3>
+                <p id="openingLevel">Средняя</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="opening-theory">
+          <h2>Теория дебюта</h2>
+          <div class="theory-content">
+            <h3>История дебюта</h3>
+            <p id="openingHistory">История дебюта будет добавлена позже.</p>
+            
+            <h3>Ключевые идеи</h3>
+            <p id="openingIdeas">Ключевые идеи дебюта будут добавлены позже.</p>
+            
+            <div class="variations-section">
+              <h3 class="variations-title">Основные варианты</h3>
+              <div id="openingVariations" class="variations-container">
+                <div class="variations-grid">
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-knight"></span>
+                      <h4>Вариант Найдорфа</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6</div>
+                      <p class="variation-description">Гибкий вариант с контролем центра и давлением на ферзевом фланге</p>
+                      <a href="/openings/variations sicilian/najdorf.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                  
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-dragon"></span>
+                      <h4>Вариант Дракона</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 g6</div>
+                      <p class="variation-description">Агрессивный вариант с фианкеттированным слоном на g7</p>
+                      <a href="/openings/variations sicilian/dragon.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                  
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-rook"></span>
+                      <h4>Московский вариант</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 d6 3.Bb5+</div>
+                      <p class="variation-description">Позиционный вариант с ранним развитием слона</p>
+                      <a href="/openings/variations sicilian/moscowskiy.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                  
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-king"></span>
+                      <h4>Классический вариант</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 Nc6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 d6</div>
+                      <p class="variation-description">Солидный вариант с естественным развитием фигур</p>
+                      <a href="/openings/variations sicilian/sicilian_classical.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                  
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-pawn"></span>
+                      <h4>Челябинский вариант</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 Nc6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 e5</div>
+                      <p class="variation-description">Динамичный вариант с контратакой в центре</p>
+                      <a href="/openings/variations sicilian/sicilian_scheveningen.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                  
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-bishop"></span>
+                      <h4>Вариант Паульсена</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 e6 3.d4 cxd4 4.Nxd4 a6</div>
+                      <p class="variation-description">Гибкий вариант с подготовкой b5-b4</p>
+                      <a href="/openings/variations sicilian/sicilian_paulsen.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                  
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-dragon"></span>
+                      <h4>Ранний дракон</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 Nc6 3.d4 cxd4 4.Nxd4 g6</div>
+                      <p class="variation-description">Быстрое фианкеттирование слона на g7</p>
+                      <a href="/openings/variations sicilian/sicilian_early_dragon.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                  
+                  <div class="variation-card">
+                    <div class="variation-header">
+                      <span class="variation-icon icon-queen"></span>
+                      <h4>Вариант Россолимо</h4>
+                    </div>
+                    <div class="variation-content">
+                      <div class="variation-notation">1.e4 c5 2.Nf3 Nc6 3.Bb5</div>
+                      <p class="variation-description">Позиционный вариант, избегающий основных линий</p>
+                      <a href="/openings/variations sicilian/sicilian_rossolimo.html" class="variation-link">Подробнее</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="variations-display">
+              <div class="variation-tabs" id="variationTabs">
+                <!-- Табы с вариантами будут добавлены динамически -->
+              </div>
+              <div class="variation-board-container">
+                <div class="variation-board-wrapper">
+                  <div id="variationBoard" class="variation-board"></div>
+                  <div class="variation-controls">
+                </div>
+                <div class="variation-moves-container">
+                  <div id="variationMovesList" class="variation-moves-list"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">Портал дебютов</div>
+        <p> 2025 Портал шахматных дебютов. Все права защищены.</p>
+      </div>
+    </footer>
+  </body>
+</html>
